@@ -42,7 +42,7 @@ export default async function AppDetailsPage({ params }: { params: Promise<{ id:
             <span className={styles.navTitle}>Get Things Done</span>
           </div>
         </div>
-        <a href="/downloads/app-release.apk" download className={styles.navBtn}>Download App</a>
+        <a href="/downloads/Get-Things-Done.apk" download className={styles.navBtn}>Download App</a>
       </nav>
 
       {/* Hero Section */}
@@ -56,7 +56,7 @@ export default async function AppDetailsPage({ params }: { params: Promise<{ id:
             Designed for focus. No clutter, just what you need to achieve your goals today. Sync instantly across all your devices securely.
           </p>
           <div className={styles.heroActions}>
-            <a href="/downloads/app-release.apk" download className={styles.btnPrimary}>Get Started Free</a>
+            <a href="/downloads/Get-Things-Done.apk" download className={styles.btnPrimary}>Get Started Free</a>
             <a href="#features" className={styles.btnSecondary}>Explore Features</a>
           </div>
         </div>
@@ -122,7 +122,7 @@ export default async function AppDetailsPage({ params }: { params: Promise<{ id:
         <div className={styles.footerBg}></div>
         <div className={styles.container}>
           <h2 className={styles.footerTitle}>Ready to organize your life?</h2>
-          <a href="/downloads/app-release.apk" download className={styles.footerBtn}>Download Get Things Done</a>
+          <a href="/downloads/Get-Things-Done.apk" download className={styles.footerBtn}>Download Get Things Done</a>
           <p className={styles.footerCopy}>© 2026 Nexora Studio. All rights reserved.</p>
         </div>
       </footer>
