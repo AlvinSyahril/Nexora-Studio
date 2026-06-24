@@ -1,0 +1,15 @@
+{
+  "version": "2.1.0",
+  "date": "25 Jun 2026, 14:30",
+  "size": "18.4 MB",
+  "whatsNew": [
+    "Added OTA System Update feature",
+    "Improved Calendar UI performance",
+    "Added new Sakura and Lavender themes"
+  ],
+  "bugFixes": [
+    "Fixed safe area overlapping on bottom navigation",
+    "Resolved notification sound delay on Android 13+"
+  ],
+  "apkUrl": "https://nexorastudio.my.id/downloads/app-release.apk"
+}
