@@ -17,6 +17,8 @@ export const metadata: Metadata = {
   description: "Official App Studio and Developer Portfolio",
 };
 
+import FloatingSupport from "@/components/FloatingSupport";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -27,7 +29,10 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${unbounded.variable}`}
     >
-      <body className="main-content">{children}</body>
+      <body className="main-content">
+        {children}
+        <FloatingSupport />
+      </body>
     </html>
   );
 }
