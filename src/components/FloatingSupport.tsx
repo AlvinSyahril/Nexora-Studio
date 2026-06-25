@@ -81,7 +81,7 @@ export default function FloatingSupport() {
               />
             </motion.div>
           </a>
-        </div>
+        </motion.div>
       )}
     </AnimatePresence>
   );
