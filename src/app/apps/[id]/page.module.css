@@ -200,9 +200,9 @@
   flex: 1;
 }
 .heroTitle {
-  font-size: clamp(3rem, 5vw, 4.5rem);
+  font-size: clamp(2.2rem, 8vw, 4.5rem);
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1.15;
   margin-bottom: 1.5rem;
 }
 .heroDesc {
@@ -421,5 +421,46 @@
   }
   .f1Visual {
     margin-top: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav {
+    padding: 1rem 0;
+    gap: 0.5rem;
+  }
+  
+  .nav > div {
+    gap: 0.5rem !important;
+  }
+  
+  .navBrand {
+    gap: 0.5rem;
+  }
+  
+  .backButton span {
+    display: none;
+  }
+  
+  .backButton {
+    padding: 0.5rem 0.6rem;
+  }
+  
+  .navLogo {
+    width: 2rem;
+    height: 2rem;
+  }
+  
+  .navTitle {
+    font-size: 1rem;
+  }
+  
+  .navBtn {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
+  
+  .hero {
+    padding: 1.5rem 0 4rem;
   }
 }
