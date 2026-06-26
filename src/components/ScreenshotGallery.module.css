@@ -3,6 +3,8 @@
   text-align: center;
   position: relative;
   width: 100%;
+  padding: 4rem 0;
+  background: linear-gradient(180deg, transparent, rgba(139, 92, 246, 0.03) 50%, transparent);
 }
 
 .galleryTitle {
@@ -32,16 +34,30 @@
   display: flex;
   gap: 2rem;
   overflow-x: auto;
-  padding: 2rem 5vw;
+  padding: 2rem 5vw 4rem 5vw;
   scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
   scroll-behavior: smooth;
   width: 100%;
 }
 
+/* Custom Scrollbar for the Carousel */
 .carousel::-webkit-scrollbar {
-  display: none;
+  height: 8px;
+}
+
+.carousel::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+  margin: 0 5vw;
+}
+
+.carousel::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, 0.3);
+  border-radius: 4px;
+}
+
+.carousel::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 92, 246, 0.6);
 }
 
 .mockupContainer {
@@ -89,16 +105,16 @@
 
 .navButton {
   position: absolute;
-  top: 50%;
+  top: calc(50% - 2rem);
   transform: translateY(-50%);
   z-index: 20;
-  width: 50px;
-  height: 50px;
-  border-radius: 25px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: white;
+  width: 56px;
+  height: 56px;
+  border-radius: 28px;
+  background: var(--background, #ffffff);
+  border: 1px solid var(--border, #eaeaea);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  color: var(--foreground, #111111);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -107,8 +123,9 @@
 }
 
 .navButton:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--background, #ffffff);
   transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
 .leftBtn {
