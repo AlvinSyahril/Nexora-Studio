@@ -1,15 +1,15 @@
 {
-  "version": "2.0.3",
-  "date": "25 Jun 2026, 14:30",
-  "size": "18.4 MB",
+  "version": "2.1.0",
+  "date": "26 Jun 2026, 21:30",
+  "size": "19.2 MB",
   "whatsNew": [
-    "Added OTA System Update feature",
-    "Improved Calendar UI performance",
-    "Added new Sakura and Lavender themes"
+    "Added Bill Schedule & Finance tracking feature",
+    "Revamped Showcase with beautiful 3D mockups",
+    "Added Global OTA System Update dashboard"
   ],
   "bugFixes": [
-    "Fixed safe area overlapping on bottom navigation",
-    "Resolved notification sound delay on Android 13+"
+    "Improved layout responsiveness on mobile devices",
+    "Removed redundant Version menu from Settings screen"
   ],
   "apkUrl": "https://nexorastudio.my.id/downloads/Get-Things-Done.apk"
 }
