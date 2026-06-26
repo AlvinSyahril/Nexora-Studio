@@ -62,7 +62,7 @@ export default async function AppDetailsPage({ params }: { params: Promise<{ id:
         </div>
         <div className={styles.heroVisual}>
           <div className={`${styles.samsungMockup} ${styles.heroMockup}`}>
-            <Image src="/screenshots/Screenshot_1782481454.png" alt="Get Things Done Home" width={300} height={600} priority style={{ borderRadius: '30px' }} />
+            <Image src="/screenshots/Screenshot_1782481432.png" alt="Get Things Done Home" width={300} height={600} priority style={{ borderRadius: '30px' }} />
           </div>
         </div>
       </section>
@@ -94,7 +94,7 @@ export default async function AppDetailsPage({ params }: { params: Promise<{ id:
         </div>
         <div className={styles.f1Visual}>
           <div className={`${styles.samsungMockup} ${styles.floatCenter}`}>
-             <Image src="/screenshots/Screenshot_1782481441.png" alt="System Update Dashboard" width={300} height={600} style={{ borderRadius: '30px' }} />
+             <Image src="/screenshots/Screenshot_1782481482.png" alt="System Update Dashboard" width={300} height={600} style={{ borderRadius: '30px' }} />
           </div>
         </div>
       </section>
