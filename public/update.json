@@ -1,16 +1,16 @@
 {
   "version": "2.1.2",
-  "date": "26 Jun 2026, 22:20",
+  "date": "27 Jun 2026, 16:15",
   "size": "97.6 MB",
   "whatsNew": [
-    "Bug Fix: Fixed automatic cloud synchronization when logging in.",
-    "Feature: Added 'Clear All' button for completed tasks.",
-    "Bug Fix: Fixed an issue where the save button did not work properly in Bill Schedule."
+    "Feature: Added 'Buy Me a Cendol' support button.",
+    "Feature: Added eye icon to hide/unhide password during login and register.",
+    "Feature: Added multi-select deletion for Bill Schedules."
   ],
   "bugFixes": [
-    "Removed redundant Version menu from Settings",
-    "Fixed multiple submissions bug when saving Bills/Reminders",
-    "Performance optimizations for offline mode"
+    "Fixed 'Failed to save' bug due to circular dependency in Reminders.",
+    "Fixed Notifee trigger timestamp bug for past dates.",
+    "Resolved automatic cloud synchronization issues."
   ],
   "apkUrl": "https://nexorastudio.my.id/downloads/Get-Things-Done.apk"
 }
