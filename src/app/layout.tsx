@@ -18,6 +18,7 @@ export const metadata: Metadata = {
 };
 
 import FloatingSupport from "@/components/FloatingSupport";
+import { Analytics } from "@vercel/analytics/next";
 
 export default function RootLayout({
   children,
@@ -32,6 +33,7 @@ export default function RootLayout({
       <body className="main-content">
         {children}
         <FloatingSupport />
+        <Analytics />
       </body>
     </html>
   );
