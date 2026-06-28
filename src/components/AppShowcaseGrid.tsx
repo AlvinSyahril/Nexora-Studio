@@ -18,10 +18,10 @@ export default function AppShowcaseGrid() {
 
         <div className={styles.grid}>
           {APPS_DATA.map((app, index) => (
-            <Link href={`/apps/${app.id}`} key={app.id} style={{ display: 'block' }}>
+            <Link href={`/apps/${app.id}`} key={app.id} style={{ display: 'block', height: '100%' }}>
               <motion.div
                 className={`brutal-card ${styles.card}`}
-                style={{ backgroundColor: "var(--accent-violet)", color: "#000" }}
+                style={{ backgroundColor: "var(--accent-violet)", color: "#000", height: '100%' }}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-100px" }}

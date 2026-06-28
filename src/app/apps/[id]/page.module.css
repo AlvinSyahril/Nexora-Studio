@@ -411,6 +411,7 @@
     align-items: center;
     display: flex;
     flex-direction: column;
+    padding: 0 1.5rem;
   }
   .fList {
     text-align: left;
@@ -462,5 +463,13 @@
   
   .hero {
     padding: 1.5rem 0 4rem;
+  }
+
+  .heroText, .f1Text, .f2Text {
+    padding: 0 2rem;
+  }
+  
+  .fTitle {
+    font-size: 2rem;
   }
 }

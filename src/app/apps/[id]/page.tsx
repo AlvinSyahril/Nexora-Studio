@@ -169,7 +169,7 @@ export default async function AppDetailsPage({ params }: { params: Promise<{ id:
         </section>
 
         {/* FAQ Section */}
-        <FaqAccordion />
+        <FaqAccordion appId="oasis" />
 
         {/* Footer CTA */}
         <footer className={styles.footer}>
@@ -285,7 +285,7 @@ export default async function AppDetailsPage({ params }: { params: Promise<{ id:
       </section>
 
       {/* FAQ Section */}
-      <FaqAccordion />
+      <FaqAccordion appId="gtd" />
 
       {/* Footer CTA */}
       <footer className={styles.footer}>
