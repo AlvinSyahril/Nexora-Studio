@@ -133,10 +133,29 @@ export default async function AppDetailsPage({ params }: { params: Promise<{ id:
           </div>
         </section>
 
+        {/* Feature 4: Privacy & PIN */}
+        <section className={`${styles.container} ${styles.feature2}`}>
+          <div className={styles.f2Text}>
+            <div className={styles.iconBadgeBlue} style={{ background: 'rgba(232, 232, 232, 0.5)', color: '#A0AAB2' }}>
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+            </div>
+            <h2 className={styles.fTitle}>100% Private & Secure.</h2>
+            <p className={styles.fDesc}>
+              Your journals and thoughts belong to you. Secure your safe space with a PIN lock, ensuring that no one else can read your personal reflections.
+            </p>
+          </div>
+          <div className={styles.f2Visual}>
+             <div className={`${styles.samsungMockup} ${styles.floatCenter}`}>
+               <Image src="/showcase/oasis/pin.png" alt="Oasis PIN Lock" width={300} height={649} style={{ borderRadius: '30px', objectFit: 'cover' }} />
+            </div>
+          </div>
+        </section>
+
         {/* Screenshot Gallery Section */}
         <section style={{ width: '100%', overflow: 'hidden' }}>
           <ScreenshotGallery screenshots={[
             "/showcase/oasis/welcome.png", 
+            "/showcase/oasis/pin.png",
             "/showcase/oasis/history.png", 
             "/showcase/oasis/insights.png", 
             "/showcase/oasis/chat.png", 
