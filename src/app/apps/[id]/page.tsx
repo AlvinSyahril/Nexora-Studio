@@ -204,7 +204,7 @@ export default async function AppDetailsPage({ params }: { params: Promise<{ id:
             <span className={styles.navTitle}>Get Things Done</span>
           </div>
         </div>
-        <DownloadButton href="https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v1.0.0-gtd/Get-Things-Done.apk" className={styles.navBtn}>Download App</DownloadButton>
+        <DownloadButton href="https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v2.1.2-GTD/Get-Things-Done.apk" className={styles.navBtn}>Download App</DownloadButton>
       </nav>
 
       {/* Hero Section */}
@@ -218,7 +218,7 @@ export default async function AppDetailsPage({ params }: { params: Promise<{ id:
             Designed for focus. No clutter, just what you need to achieve your goals today. Sync instantly across all your devices securely.
           </p>
           <div className={styles.heroActions}>
-            <DownloadButton href="https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v1.0.0-gtd/Get-Things-Done.apk" className={styles.btnPrimary}>Get Started Free</DownloadButton>
+            <DownloadButton href="https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v2.1.2-GTD/Get-Things-Done.apk" className={styles.btnPrimary}>Get Started Free</DownloadButton>
             <a href="#features" className={styles.btnSecondary}>Explore Features</a>
           </div>
         </div>
@@ -292,7 +292,7 @@ export default async function AppDetailsPage({ params }: { params: Promise<{ id:
         <div className={styles.footerBg}></div>
         <div className={styles.container}>
           <h2 className={styles.footerTitle}>Ready to organize your life?</h2>
-          <DownloadButton href="https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v1.0.0-gtd/Get-Things-Done.apk" className={styles.footerBtn}>Download Get Things Done</DownloadButton>
+          <DownloadButton href="https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v2.1.2-GTD/Get-Things-Done.apk" className={styles.footerBtn}>Download Get Things Done</DownloadButton>
           <p className={styles.footerCopy}>© 2026 Nexora Studio. All rights reserved.</p>
         </div>
       </footer>
