@@ -44,7 +44,7 @@ export default async function AppDetailsPage({ params }: { params: Promise<{ id:
               <span className={styles.navTitle}>Oasis</span>
             </div>
           </div>
-          <DownloadButton href="/downloads/Oasis.apk" className={styles.navBtn}>Download App</DownloadButton>
+          <DownloadButton href="https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v1.0.0-oasis/Oasis.apk" className={styles.navBtn}>Download App</DownloadButton>
         </nav>
 
         {/* Hero Section */}
@@ -58,7 +58,7 @@ export default async function AppDetailsPage({ params }: { params: Promise<{ id:
               {app.description}
             </p>
             <div className={styles.heroActions}>
-              <DownloadButton href="/downloads/Oasis.apk" className={styles.btnPrimary} style={{ background: '#B6E2D3', color: '#3F3F3F' }}>Get Started Free</DownloadButton>
+              <DownloadButton href="https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v1.0.0-oasis/Oasis.apk" className={styles.btnPrimary} style={{ background: '#B6E2D3', color: '#3F3F3F' }}>Get Started Free</DownloadButton>
               <a href="#features" className={styles.btnSecondary}>Explore Features</a>
             </div>
           </div>
@@ -176,7 +176,7 @@ export default async function AppDetailsPage({ params }: { params: Promise<{ id:
           <div className={styles.footerBg} style={{ background: 'linear-gradient(135deg, #B6E2D3 0%, #D4F0F0 100%)' }}></div>
           <div className={styles.container}>
             <h2 className={styles.footerTitle}>Ready to find your peace?</h2>
-            <DownloadButton href="/downloads/Oasis.apk" className={styles.footerBtn}>Download Oasis</DownloadButton>
+            <DownloadButton href="https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v1.0.0-oasis/Oasis.apk" className={styles.footerBtn}>Download Oasis</DownloadButton>
             <p className={styles.footerCopy}>© 2026 Nexora Studio. All rights reserved.</p>
           </div>
         </footer>
@@ -204,7 +204,7 @@ export default async function AppDetailsPage({ params }: { params: Promise<{ id:
             <span className={styles.navTitle}>Get Things Done</span>
           </div>
         </div>
-        <DownloadButton href="/downloads/Get-Things-Done.apk" className={styles.navBtn}>Download App</DownloadButton>
+        <DownloadButton href="https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v1.0.0-gtd/Get-Things-Done.apk" className={styles.navBtn}>Download App</DownloadButton>
       </nav>
 
       {/* Hero Section */}
@@ -218,7 +218,7 @@ export default async function AppDetailsPage({ params }: { params: Promise<{ id:
             Designed for focus. No clutter, just what you need to achieve your goals today. Sync instantly across all your devices securely.
           </p>
           <div className={styles.heroActions}>
-            <DownloadButton href="/downloads/Get-Things-Done.apk" className={styles.btnPrimary}>Get Started Free</DownloadButton>
+            <DownloadButton href="https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v1.0.0-gtd/Get-Things-Done.apk" className={styles.btnPrimary}>Get Started Free</DownloadButton>
             <a href="#features" className={styles.btnSecondary}>Explore Features</a>
           </div>
         </div>
@@ -292,7 +292,7 @@ export default async function AppDetailsPage({ params }: { params: Promise<{ id:
         <div className={styles.footerBg}></div>
         <div className={styles.container}>
           <h2 className={styles.footerTitle}>Ready to organize your life?</h2>
-          <DownloadButton href="/downloads/Get-Things-Done.apk" className={styles.footerBtn}>Download Get Things Done</DownloadButton>
+          <DownloadButton href="https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v1.0.0-gtd/Get-Things-Done.apk" className={styles.footerBtn}>Download Get Things Done</DownloadButton>
           <p className={styles.footerCopy}>© 2026 Nexora Studio. All rights reserved.</p>
         </div>
       </footer>

@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
   "date": "June 2026",
-  "size": "25 MB",
-  "apkUrl": "https://nexorastudio.my.id/downloads/Oasis.apk",
+  "size": "85 MB",
+  "apkUrl": "https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v1.0.0-oasis/Oasis.apk",
   "whatsNew": [
     "Added Oasis Smart Correlations & Insights",
     "Added Photo Upload feature to Journal",
