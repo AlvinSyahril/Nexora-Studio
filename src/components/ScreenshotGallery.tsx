@@ -16,7 +16,11 @@ const SCREENSHOTS = [
   "/screenshots/Screenshot_1782481495.png"
 ];
 
-export default function ScreenshotGallery() {
+interface Props {
+  screenshots?: string[];
+}
+
+export default function ScreenshotGallery({ screenshots = SCREENSHOTS }: Props) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const scroll = (direction: "left" | "right") => {
@@ -42,7 +46,7 @@ export default function ScreenshotGallery() {
         </button>
         
         <div className={styles.carousel} ref={scrollRef}>
-          {SCREENSHOTS.map((src, idx) => (
+          {screenshots.map((src, idx) => (
             <div key={idx} className={styles.mockupContainer}>
               <div className={styles.phoneFrame}>
                 <Image 

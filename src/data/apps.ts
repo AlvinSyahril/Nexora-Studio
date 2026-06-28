@@ -13,5 +13,18 @@ export const APPS_DATA = [
       "Daily Progress Tracking"
     ]
   },
-  // Future apps will be added here
+  {
+    id: "oasis",
+    name: "Oasis",
+    tagline: "Your Daily Space to Breathe",
+    description: "A calming mental health and journaling app featuring mood tracking, breathing exercises, and a virtual AI companion named Ozie to help you reflect on your day.",
+    iconUrl: "/showcase/oasis/logo.png",
+    accentColor: "#B6E2D3", // Pastel Green
+    features: [
+      "Mood & Activity Tracking",
+      "Ozie AI Companion",
+      "Breathing Exercises",
+      "Detailed Insights"
+    ]
+  }
 ];
