@@ -154,12 +154,17 @@ export default async function AppDetailsPage({ params }: { params: Promise<{ id:
         {/* Screenshot Gallery Section */}
         <section style={{ width: '100%', overflow: 'hidden' }}>
           <ScreenshotGallery screenshots={[
-            "/showcase/oasis/welcome.png", 
-            "/showcase/oasis/pin.png",
-            "/showcase/oasis/history.png", 
-            "/showcase/oasis/insights.png", 
-            "/showcase/oasis/chat.png", 
-            "/showcase/oasis/activities.png"
+            "/showcase/oasis/gallery/Screenshot_1782649668.png",
+            "/showcase/oasis/gallery/Screenshot_1782649679.png",
+            "/showcase/oasis/gallery/Screenshot_1782649868.png",
+            "/showcase/oasis/gallery/Screenshot_1782649947.png",
+            "/showcase/oasis/gallery/Screenshot_1782649960.png",
+            "/showcase/oasis/gallery/Screenshot_1782649969.png",
+            "/showcase/oasis/gallery/Screenshot_1782649973.png",
+            "/showcase/oasis/gallery/Screenshot_1782650948.png",
+            "/showcase/oasis/gallery/Screenshot_1782650960.png",
+            "/showcase/oasis/gallery/Screenshot_1782656190.png",
+            "/showcase/oasis/gallery/Screenshot_1782656216.png"
           ]} />
         </section>
 

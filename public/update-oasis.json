@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0",
+  "date": "June 2026",
+  "size": "25 MB",
+  "apkUrl": "https://nexorastudio.my.id/downloads/Oasis.apk",
+  "whatsNew": [
+    "Added Oasis Smart Correlations & Insights",
+    "Added Photo Upload feature to Journal",
+    "Introduced Duolingo-style Streak Pathway"
+  ],
+  "bugFixes": [
+    "Fixed safe area overlapping on bottom navigation",
+    "Resolved mascot animation delay on launch"
+  ]
+}
