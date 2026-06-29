@@ -11,7 +11,11 @@ export default function Home() {
         <Hero />
         <AppShowcaseGrid />
       </main>
-      <footer className="footer">
+      <footer className="footer" id="about">
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.5rem" }}>
+          <span style={{ fontFamily: "var(--font-anton), sans-serif", fontSize: "1.5rem", letterSpacing: "-0.02em", color: "#111" }}>NEXORA STUDIO</span>
+          <p style={{ color: "#9ca3af", fontSize: "0.875rem", margin: 0 }}>Crafting digital experiences with precision.</p>
+        </div>
         <div className="footer-links">
           <Link href="/privacy" className="footerLink">Privacy Policy</Link>
           <Link href="/terms" className="footerLink">Terms & Conditions</Link>

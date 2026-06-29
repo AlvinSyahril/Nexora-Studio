@@ -73,8 +73,8 @@ export default function FloatingSupport() {
               transition={{ type: "spring", bounce: 0.6, duration: 0.8 }}
             >
               <Image 
-                src="/nexora-logo.png" 
-                alt="Support Nexora" 
+                src="/nexora-logo-orange.png" 
+                alt="Nexora Support" 
                 width={60} 
                 height={60} 
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}

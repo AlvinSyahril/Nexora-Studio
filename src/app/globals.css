@@ -1,21 +1,33 @@
 :root {
-  --background: #0f172a;
-  --foreground: #f8fafc;
+  /* New Light Theme */
+  --background: #EBEBEB;
+  --foreground: #111111;
+  --surface: #FFFFFF;
+  --surface-border: rgba(0, 0, 0, 0.08);
+
+  /* Accent */
+  --accent-orange: #F97316;
+  --accent-orange-dark: #EA6000;
+  --accent-orange-light: rgba(249, 115, 22, 0.12);
+
+  /* Bento Card Colors */
+  --card-bg: #FFFFFF;
+  --card-bg-dark: #111111;
+  --card-bg-green: #E8F5E9;
   
-  --accent-violet: #b8a4ed;
-  --accent-pink: #ff4d8b;
-  --accent-sky: #a7c7e7;
-  --accent-peach: #ffb084;
-  --accent-ochre: #e8b94a;
-  --accent-mint: #a4d4c5;
-  
-  --surface: #1e293b;
-  --surface-border: #334155;
-  
+  /* Typography */
+  --font-display: var(--font-anton);
+  --font-body: var(--font-inter);
+
+  /* Radius */
   --radius-pill: 9999px;
-  --radius-xl: 24px;
-  --radius-lg: 16px;
-  --radius-md: 12px;
+  --radius-xl: 28px;
+  --radius-lg: 20px;
+  --radius-md: 14px;
+
+  /* Shadows */
+  --shadow-card: 0 2px 16px rgba(0, 0, 0, 0.08);
+  --shadow-card-hover: 0 8px 32px rgba(0, 0, 0, 0.14);
 }
 
 html {
@@ -44,49 +56,46 @@ a {
 
 /* Typography Utilities */
 .display-font {
-  font-family: var(--font-unbounded), sans-serif;
+  font-family: var(--font-anton), sans-serif;
+  letter-spacing: -0.02em;
 }
 
-.text-gradient {
-  color: var(--accent-violet); /* Fallback for old class */
-}
-
-/* Utilities */
-.brutal-card {
-  background: var(--surface);
-  border: 2px solid var(--surface-border);
+/* Bento Card */
+.bento-card {
+  background: var(--card-bg);
   border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
   transition: all 0.3s ease;
 }
 
-.brutal-card:hover {
-  transform: translate(-4px, -4px);
-  box-shadow: 6px 6px 0px var(--accent-violet);
-  border-color: var(--accent-violet);
+.bento-card:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-3px);
 }
 
+/* CTA Button */
 .btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
   padding: 0.75rem 1.75rem;
-  background: var(--accent-violet);
-  color: #000;
-  border: 2px solid #000;
+  background: var(--accent-orange);
+  color: #fff;
+  border: none;
   border-radius: var(--radius-pill);
-  font-family: var(--font-unbounded), sans-serif;
+  font-family: var(--font-inter), sans-serif;
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 0.95rem;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 4px 4px 0px rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 20px rgba(249, 115, 22, 0.4);
 }
 
 .btn-primary:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0px rgba(255, 255, 255, 0.9);
-  background: #c5b4f2;
+  background: var(--accent-orange-dark);
+  box-shadow: 0 6px 24px rgba(249, 115, 22, 0.5);
+  transform: translateY(-1px);
 }
 
 /* Common Layout */
@@ -94,7 +103,7 @@ a {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 2rem;
 }
 
 .main-content {
@@ -103,23 +112,24 @@ a {
   min-height: 100vh;
 }
 
+/* Footer */
 .footerLink {
-  color: #94a3b8;
+  color: #6b7280;
   text-decoration: none;
   font-size: 0.875rem;
   transition: color 0.2s;
 }
 
 .footerLink:hover {
-  color: #fff;
+  color: var(--foreground);
 }
 
 .footer {
   text-align: center;
   padding: 3rem 2rem;
-  color: #64748b;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  margin-top: 4rem;
+  color: #9ca3af;
+  border-top: 1px solid var(--surface-border);
+  margin-top: 2rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
