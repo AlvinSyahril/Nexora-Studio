@@ -1,13 +1,14 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./Hero.module.css";
 import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
-import Lottie from "lottie-react";
+import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import orangeAnimation from "../../public/animations/orange.json";
+import dogAnimation from "../../public/animations/dog-in-the-park.json";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -17,6 +18,8 @@ export default function Hero() {
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const subRowRef = useRef<HTMLDivElement>(null);
   const bottomRowRef = useRef<HTMLDivElement>(null);
+  const dogRef = useRef<LottieRefCurrentProps>(null);
+  const [isAwake, setIsAwake] = useState(false);
   const lottieRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -135,8 +138,8 @@ export default function Hero() {
             <span className={styles.statsLabel}>Apps Available</span>
           </div>
           <div className={styles.statsCard}>
-            <span className={styles.statsNumber}>500+</span>
-            <span className={styles.statsLabel}>Downloads</span>
+            <span className={styles.statsNumber}>99.99%</span>
+            <span className={styles.statsLabel}>Absolutely Cinema</span>
           </div>
         </div>
       </div>
@@ -147,24 +150,33 @@ export default function Hero() {
         <div className={styles.bottomCardOrange}>
           <span className={styles.bottomCardIcon}>✦</span>
           <p className={styles.bottomCardTitle}>Have a question?</p>
-          <a href="mailto:nexorastudio@gmail.com" className={styles.bottomCardLink}>Get In Touch →</a>
+          <a href="https://instagram.com/vinnssmokee" target="_blank" rel="noopener noreferrer" className={styles.bottomCardLink}>Get In Touch →</a>
         </div>
 
         {/* Middle stats card */}
-        <div className={styles.bottomCardWhite}>
-          <span className={styles.bottomCardBadge}>📱 Apps</span>
-          <p className={styles.bottomCardSubtitle}>Performance</p>
-          <div className={styles.ringChart}>
-            <svg viewBox="0 0 80 80" className={styles.ring}>
-              <circle cx="40" cy="40" r="32" fill="none" stroke="#f0f0f0" strokeWidth="8" />
-              <circle cx="40" cy="40" r="32" fill="none" stroke="#F97316" strokeWidth="8"
-                strokeDasharray="160 40" strokeDashoffset="40" strokeLinecap="round" />
-            </svg>
-            <div className={styles.ringLabel}>
-              <span className={styles.ringValue}>80%</span>
-              <span className={styles.ringText}>Satisfaction</span>
-            </div>
-          </div>
+        <div 
+          className={styles.bottomCardWhite} 
+          style={{ padding: 0, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
+          onClick={() => {
+            const nextState = !isAwake;
+            setIsAwake(nextState);
+            if (nextState) {
+              dogRef.current?.playSegments([230, 425], true);
+            } else {
+              dogRef.current?.playSegments([0, 120], true);
+            }
+          }}
+        >
+          <Lottie
+            lottieRef={dogRef}
+            animationData={dogAnimation}
+            loop={true}
+            autoplay={false}
+            onDOMLoaded={() => {
+              dogRef.current?.playSegments([0, 120], true);
+            }}
+            style={{ width: "100%", height: "100%", transform: "scale(1.2)" }}
+          />
         </div>
 
         {/* Right white card */}
