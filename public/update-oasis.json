@@ -1,15 +1,15 @@
 {
-  "version": "1.0.0",
+  "version": "1.0.2",
   "date": "June 2026",
   "size": "85 MB",
-  "apkUrl": "https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v1.0.0-oasis/Oasis.apk",
+  "apkUrl": "https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v1.0.2-oasis/Oasis.apk",
   "whatsNew": [
-    "Added Oasis Smart Correlations & Insights",
-    "Added Photo Upload feature to Journal",
-    "Introduced Duolingo-style Streak Pathway"
+    "Redesigned Welcome Screen into a Modern Bento Dashboard",
+    "Added Interactive Lottie Mascot Animation",
+    "Direct Mood Check-in from the Home Screen"
   ],
   "bugFixes": [
-    "Fixed safe area overlapping on bottom navigation",
-    "Resolved mascot animation delay on launch"
+    "Adjusted mascot padding and sizing",
+    "Fixed Welcome Screen spacing for smaller devices"
   ]
 }
