@@ -9,7 +9,6 @@
   max-width: 1300px;
   margin: 0 auto;
   width: 100%;
-  position: relative;
 }
 
 /* About tag */
@@ -32,26 +31,23 @@
 
 /* Giant headline */
 .headline {
-  font-size: clamp(3rem, 9vw, 7.5rem);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+  font-size: clamp(4rem, 12vw, 11rem);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
   color: var(--foreground);
   margin: 0;
-  text-transform: uppercase;
-  word-wrap: break-word;
+  word-break: break-word;
 }
 
 /* Lottie animation container */
 .lottieWrap {
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 100%;
-  max-width: 700px;
+  max-width: 500px;
+  margin: -1rem auto -2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   pointer-events: none;
-  z-index: -1;
-  opacity: 0.8;
 }
 
 /* Sub row: description + stats */
