@@ -1,14 +1,13 @@
 {
-  "version": "2.1.3",
-  "date": "04 Jul 2026, 11:35",
-  "size": "92.2 MB",
+  "version": "2.1.4",
+  "apkUrl": "https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v2.1.4-GTD/Get-Things-Done.apk",
   "whatsNew": [
-    "Pengingat Berbasis Lokasi (Location Tracker): Dapatkan notifikasi otomatis saat tiba atau pergi.",
-    "Fitur Catatan (Notes): Tulis dan kelola catatan penting di dalam aplikasi.",
-    "Asisten AI Cerdas: Fitur AI (Premium) memecah tugas dan meringkas catatan."
+    "Location-Based Reminders (Arriving & Leaving)",
+    "Notes Feature: Manage important notes directly in-app",
+    "Smart AI Assistant: Task breakdown and note summarization"
   ],
   "bugFixes": [
-    "Perbaikan kontras warna antarmuka pada Mode Terang (Light Mode)."
-  ],
-  "apkUrl": "https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v2.1.3-GTD/Get-Things-Done.apk"
+    "Fixed: Location notification text is no longer cut off.",
+    "Fixed: Notification icon now displays correctly."
+  ]
 }
