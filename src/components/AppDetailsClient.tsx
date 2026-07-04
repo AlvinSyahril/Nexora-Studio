@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import styles from "../app/apps/[id]/page.module.css";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, MapPin, Calendar, CreditCard, Cloud, Globe, Bell } from "lucide-react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -250,7 +250,10 @@ export default function AppDetailsClient({ app }: { app: any }) {
             <span className={styles.navTitle}>Get Things Done</span>
           </div>
         </div>
-        <DownloadButton href="https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v2.1.4-GTD/Get-Things-Done.apk" className={styles.navBtn}>Download App</DownloadButton>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+          <a href="#all-features" style={{ fontWeight: 600, color: '#1a1a2e', textDecoration: 'none', display: 'none' }} className="hidden md:block">All Features</a>
+          <DownloadButton href="https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v2.1.4-GTD/Get-Things-Done.apk" className={styles.navBtn}>Download App</DownloadButton>
+        </div>
       </nav>
 
       {/* Hero Section */}
@@ -321,6 +324,84 @@ export default function AppDetailsClient({ app }: { app: any }) {
         <div className={styles.f2Visual}>
            <div className={`${styles.samsungMockup} ${styles.floatCenter}`}>
              <Image src="/screenshots/Screenshot_1782481470.png" alt="Bill Schedule" width={300} height={600} style={{ borderRadius: '30px' }} />
+          </div>
+        </div>
+      </section>
+
+      {/* All Features Grid Section (No Mockups) */}
+      <section id="all-features" className={`${styles.container} ${styles.featuresSection}`} data-animate="feature">
+        <div className={styles.featuresHeader}>
+          <h2 className={styles.featuresSectionTitle}>Everything You Need.</h2>
+          <p className={styles.featuresSectionDesc}>
+            Discover all the core capabilities designed to help you stay focused, organized, and ahead of your schedule.
+          </p>
+        </div>
+        
+        <div className={styles.featuresGrid}>
+          {/* Card 1 */}
+          <div className={styles.featureCard}>
+            <div className={`${styles.featureIconWrapper} ${styles.fcPurple}`}>
+              <MapPin />
+            </div>
+            <h3 className={styles.featureCardTitle}>Location Reminders</h3>
+            <p className={styles.featureCardDesc}>
+              Never forget to buy groceries again. Set geographical triggers that alert you the moment you arrive at or leave a specific location.
+            </p>
+          </div>
+
+          {/* Card 2 */}
+          <div className={styles.featureCard}>
+            <div className={`${styles.featureIconWrapper} ${styles.fcBlue}`}>
+              <Calendar />
+            </div>
+            <h3 className={styles.featureCardTitle}>Daily Plan Agenda</h3>
+            <p className={styles.featureCardDesc}>
+              Visualize your entire day at a glance. Our beautiful calendar view organizes your tasks logically so you know exactly what's next.
+            </p>
+          </div>
+
+          {/* Card 3 */}
+          <div className={styles.featureCard}>
+            <div className={`${styles.featureIconWrapper} ${styles.fcOrange}`}>
+              <CreditCard />
+            </div>
+            <h3 className={styles.featureCardTitle}>Smart Bill Tracker</h3>
+            <p className={styles.featureCardDesc}>
+              Automatically track your recurring financial obligations. Get reminded ahead of time and keep your credit score pristine.
+            </p>
+          </div>
+
+          {/* Card 4 */}
+          <div className={styles.featureCard}>
+            <div className={`${styles.featureIconWrapper} ${styles.fcGreen}`}>
+              <Cloud />
+            </div>
+            <h3 className={styles.featureCardTitle}>Real-time Cloud Sync</h3>
+            <p className={styles.featureCardDesc}>
+              Powered by Firebase, your data securely syncs across all your devices in real-time, instantly. Always accessible, anywhere.
+            </p>
+          </div>
+
+          {/* Card 5 */}
+          <div className={styles.featureCard}>
+            <div className={`${styles.featureIconWrapper} ${styles.fcPink}`}>
+              <Globe />
+            </div>
+            <h3 className={styles.featureCardTitle}>Multi-Language</h3>
+            <p className={styles.featureCardDesc}>
+              Fully localized for global users. Seamlessly switch between English, Indonesian, and other supported languages on the fly.
+            </p>
+          </div>
+
+          {/* Card 6 */}
+          <div className={styles.featureCard}>
+            <div className={`${styles.featureIconWrapper} ${styles.fcTeal}`}>
+              <Bell />
+            </div>
+            <h3 className={styles.featureCardTitle}>Push Notifications</h3>
+            <p className={styles.featureCardDesc}>
+              Reliable background alerts ensure you never miss a beat, even if the app is closed. Stay notified without draining your battery.
+            </p>
           </div>
         </div>
       </section>
