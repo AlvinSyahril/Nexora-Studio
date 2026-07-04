@@ -1,16 +1,14 @@
 {
-  "version": "2.1.2",
-  "date": "27 Jun 2026, 16:15",
-  "size": "97.6 MB",
+  "version": "2.1.3",
+  "date": "04 Jul 2026, 11:35",
+  "size": "92.2 MB",
   "whatsNew": [
-    "Feature: Added 'Buy Me a Cendol' support button.",
-    "Feature: Added eye icon to hide/unhide password during login and register.",
-    "Feature: Added multi-select deletion for Bill Schedules."
+    "Pengingat Berbasis Lokasi (Location Tracker): Dapatkan notifikasi otomatis saat tiba atau pergi.",
+    "Fitur Catatan (Notes): Tulis dan kelola catatan penting di dalam aplikasi.",
+    "Asisten AI Cerdas: Fitur AI (Premium) memecah tugas dan meringkas catatan."
   ],
   "bugFixes": [
-    "Fixed 'Failed to save' bug due to circular dependency in Reminders.",
-    "Fixed Notifee trigger timestamp bug for past dates.",
-    "Resolved automatic cloud synchronization issues."
+    "Perbaikan kontras warna antarmuka pada Mode Terang (Light Mode)."
   ],
-  "apkUrl": "https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v2.1.2-GTD/Get-Things-Done.apk"
+  "apkUrl": "https://nexorastudio.my.id/downloads/Get-Things-Done.apk"
 }
