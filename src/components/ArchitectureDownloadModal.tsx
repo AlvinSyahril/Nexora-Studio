@@ -133,17 +133,24 @@ export default function ArchitectureDownloadModal({ isOpen, onClose, appName, li
             onClick={() => track('Download APK', { type: 'universal' })}
             style={{
               display: 'flex', alignItems: 'center', padding: '12px 16px',
-              border: '1px solid #eee',
+              border: (detectedArch !== 'arm64-v8a' && detectedArch !== 'armeabi-v7a') ? '2px solid #5C9EAD' : '1px solid #eee',
               borderRadius: '8px', textDecoration: 'none', color: '#333',
-              backgroundColor: '#fafafa',
+              backgroundColor: (detectedArch !== 'arm64-v8a' && detectedArch !== 'armeabi-v7a') ? '#F4F9F9' : '#fafafa',
               transition: 'all 0.2s'
             }}
           >
             <div style={{ flex: 1 }}>
-              <span style={{ fontWeight: '600', display: 'block' }}>Universal</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <span style={{ fontWeight: '600', display: 'block' }}>Universal</span>
+                {(detectedArch !== 'arm64-v8a' && detectedArch !== 'armeabi-v7a') && (
+                  <span style={{ display: 'flex', alignItems: 'center', fontSize: '12px', color: '#5C9EAD', background: '#D4F0F0', padding: '2px 6px', borderRadius: '4px' }}>
+                    <Star size={12} style={{ marginRight: '4px' }}/> Recommended for you
+                  </span>
+                )}
+              </div>
               <span style={{ fontSize: '12px', color: '#888' }}>Works on all devices but larger size (~130MB)</span>
             </div>
-            <Download size={20} color="#A0AAB2" />
+            <Download size={20} color={(detectedArch !== 'arm64-v8a' && detectedArch !== 'armeabi-v7a') ? '#5C9EAD' : '#A0AAB2'} />
           </a>
         </div>
       </div>
