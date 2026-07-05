@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import styles from "../app/apps/[id]/page.module.css";
 import Link from "next/link";
-import { ArrowLeft, MapPin, Calendar, CreditCard, Cloud, Globe, Bell } from "lucide-react";
+import { ArrowLeft, MapPin, Calendar, CreditCard, Cloud, Globe, Bell, Heart, Sun, HardDrive, Star } from "lucide-react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -193,6 +193,73 @@ export default function AppDetailsClient({ app }: { app: any }) {
           <div className={styles.f2Visual}>
              <div className={`${styles.samsungMockup} ${styles.floatCenter}`}>
                <Image src="/showcase/oasis/pin.png" alt="Oasis PIN Lock" width={300} height={649} style={{ borderRadius: '30px', objectFit: 'cover' }} />
+            </div>
+          </div>
+        </section>
+
+        {/* All Features Grid Section (No Mockups) for Oasis */}
+        <section id="all-features" className={`${styles.container} ${styles.featuresSection}`} data-animate="feature">
+          <div className={styles.featuresHeader}>
+            <h2 className={styles.featuresSectionTitle}>Everything You Need to Heal.</h2>
+            <p className={styles.featuresSectionDesc}>
+              Discover all the core capabilities designed to help you breathe, reflect, and stay mindful every single day.
+            </p>
+          </div>
+          
+          <div className={styles.featuresGrid}>
+            {/* Card 1 */}
+            <div className={styles.featureCard}>
+              <div className={`${styles.featureIconWrapper} ${styles.fcGreen}`}>
+                <Heart />
+              </div>
+              <h3 className={styles.featureCardTitle}>Emergency Warmth</h3>
+              <p className={styles.featureCardDesc}>
+                Feeling anxious? The screen dims to a calming green, playing soothing instrumentals while guiding you through a 5-second breathing exercise.
+              </p>
+            </div>
+
+            {/* Card 2 */}
+            <div className={styles.featureCard}>
+              <div className={`${styles.featureIconWrapper} ${styles.fcPink}`}>
+                <Sun />
+              </div>
+              <h3 className={styles.featureCardTitle}>Wellness Report</h3>
+              <p className={styles.featureCardDesc}>
+                Receive a self-appreciation report every Sunday night summarizing your positivity and resilience throughout the week.
+              </p>
+            </div>
+
+            {/* Card 3 */}
+            <div className={styles.featureCard}>
+              <div className={`${styles.featureIconWrapper} ${styles.fcOrange}`}>
+                <Star />
+              </div>
+              <h3 className={styles.featureCardTitle}>Adaptive Themes</h3>
+              <p className={styles.featureCardDesc}>
+                The app's background colors dynamically adapt based on your mood history, from Warm Sunset for joyful days to Calming Forest for stress.
+              </p>
+            </div>
+
+            {/* Card 4 */}
+            <div className={styles.featureCard}>
+              <div className={`${styles.featureIconWrapper} ${styles.fcBlue}`}>
+                <HardDrive />
+              </div>
+              <h3 className={styles.featureCardTitle}>Backup & Restore</h3>
+              <p className={styles.featureCardDesc}>
+                Securely backup your precious journals and mood history, or export them to CSV and PDF whenever you need them.
+              </p>
+            </div>
+
+            {/* Card 5 */}
+            <div className={styles.featureCard}>
+              <div className={`${styles.featureIconWrapper} ${styles.fcPurple}`}>
+                <Globe />
+              </div>
+              <h3 className={styles.featureCardTitle}>Milestone Achievements</h3>
+              <p className={styles.featureCardDesc}>
+                Earn exclusive badges like "Resilient Soul" as a validation of your emotional strength and consistency in journaling.
+              </p>
             </div>
           </div>
         </section>
