@@ -11,11 +11,13 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import FaqAccordion from "./FaqAccordion";
 import ScreenshotGallery from "./ScreenshotGallery";
 import DownloadButton from "./DownloadButton";
+import ArchitectureDownloadModal from "./ArchitectureDownloadModal";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function AppDetailsClient({ app }: { app: any }) {
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -88,7 +90,7 @@ export default function AppDetailsClient({ app }: { app: any }) {
               <span className={styles.navTitle}>Oasis</span>
             </div>
           </div>
-          <DownloadButton href="https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v1.0.0-oasis/Oasis.apk" className={styles.navBtn}>Download App</DownloadButton>
+          <button onClick={() => setIsModalOpen(true)} className={styles.navBtn}>Download App</button>
         </nav>
 
         {/* Hero Section */}
@@ -102,7 +104,7 @@ export default function AppDetailsClient({ app }: { app: any }) {
               {app.description}
             </p>
             <div className={styles.heroActions} data-animate="hero-element">
-              <DownloadButton href="https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v1.0.0-oasis/Oasis.apk" className={styles.btnPrimary} style={{ background: '#B6E2D3', color: '#3F3F3F' }}>Get Started Free</DownloadButton>
+              <button onClick={() => setIsModalOpen(true)} className={styles.btnPrimary} style={{ background: '#B6E2D3', color: '#3F3F3F', padding: '12px 24px', borderRadius: '8px', border: 'none', cursor: 'pointer', fontWeight: 600 }}>Get Started Free</button>
               <a href="#features" className={styles.btnSecondary}>Explore Features</a>
             </div>
           </div>
@@ -222,10 +224,21 @@ export default function AppDetailsClient({ app }: { app: any }) {
           <div className={styles.footerBg} style={{ background: 'linear-gradient(135deg, #B6E2D3 0%, #D4F0F0 100%)' }}></div>
           <div className={styles.container}>
             <h2 className={styles.footerTitle}>Ready to find your peace?</h2>
-            <DownloadButton href="https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v1.0.0-oasis/Oasis.apk" className={styles.footerBtn}>Download Oasis</DownloadButton>
+            <button onClick={() => setIsModalOpen(true)} className={styles.footerBtn} style={{ padding: '14px 28px', borderRadius: '8px', border: 'none', cursor: 'pointer', fontWeight: 600, background: '#fff', color: '#B6E2D3' }}>Download Oasis</button>
             <p className={styles.footerCopy}>© 2026 Nexora Studio. All rights reserved.</p>
           </div>
         </footer>
+
+        <ArchitectureDownloadModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          appName="Oasis"
+          links={{
+            arm64: "https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v1.0.3-oasis/Oasis-arm64.apk",
+            arm32: "https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v1.0.3-oasis/Oasis-arm32.apk",
+            universal: "https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v1.0.3-oasis/Oasis-universal.apk"
+          }}
+        />
       </div>
     );
   }
