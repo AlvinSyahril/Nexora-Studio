@@ -23,24 +23,43 @@ export default function ArchitectureDownloadModal({ isOpen, onClose, appName, li
       // Try to detect architecture
       const detect = async () => {
         try {
+          let arch = null;
+          
+          // 1. Try modern userAgentData API
           if (typeof navigator !== 'undefined' && 'userAgentData' in navigator) {
             const nav: any = navigator;
-            const uaData = await nav.userAgentData.getHighEntropyValues(['architecture', 'bitness']);
-            if (uaData.architecture === 'arm' && uaData.bitness === '64') {
-              setDetectedArch('arm64-v8a');
-            } else if (uaData.architecture === 'arm') {
-              setDetectedArch('armeabi-v7a');
-            } else if (uaData.architecture === 'x86') {
-              setDetectedArch('x86');
+            if (nav.userAgentData.getHighEntropyValues) {
+              const uaData = await nav.userAgentData.getHighEntropyValues(['architecture', 'bitness']);
+              if (uaData.architecture === 'arm' || uaData.architecture === 'arm64') {
+                arch = (uaData.bitness === '64' || uaData.architecture === 'arm64') ? 'arm64-v8a' : 'armeabi-v7a';
+              } else if (uaData.architecture === 'x86') {
+                arch = 'x86';
+              }
             }
-          } else {
-             // Fallback
-             const ua = navigator.userAgent.toLowerCase();
-             if (ua.includes('aarch64') || ua.includes('arm64') || ua.includes('armv8')) {
-                 setDetectedArch('arm64-v8a');
-             } else if (ua.includes('arm')) {
-                 setDetectedArch('armeabi-v7a');
-             }
+          }
+
+          // 2. Fallback to parsing userAgent and platform strings
+          if (!arch && typeof navigator !== 'undefined') {
+            const ua = navigator.userAgent.toLowerCase();
+            const platform = (navigator.platform || '').toLowerCase();
+            
+            if (
+              ua.includes('aarch64') || ua.includes('arm64') || ua.includes('armv8') ||
+              platform.includes('aarch64') || platform.includes('arm64') || platform.includes('armv8') ||
+              (ua.includes('android') && ua.includes('64'))
+            ) {
+              arch = 'arm64-v8a';
+            } else if (ua.includes('arm') || platform.includes('arm')) {
+              arch = 'armeabi-v7a';
+            } else if (ua.includes('android')) {
+              // As a last resort for unknown Android devices, we can either leave it null (recommends Universal)
+              // or guess arm64 since 99% of Androids since 2016 are 64-bit.
+              // Let's leave it null to be safe so it recommends Universal.
+            }
+          }
+          
+          if (arch) {
+            setDetectedArch(arch);
           }
         } catch (e) {
           console.error('Failed to detect architecture', e);
