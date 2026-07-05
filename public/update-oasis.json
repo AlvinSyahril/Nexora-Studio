@@ -12,9 +12,10 @@
     "Kucing Ozie interaktif di layar beranda"
   ],
   "bugFixes": [],
+  "apkUrl": "https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v1.0.3-oasis/Oasis-universal.apk",
   "apkUrls": {
-    "arm64-v8a": "https://github.com/AlvinSyahril/Nexora-Studio/releases/tag/v1.0.3-oasis/Oasis-arm64.apk",
-    "armeabi-v7a": "https://github.com/AlvinSyahril/Nexora-Studio/releases/tag/v1.0.3-oasis/Oasis-arm32.apk",
-    "universal": "https://github.com/AlvinSyahril/Nexora-Studio/releases/tag/v1.0.3-oasis/Oasis-universal.apk"
+    "arm64-v8a": "https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v1.0.3-oasis/Oasis-arm64.apk",
+    "armeabi-v7a": "https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v1.0.3-oasis/Oasis-arm32.apk",
+    "universal": "https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v1.0.3-oasis/Oasis-universal.apk"
   }
 }
