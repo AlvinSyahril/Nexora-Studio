@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+/* Loom Dark Theme Specific Typography & Classes */
+.loomPage {
+  background: #0C0A09 !important;
+  color: #FAFAF9 !important;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  position: relative;
+  min-height: 100vh;
+  overflow: clip;
+}
+
+.loomHeaderTag {
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.loomGridCard {
+  background: #161413;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 2.25rem 2rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.loomGridCard:hover {
+  transform: translateY(-4px);
+  border-color: rgba(245, 158, 11, 0.4);
+  box-shadow: 0 16px 40px -10px rgba(245, 158, 11, 0.15);
+}
+
+.loomGridCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.4), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.loomGridCard:hover::before {
+  opacity: 1;
+}
+
+/* Crisp Screenshots with High DPI Rendering */
+.crispImage {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}

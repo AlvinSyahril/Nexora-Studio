@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from "react";
 import styles from "../app/apps/[id]/page.module.css";
+import loomStyles from "../app/apps/[id]/loom.module.css";
 import Link from "next/link";
 import { ArrowLeft, MapPin, Calendar, CreditCard, Cloud, Globe, Bell, Heart, Sun, HardDrive, Star } from "lucide-react";
 import Image from "next/image";
@@ -12,6 +13,8 @@ import FaqAccordion from "./FaqAccordion";
 import ScreenshotGallery from "./ScreenshotGallery";
 import DownloadButton from "./DownloadButton";
 import ArchitectureDownloadModal from "./ArchitectureDownloadModal";
+import DesktopMockupSwitcher from "./DesktopMockupSwitcher";
+import { Download, Monitor, ShieldCheck, Zap, Sparkles, FolderTree, Cpu, Flame } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -69,6 +72,354 @@ export default function AppDetailsClient({ app }: { app: any }) {
     return () => ctx.revert();
   }, []);
 
+  if (app.id === "loom") {
+    return (
+      <div 
+        className={styles.showcaseWrapper} 
+        ref={wrapperRef}
+        style={{ background: "var(--background)", color: "var(--foreground)", minHeight: "100vh" }}
+      >
+        {/* Navbar */}
+        <nav className={`${styles.container} ${styles.nav}`} data-animate="nav">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+            <Link 
+              href="/#apps" 
+              className={styles.backButton} 
+              title="Back to Nexora"
+              style={{
+                color: "var(--foreground)",
+                border: "1px solid var(--surface-border)",
+                background: "var(--surface)"
+              }}
+            >
+              <ArrowLeft size={16} /> <span className={styles.backText}>Back</span>
+            </Link>
+            <div className={styles.navBrand}>
+              <div className={styles.navLogo} style={{ borderRadius: "8px", overflow: "hidden" }}>
+                <Image src="/showcase/loom/logo.png" alt="Loom Logo" width={38} height={38} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                <span className={styles.navTitle} style={{ color: "var(--foreground)", fontWeight: 600 }}>Loom</span>
+                <span style={{ 
+                  fontSize: "0.7rem", 
+                  fontWeight: 600, 
+                  background: "rgba(0,0,0,0.05)", 
+                  color: "#6b7280", 
+                  padding: "0.2rem 0.5rem", 
+                  borderRadius: "4px",
+                  letterSpacing: "0.05em"
+                }}>
+                  DESKTOP
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+            <a 
+              href="#showcase" 
+              style={{ 
+                fontWeight: 500, 
+                color: "#6b7280", 
+                textDecoration: "none",
+                fontSize: "0.9rem",
+                transition: "color 0.2s ease"
+              }}
+              className="hidden md:block"
+            >
+              Interactive Tour
+            </a>
+            <a 
+              href={app.downloadUrl || "https://github.com/vinnssmokee/loom-desktop/releases/latest"}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.5rem",
+                padding: "0.65rem 1.35rem",
+                background: "var(--foreground)",
+                color: "var(--surface)",
+                borderRadius: "var(--radius-md)",
+                fontWeight: 500,
+                fontSize: "0.875rem",
+                textDecoration: "none",
+                transition: "opacity 0.2s ease"
+              }}
+            >
+              <Download size={16} /> Download .exe
+            </a>
+          </div>
+        </nav>
+
+        {/* Hero Section */}
+        <section className={`${styles.container}`} style={{ padding: "6rem 2rem 4rem", maxWidth: "1200px", margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4rem", alignItems: "center" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+            <h1 
+              data-animate="hero-element"
+              className="display-font"
+              style={{
+                fontSize: "clamp(3rem, 7vw, 5.5rem)",
+                lineHeight: 1.05,
+                color: "var(--foreground)",
+                margin: 0
+              }}
+            >
+              Thinking at<br />Human Speed.
+            </h1>
+
+            <p 
+              data-animate="hero-element"
+              style={{
+                fontSize: "1.125rem",
+                color: "#6b7280",
+                maxWidth: "500px",
+                lineHeight: 1.6,
+                margin: 0
+              }}
+            >
+              The unified desktop sanctuary designed for obsessive thinkers. 
+              Intertwines bi-directional markdown, Kanban boards, and 2D knowledge graphs 
+              into one lightning-fast, local-first interface.
+            </p>
+
+            <div 
+              data-animate="hero-element"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "1rem",
+                flexWrap: "wrap",
+                marginTop: "1rem"
+              }}
+            >
+              <a 
+                href={app.downloadUrl || "https://github.com/vinnssmokee/loom-desktop/releases/latest"}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.6rem",
+                  padding: "0.85rem 2rem",
+                  background: "var(--foreground)",
+                  color: "var(--surface)",
+                  borderRadius: "var(--radius-md)",
+                  fontWeight: 500,
+                  fontSize: "1rem",
+                  textDecoration: "none",
+                }}
+              >
+                Download for Windows
+              </a>
+            </div>
+
+            {/* Quick Spec Pills */}
+            <div 
+              data-animate="hero-element"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "1.25rem",
+                color: "#6b7280",
+                fontSize: "0.85rem",
+                fontWeight: 500,
+                marginTop: "1rem"
+              }}
+            >
+              <span style={{ display: "flex", alignItems: "center", gap: "0.35rem" }}>
+                <ShieldCheck size={16} /> Local-First & Private
+              </span>
+              <span style={{ display: "flex", alignItems: "center", gap: "0.35rem" }}>
+                <Zap size={16} /> Zero Latency
+              </span>
+            </div>
+          </div>
+          
+          <div data-animate="hero-element" style={{ width: "100%", height: "100%", minHeight: "300px" }}>
+            {/* Kept empty for asymmetric minimalist layout */}
+          </div>
+        </section>
+
+        {/* Interactive Desktop Showcase Section */}
+        <section id="showcase" className={`${styles.container}`} style={{ padding: "4rem 1.5rem 6rem", background: "var(--background)" }}>
+          <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+            <span style={{ 
+              color: "#6b7280", 
+              fontWeight: 600, 
+              fontSize: "0.75rem", 
+              letterSpacing: "0.1em",
+              textTransform: "uppercase" 
+            }}>
+              Interactive Workspace Experience
+            </span>
+            <h2 className="display-font" style={{ 
+              fontSize: "clamp(2rem, 4vw, 3.25rem)", 
+              color: "var(--foreground)", 
+              marginTop: "0.5rem" 
+            }}>
+              Click Any Menu to Preview The Interface.
+            </h2>
+            <p style={{ 
+              color: "#6b7280", 
+              fontSize: "1.1rem", 
+              maxWidth: "640px", 
+              margin: "0.75rem auto 0" 
+            }}>
+              Test-drive the actual views of Loom directly from your browser. Every module is crafted to keep you in effortless flow.
+            </p>
+          </div>
+
+          <DesktopMockupSwitcher />
+        </section>
+
+        {/* Deep Pillars Grid */}
+        <section className={`${styles.container}`} style={{ padding: "4rem 1.5rem 7rem" }}>
+          <div style={{ textAlign: "center", marginBottom: "4rem" }}>
+            <span style={{ color: "#6b7280", fontWeight: 600, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em" }}>
+              Core Philosophy
+            </span>
+            <h2 className="display-font" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", color: "var(--foreground)", marginTop: "0.5rem" }}>
+              Built for Those Who Demand Craftsmanship.
+            </h2>
+          </div>
+
+          <div 
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+              gap: "2rem"
+            }}
+          >
+            {/* Pillar 1 */}
+            <div style={{ padding: "2rem", background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "12px", boxShadow: "var(--shadow-card)" }}>
+              <div 
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  borderRadius: "8px",
+                  background: "rgba(0,0,0,0.04)",
+                  color: "var(--foreground)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginBottom: "1.5rem"
+                }}
+              >
+                <FolderTree size={20} />
+              </div>
+              <h3 style={{ fontSize: "1.25rem", fontWeight: 600, color: "var(--foreground)", marginBottom: "0.65rem", letterSpacing: "-0.01em" }}>
+                Bi-Directional Knowledge Graph
+              </h3>
+              <p style={{ color: "#6b7280", lineHeight: 1.6, fontSize: "0.95rem" }}>
+                Your brain doesn’t think in rigid silos. Connect ideas dynamically with [[wiki-links]] and tags, and watch your thoughts self-organize into a luminous, interactive 2D mind palace.
+              </p>
+            </div>
+
+            {/* Pillar 2 */}
+            <div style={{ padding: "2rem", background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "12px", boxShadow: "var(--shadow-card)" }}>
+              <div 
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  borderRadius: "8px",
+                  background: "rgba(0,0,0,0.04)",
+                  color: "var(--foreground)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginBottom: "1.5rem"
+                }}
+              >
+                <ShieldCheck size={20} />
+              </div>
+              <h3 style={{ fontSize: "1.25rem", fontWeight: 600, color: "var(--foreground)", marginBottom: "0.65rem", letterSpacing: "-0.01em" }}>
+                Sovereign & Local-First
+              </h3>
+              <p style={{ color: "#6b7280", lineHeight: 1.6, fontSize: "0.95rem" }}>
+                Your private thoughts should never sit in someone else’s cloud database. Loom stores everything in standard, human-readable markdown on your disk. Works 100% offline, anywhere.
+              </p>
+            </div>
+
+            {/* Pillar 3 */}
+            <div style={{ padding: "2rem", background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "12px", boxShadow: "var(--shadow-card)" }}>
+              <div 
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  borderRadius: "8px",
+                  background: "rgba(0,0,0,0.04)",
+                  color: "var(--foreground)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginBottom: "1.5rem"
+                }}
+              >
+                <Cpu size={20} />
+              </div>
+              <h3 style={{ fontSize: "1.25rem", fontWeight: 600, color: "var(--foreground)", marginBottom: "0.65rem", letterSpacing: "-0.01em" }}>
+                Hyper-Speed Frictionless Engine
+              </h3>
+              <p style={{ color: "#6b7280", lineHeight: 1.6, fontSize: "0.95rem" }}>
+                Engineered with typed IPC contracts, instant full-text search, and quick capture hotkeys. No loading spinners, no bloated memory leaks, just pure fluid responsiveness.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <div style={{ maxWidth: "900px", margin: "0 auto", padding: "0 1.5rem 6rem" }}>
+          <FaqAccordion appId="loom" />
+        </div>
+
+        {/* Footer CTA */}
+        <footer 
+          style={{
+            background: "var(--background)",
+            borderTop: "1px solid var(--surface-border)",
+            padding: "6rem 1.5rem 4rem",
+            textAlign: "center",
+            position: "relative",
+            overflow: "hidden"
+          }}
+        >
+          <div style={{ position: "relative", zIndex: 1, maxWidth: "600px", margin: "0 auto" }}>
+            <h2 className="display-font" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", color: "var(--foreground)", marginBottom: "1rem" }}>
+              Ready to Upgrade Your Mind Palace?
+            </h2>
+            <p style={{ color: "#6b7280", marginBottom: "2.5rem", fontSize: "1.1rem" }}>
+              Download Loom today and experience the ultimate personal workspace tailored for speed, aesthetics, and privacy.
+            </p>
+            <a 
+              href={app.downloadUrl || "https://github.com/vinnssmokee/loom-desktop/releases/latest"}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.6rem",
+                padding: "1.1rem 2.5rem",
+                background: "var(--foreground)",
+                color: "var(--surface)",
+                borderRadius: "9999px",
+                fontWeight: 600,
+                fontSize: "1.05rem",
+                textDecoration: "none",
+                boxShadow: "0 4px 12px rgba(0,0,0,0.05)"
+              }}
+            >
+              <Download size={20} /> Download Loom for Windows
+            </a>
+            <p style={{ marginTop: "3rem", color: "#9ca3af", fontSize: "0.85rem" }}>
+              © 2026 Nexora Studio. Crafted with obsession by @vinnssmokee.
+            </p>
+          </div>
+        </footer>
+      </div>
+    );
+  }
+
   if (app.id === "oasis") {
     return (
       <div className={styles.showcaseWrapper} ref={wrapperRef}>
@@ -85,7 +436,7 @@ export default function AppDetailsClient({ app }: { app: any }) {
             </Link>
             <div className={styles.navBrand}>
               <div className={styles.navLogo}>
-                <Image src="/showcase/oasis/logo.png" alt="Oasis Logo" width={40} height={40} />
+                <Image src="/showcase/oasis/logo.png" alt="Oasis Logo" width={40} height={40} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
               </div>
               <span className={styles.navTitle}>Oasis</span>
             </div>
@@ -110,7 +461,7 @@ export default function AppDetailsClient({ app }: { app: any }) {
           </div>
           <div className={styles.heroVisual} data-animate="hero-element">
             <div className={`${styles.samsungMockup} ${styles.heroMockup}`} data-animate="mockup">
-              <Image src="/showcase/oasis/welcome.png" alt="Oasis Welcome Home" width={300} height={649} priority style={{ borderRadius: '30px', objectFit: 'cover' }} />
+              <Image src="/showcase/oasis/welcome.png" alt="Oasis Welcome Home" width={300} height={649} priority style={{ borderRadius: '30px', objectFit: 'cover' }} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
             </div>
           </div>
         </section>
@@ -138,7 +489,7 @@ export default function AppDetailsClient({ app }: { app: any }) {
           </div>
           <div className={styles.f1Visual}>
             <div className={`${styles.samsungMockup} ${styles.floatCenter}`}>
-               <Image src="/showcase/oasis/history.png" alt="Mood History" width={300} height={649} style={{ borderRadius: '30px', objectFit: 'cover' }} />
+               <Image src="/showcase/oasis/history.png" alt="Mood History" width={300} height={649} style={{ borderRadius: '30px', objectFit: 'cover' }} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
             </div>
           </div>
         </section>
@@ -156,7 +507,7 @@ export default function AppDetailsClient({ app }: { app: any }) {
           </div>
           <div className={styles.f2Visual}>
              <div className={`${styles.samsungMockup} ${styles.floatCenter}`}>
-               <Image src="/showcase/oasis/insights.png" alt="Oasis Insights" width={300} height={649} style={{ borderRadius: '30px', objectFit: 'cover' }} />
+               <Image src="/showcase/oasis/insights.png" alt="Oasis Insights" width={300} height={649} style={{ borderRadius: '30px', objectFit: 'cover' }} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
             </div>
           </div>
         </section>
@@ -174,7 +525,7 @@ export default function AppDetailsClient({ app }: { app: any }) {
           </div>
           <div className={styles.f1Visual}>
             <div className={`${styles.samsungMockup} ${styles.floatCenter}`}>
-               <Image src="/showcase/oasis/chat.png" alt="Ozie AI Chat" width={300} height={649} style={{ borderRadius: '30px', objectFit: 'cover' }} />
+               <Image src="/showcase/oasis/chat.png" alt="Ozie AI Chat" width={300} height={649} style={{ borderRadius: '30px', objectFit: 'cover' }} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
             </div>
           </div>
         </section>
@@ -192,7 +543,7 @@ export default function AppDetailsClient({ app }: { app: any }) {
           </div>
           <div className={styles.f2Visual}>
              <div className={`${styles.samsungMockup} ${styles.floatCenter}`}>
-               <Image src="/showcase/oasis/pin.png" alt="Oasis PIN Lock" width={300} height={649} style={{ borderRadius: '30px', objectFit: 'cover' }} />
+               <Image src="/showcase/oasis/pin.png" alt="Oasis PIN Lock" width={300} height={649} style={{ borderRadius: '30px', objectFit: 'cover' }} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
             </div>
           </div>
         </section>
@@ -325,7 +676,7 @@ export default function AppDetailsClient({ app }: { app: any }) {
           </Link>
           <div className={styles.navBrand}>
             <div className={styles.navLogo}>
-              <Image src="/showcase/logo.png" alt="Logo" width={40} height={40} />
+              <Image src="/showcase/logo.png" alt="Logo" width={40} height={40} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
             </div>
             <span className={styles.navTitle}>Get Things Done</span>
           </div>
@@ -353,7 +704,7 @@ export default function AppDetailsClient({ app }: { app: any }) {
         </div>
         <div className={styles.heroVisual} data-animate="hero-element">
           <div className={`${styles.samsungMockup} ${styles.heroMockup}`} data-animate="mockup">
-            <Image src="/screenshots/1.png" alt="Get Things Done Home" width={300} height={600} priority style={{ borderRadius: '30px' }} />
+            <Image src="/screenshots/1.png" alt="Get Things Done Home" width={300} height={600} priority style={{ borderRadius: '30px' }} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
           </div>
         </div>
       </section>
@@ -385,7 +736,7 @@ export default function AppDetailsClient({ app }: { app: any }) {
         </div>
         <div className={styles.f1Visual}>
           <div className={`${styles.samsungMockup} ${styles.floatCenter}`}>
-             <Image src="/screenshots/2.png" alt="System Update Dashboard" width={300} height={600} style={{ borderRadius: '30px' }} />
+             <Image src="/screenshots/2.png" alt="System Update Dashboard" width={300} height={600} style={{ borderRadius: '30px' }} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
           </div>
         </div>
       </section>
@@ -403,7 +754,7 @@ export default function AppDetailsClient({ app }: { app: any }) {
         </div>
         <div className={styles.f2Visual}>
            <div className={`${styles.samsungMockup} ${styles.floatCenter}`}>
-             <Image src="/screenshots/Screenshot_1782481470.png" alt="Bill Schedule" width={300} height={600} style={{ borderRadius: '30px' }} />
+             <Image src="/screenshots/Screenshot_1782481470.png" alt="Bill Schedule" width={300} height={600} style={{ borderRadius: '30px' }} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
           </div>
         </div>
       </section>

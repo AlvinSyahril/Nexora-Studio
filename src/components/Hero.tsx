@@ -23,6 +23,20 @@ export default function Hero() {
   const lottieRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Suppress Next.js Turbopack missing image [object Event] crash
+    const handleRejection = (e: PromiseRejectionEvent) => {
+      if (e.reason instanceof Event || (e.reason && typeof e.reason === 'object' && e.reason.type === 'error')) {
+        e.preventDefault();
+      }
+    };
+    window.addEventListener('unhandledrejection', handleRejection);
+    
+    const playDog = () => {
+      dogRef.current?.playSegments([230, 425], true);
+      setIsAwake(true);
+    };
+    window.addEventListener('play-dog-animation', playDog);
+
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
@@ -95,7 +109,11 @@ export default function Hero() {
       });
     }, sectionRef);
 
-    return () => ctx.revert();
+    return () => {
+      window.removeEventListener('unhandledrejection', handleRejection);
+      window.removeEventListener('play-dog-animation', playDog);
+      ctx.revert();
+    };
   }, []);
 
   return (
@@ -134,7 +152,7 @@ export default function Hero() {
 
         <div className={styles.rightContent}>
           <div className={styles.statsCard}>
-            <span className={styles.statsNumber}>2+</span>
+            <span className={styles.statsNumber}>3</span>
             <span className={styles.statsLabel}>Apps Available</span>
           </div>
           <div className={styles.statsCard}>
@@ -145,7 +163,7 @@ export default function Hero() {
       </div>
 
       {/* Bottom bento cards row */}
-      <div ref={bottomRowRef} className={styles.bottomRow}>
+      <div id="about" ref={bottomRowRef} className={styles.bottomRow}>
         {/* Left orange card */}
         <div className={styles.bottomCardOrange}>
           <span className={styles.bottomCardIcon}>✦</span>

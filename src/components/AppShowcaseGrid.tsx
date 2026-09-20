@@ -11,6 +11,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const CARD_THEMES: Record<string, { bg: string; text: string; accent: string }> = {
+  loom: { bg: "#FFFBEB", text: "#1a1a1a", accent: "#F59E0B" }, // Soft amber background
   "reminder-app": { bg: "#FFF7ED", text: "#1a1a1a", accent: "#F97316" }, // Soft orange background
   oasis: { bg: "#E8F5E9", text: "#1a3a1a", accent: "#4CAF50" },
 };
@@ -115,13 +116,14 @@ export default function AppShowcaseGrid() {
                   <div className={styles.cardTop}>
                     <div className={styles.iconWrap}>
                       {app.iconUrl ? (
-                        <Image
-                          src={app.iconUrl}
-                          alt={app.name}
-                          width={48}
-                          height={48}
-                          style={{ borderRadius: "12px", objectFit: "cover" }}
-                        />
+                          <Image
+                            src={app.iconUrl}
+                            alt={app.name}
+                            width={48}
+                            height={48}
+                            style={{ borderRadius: "12px", objectFit: "cover" }}
+                            onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                          />
                       ) : (
                         <div className={styles.iconPlaceholder} style={{ background: theme.accent }} />
                       )}
