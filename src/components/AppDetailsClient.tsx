@@ -21,6 +21,7 @@ gsap.registerPlugin(ScrollTrigger);
 export default function AppDetailsClient({ app }: { app: any }) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [gridColumns, setGridColumns] = React.useState("1fr");
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -70,6 +71,12 @@ export default function AppDetailsClient({ app }: { app: any }) {
     }, wrapperRef);
 
     return () => ctx.revert();
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setGridColumns(window.innerWidth > 768 ? "1fr 1fr" : "1fr");
+    }
   }, []);
 
   if (app.id === "loom") {
@@ -153,7 +160,7 @@ export default function AppDetailsClient({ app }: { app: any }) {
         </nav>
 
         {/* Hero Section */}
-        <section className={`${styles.container}`} style={{ padding: "6rem 2rem 4rem", maxWidth: "1200px", margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4rem", alignItems: "center" }}>
+        <section className={`${styles.container}`} style={{ padding: "6rem 2rem 4rem", maxWidth: "1200px", margin: "0 auto", display: "grid", gridTemplateColumns: gridColumns, gap: "3rem", alignItems: "center" }}>
           <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
             <h1 
               data-animate="hero-element"
@@ -676,7 +683,7 @@ export default function AppDetailsClient({ app }: { app: any }) {
           </Link>
           <div className={styles.navBrand}>
             <div className={styles.navLogo}>
-              <Image src="/showcase/logo.png" alt="Logo" width={40} height={40} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
+              <Image src="/showcase/logo.png" alt="Get Things Done app logo showing task management icon" width={40} height={40} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
             </div>
             <span className={styles.navTitle}>Get Things Done</span>
           </div>

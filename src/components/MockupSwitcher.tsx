@@ -16,10 +16,10 @@ export default function MockupSwitcher() {
     >
       <div className={styles.floatContainer}>
         <div className={`${styles.samsungMockup} ${swapped ? styles.posFront : styles.posBack}`}>
-          <Image src="/showcase/categories.jpg" alt="Categories Screen" width={300} height={600} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
+          <Image src="/showcase/categories.jpg" alt="Get Things Done - Categories Screen showing task organization" width={300} height={600} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
         </div>
         <div className={`${styles.samsungMockup} ${swapped ? styles.posBack : styles.posFront} ${!swapped ? 'shadow-2xl' : ''}`}>
-          <Image src="/showcase/calendar.jpg" alt="Calendar Screen" width={300} height={600} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
+          <Image src="/showcase/calendar.jpg" alt="Get Things Done - Calendar Screen showing scheduled tasks and events" width={300} height={600} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
         </div>
       </div>
     </div>

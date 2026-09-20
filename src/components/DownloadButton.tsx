@@ -10,10 +10,19 @@ interface DownloadButtonProps {
 }
 
 export default function DownloadButton({ href, className, style, children }: DownloadButtonProps) {
+  const extractFilename = (url: string) => {
+    try {
+      const pathname = new URL(url).pathname;
+      return pathname.split('/').pop() || 'download';
+    } catch {
+      return 'download';
+    }
+  };
+
   return (
     <a 
       href={href} 
-      download 
+      download={extractFilename(href)}
       className={className}
       style={style}
       onClick={() => {

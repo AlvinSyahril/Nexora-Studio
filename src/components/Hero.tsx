@@ -9,8 +9,28 @@ import { SplitText } from "gsap/SplitText";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import orangeAnimation from "../../public/animations/orange.json";
 import dogAnimation from "../../public/animations/dog-in-the-park.json";
+import { APPS_DATA } from "../data/apps";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
+
+interface SkeletonProps {
+  width?: string;
+  height?: string;
+  borderRadius?: string;
+}
+
+const Skeleton: React.FC<SkeletonProps> = ({ width = "100%", height = "24px", borderRadius = "8px" }) => (
+  <div
+    style={{
+      width,
+      height,
+      borderRadius,
+      background: "linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%)",
+      backgroundSize: "200% 100%",
+      animation: "pulse 2s infinite"
+    }}
+  />
+);
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -21,6 +41,8 @@ export default function Hero() {
   const dogRef = useRef<LottieRefCurrentProps>(null);
   const [isAwake, setIsAwake] = useState(false);
   const lottieRef = useRef<HTMLDivElement>(null);
+  const [animationLoaded, setAnimationLoaded] = useState(false);
+  const [dogLoaded, setDogLoaded] = useState(false);
 
   useEffect(() => {
     // Suppress Next.js Turbopack missing image [object Event] crash
@@ -37,76 +59,84 @@ export default function Hero() {
     };
     window.addEventListener('play-dog-animation', playDog);
 
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-      // 1. About tag fades in
-      tl.from(tagRef.current, {
-        opacity: 0,
-        x: -30,
-        duration: 0.7,
-      });
+      if (!prefersReducedMotion) {
+        // 1. About tag fades in
+        tl.from(tagRef.current, {
+          opacity: 0,
+          x: -30,
+          duration: 0.7,
+        });
 
-      // 2. Headline — letter by letter reveal
-      if (headlineRef.current) {
-        // Fallback if SplitText not available (free version)
+        // 2. Headline — letter by letter reveal
+        if (headlineRef.current) {
+          // Fallback if SplitText not available (free version)
+          tl.from(
+            headlineRef.current,
+            {
+              opacity: 0,
+              y: 80,
+              skewY: 4,
+              duration: 1,
+              ease: "expo.out",
+            },
+            "-=0.3"
+          );
+        }
+
+        // 3. Sub row slides up
         tl.from(
-          headlineRef.current,
+          subRowRef.current,
           {
             opacity: 0,
-            y: 80,
-            skewY: 4,
-            duration: 1,
-            ease: "expo.out",
+            y: 40,
+            duration: 0.8,
           },
-          "-=0.3"
+          "-=0.5"
         );
+
+        // 4. Bottom bento cards stagger in
+        tl.from(
+          bottomRowRef.current?.children ?? [],
+          {
+            opacity: 0,
+            y: 50,
+            stagger: 0.12,
+            duration: 0.7,
+            ease: "back.out(1.2)",
+          },
+          "-=0.4"
+        );
+
+        // 5. Lottie container fades in
+        gsap.from(lottieRef.current, {
+          opacity: 0,
+          scale: 0.85,
+          duration: 1.2,
+          ease: "power2.out",
+          delay: 0.6,
+        });
+
+        // 6. Headline parallax on scroll
+        gsap.to(headlineRef.current, {
+          yPercent: -15,
+          ease: "none",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+      } else {
+        // Instant reveal without animation
+        gsap.set([tagRef.current, headlineRef.current, subRowRef.current, lottieRef.current], { opacity: 1 });
+        gsap.set(bottomRowRef.current?.children ?? [], { opacity: 1 });
       }
-
-      // 3. Sub row slides up
-      tl.from(
-        subRowRef.current,
-        {
-          opacity: 0,
-          y: 40,
-          duration: 0.8,
-        },
-        "-=0.5"
-      );
-
-      // 4. Bottom bento cards stagger in
-      tl.from(
-        bottomRowRef.current?.children ?? [],
-        {
-          opacity: 0,
-          y: 50,
-          stagger: 0.12,
-          duration: 0.7,
-          ease: "back.out(1.2)",
-        },
-        "-=0.4"
-      );
-
-      // 5. Lottie container fades in
-      gsap.from(lottieRef.current, {
-        opacity: 0,
-        scale: 0.85,
-        duration: 1.2,
-        ease: "power2.out",
-        delay: 0.6,
-      });
-
-      // 6. Headline parallax on scroll
-      gsap.to(headlineRef.current, {
-        yPercent: -15,
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
     }, sectionRef);
 
     return () => {
@@ -131,11 +161,13 @@ export default function Hero() {
 
       {/* Lottie animation — center glow */}
       <div ref={lottieRef} className={styles.lottieWrap}>
+        {!animationLoaded && <Skeleton width="100%" height="300px" borderRadius="16px" />}
         <Lottie
           animationData={orangeAnimation}
           loop
           autoplay
-          style={{ width: "100%", height: "100%" }}
+          onDOMLoaded={() => setAnimationLoaded(true)}
+          style={{ width: "100%", height: "100%", display: animationLoaded ? "block" : "none" }}
         />
       </div>
 
@@ -152,12 +184,12 @@ export default function Hero() {
 
         <div className={styles.rightContent}>
           <div className={styles.statsCard}>
-            <span className={styles.statsNumber}>3</span>
+            <span className={styles.statsNumber}>{APPS_DATA.length}</span>
             <span className={styles.statsLabel}>Apps Available</span>
           </div>
           <div className={styles.statsCard}>
-            <span className={styles.statsNumber}>99.99%</span>
-            <span className={styles.statsLabel}>Absolutely Cinema</span>
+            <span className={styles.statsNumber}>4.8★</span>
+            <span className={styles.statsLabel}>Avg Rating</span>
           </div>
         </div>
       </div>
@@ -185,15 +217,17 @@ export default function Hero() {
             }
           }}
         >
+          {!dogLoaded && <Skeleton width="100%" height="100%" borderRadius="0" />}
           <Lottie
             lottieRef={dogRef}
             animationData={dogAnimation}
             loop={true}
             autoplay={false}
             onDOMLoaded={() => {
+              setDogLoaded(true);
               dogRef.current?.playSegments([0, 120], true);
             }}
-            style={{ width: "100%", height: "100%", transform: "scale(1.2)" }}
+            style={{ width: "100%", height: "100%", transform: "scale(1.2)", display: dogLoaded ? "block" : "none" }}
           />
         </div>
 

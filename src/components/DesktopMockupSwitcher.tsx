@@ -206,7 +206,7 @@ export default function DesktopMockupSwitcher() {
           <Image
             key={currentItem.id}
             src={currentItem.image}
-            alt={currentItem.label}
+            alt={`${currentItem.label} - screenshot showing ${currentItem.label.toLowerCase()} feature`}
             fill
             priority
             unoptimized

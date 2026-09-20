@@ -54,6 +54,12 @@
   display: block;
   text-decoration: none;
   height: 100%;
+  border-radius: var(--radius-xl);
+}
+
+.cardLink:focus-visible {
+  outline: 3px solid var(--accent-orange);
+  outline-offset: 4px;
 }
 
 .cardWide {

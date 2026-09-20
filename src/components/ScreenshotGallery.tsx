@@ -51,7 +51,7 @@ export default function ScreenshotGallery({ screenshots = SCREENSHOTS }: Props) 
               <div className={styles.phoneFrame}>
                 <Image 
                   src={src} 
-                  alt={`App Screenshot ${idx + 1}`} 
+                  alt={`App Screenshot ${idx + 1} - productivity app feature showcase`}
                   width={280} 
                   height={600} 
                   className={styles.screenshotImg}

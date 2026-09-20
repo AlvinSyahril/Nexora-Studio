@@ -44,7 +44,7 @@ export default function FloatingSupport() {
 
   return (
     <AnimatePresence>
-      {isVisible && !pathname?.startsWith("/apps") && (
+      {isVisible && (
         <motion.div 
           key="floating-support"
           className={styles.floatingContainer}

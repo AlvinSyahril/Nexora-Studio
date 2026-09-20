@@ -24,6 +24,15 @@ const oasisFaqs = [
   { q: "What Android version do I need?", a: "Oasis requires Android 8.0 (Oreo) or later to ensure smooth animations and stable AI capabilities." },
 ];
 
+const loomFaqs = [
+  { q: "What platforms does Loom support?", a: "Loom is available for Windows 10 and Windows 11. Mac and Linux versions are coming soon!" },
+  { q: "Is Loom really free?", a: "Yes! Loom is completely free and open-source. There are no hidden costs or premium features locked behind paywalls." },
+  { q: "What is a bi-directional knowledge graph?", a: "A bi-directional knowledge graph lets you create links between notes that work both ways. When you link Note A to Note B, you can instantly see the connection from either side, building a web of interconnected thoughts." },
+  { q: "Does Loom work offline?", a: "Absolutely! Loom is local-first, meaning all your data stays on your computer. You can use it without internet and have full privacy." },
+  { q: "Can I export my data?", a: "Yes! We support multiple export formats including Markdown, JSON, and more. Your data is always yours to keep." },
+  { q: "What are the system requirements?", a: "Loom requires Windows 10 (Build 19041) or later with at least 4GB of RAM. 8GB is recommended for optimal performance with large knowledge graphs." },
+];
+
 interface FaqAccordionProps {
   appId?: string;
 }
@@ -35,7 +44,7 @@ export default function FaqAccordion({ appId = "gtd" }: FaqAccordionProps) {
     setOpenIndex(openIndex === index ? null : index);
   };
 
-  const activeFaqs = appId === "oasis" ? oasisFaqs : gtdFaqs;
+  const activeFaqs = appId === "oasis" ? oasisFaqs : appId === "loom" ? loomFaqs : gtdFaqs;
 
   return (
     <section className={styles.faqSection}>
@@ -49,6 +58,7 @@ export default function FaqAccordion({ appId = "gtd" }: FaqAccordionProps) {
                 className={styles.questionBtn} 
                 onClick={() => toggleOpen(index)}
                 aria-expanded={isOpen}
+                aria-controls={`faq-answer-${index}`}
               >
                 <h3 className={styles.questionText}>{faq.q}</h3>
                 <div className={`${styles.icon} ${isOpen ? styles.iconOpen : ""}`}>
@@ -58,6 +68,7 @@ export default function FaqAccordion({ appId = "gtd" }: FaqAccordionProps) {
               <AnimatePresence>
                 {isOpen && (
                   <motion.div
+                    id={`faq-answer-${index}`}
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}

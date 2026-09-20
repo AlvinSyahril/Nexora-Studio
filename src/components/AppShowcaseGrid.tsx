@@ -23,69 +23,88 @@ export default function AppShowcaseGrid() {
   const gridRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Title reveal on scroll
-      gsap.from([tagRef.current, titleRef.current], {
-        opacity: 0,
-        y: 50,
-        stagger: 0.15,
-        duration: 0.9,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: tagRef.current,
-          start: "top 85%",
-        },
-      });
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      // Cards stagger in with pop effect
-      const cards = gridRef.current?.querySelectorAll("[data-card]") ?? [];
-      gsap.from(cards, {
-        opacity: 0,
-        y: 80,
-        scale: 0.94,
-        stagger: {
-          amount: 0.5,
-          from: "start",
-        },
-        duration: 0.8,
-        ease: "back.out(1.1)",
-        scrollTrigger: {
-          trigger: gridRef.current,
-          start: "top 80%",
-        },
-      });
-
-      // Hover magnetic effect on cards
-      cards.forEach((card) => {
-        const el = card as HTMLElement;
-
-        el.addEventListener("mouseenter", () => {
-          gsap.to(el, { scale: 1.025, duration: 0.3, ease: "power2.out" });
-        });
-
-        el.addEventListener("mouseleave", () => {
-          gsap.to(el, { scale: 1, y: 0, x: 0, duration: 0.5, ease: "elastic.out(1, 0.5)" });
-        });
-
-        el.addEventListener("mousemove", (e: MouseEvent) => {
-          const rect = el.getBoundingClientRect();
-          const cx = rect.left + rect.width / 2;
-          const cy = rect.top + rect.height / 2;
-          const dx = (e.clientX - cx) / rect.width;
-          const dy = (e.clientY - cy) / rect.height;
-          gsap.to(el, {
-            rotateY: dx * 6,
-            rotateX: -dy * 6,
-            duration: 0.4,
-            ease: "power2.out",
-            transformPerspective: 800,
+      const ctx = gsap.context(() => {
+        if (!prefersReducedMotion) {
+          // Title reveal on scroll
+          gsap.from([tagRef.current, titleRef.current], {
+            opacity: 0,
+            y: 50,
+            stagger: 0.15,
+            duration: 0.9,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: tagRef.current,
+              start: "top 85%",
+            },
           });
-        });
-      });
-    }, sectionRef);
 
-    return () => ctx.revert();
-  }, []);
+          // Cards stagger in with pop effect
+          const cards = gridRef.current?.querySelectorAll("[data-card]") ?? [];
+          gsap.from(cards, {
+            opacity: 0,
+            y: 80,
+            scale: 0.94,
+            stagger: {
+              amount: 0.5,
+              from: "start",
+            },
+            duration: 0.8,
+            ease: "back.out(1.1)",
+            scrollTrigger: {
+              trigger: gridRef.current,
+              start: "top 80%",
+            },
+          });
+
+          // Hover magnetic effect on cards
+          cards.forEach((card) => {
+            const el = card as HTMLElement;
+
+            const mouseenterHandler = () => {
+              gsap.to(el, { scale: 1.025, duration: 0.3, ease: "power2.out" });
+            };
+
+            const mouseleaveHandler = () => {
+              gsap.to(el, { scale: 1, y: 0, x: 0, duration: 0.5, ease: "elastic.out(1, 0.5)" });
+            };
+
+            const mousemoveHandler = (e: MouseEvent) => {
+              const rect = el.getBoundingClientRect();
+              const cx = rect.left + rect.width / 2;
+              const cy = rect.top + rect.height / 2;
+              const dx = (e.clientX - cx) / rect.width;
+              const dy = (e.clientY - cy) / rect.height;
+              gsap.to(el, {
+                rotateY: dx * 6,
+                rotateX: -dy * 6,
+                duration: 0.4,
+                ease: "power2.out",
+                transformPerspective: 800,
+              });
+            };
+
+            el.addEventListener("mouseenter", mouseenterHandler);
+            el.addEventListener("mouseleave", mouseleaveHandler);
+            el.addEventListener("mousemove", mousemoveHandler);
+
+            return () => {
+              el.removeEventListener("mouseenter", mouseenterHandler);
+              el.removeEventListener("mouseleave", mouseleaveHandler);
+              el.removeEventListener("mousemove", mousemoveHandler);
+            };
+          });
+        } else {
+          // Instant reveal without animation
+          gsap.set([tagRef.current, titleRef.current], { opacity: 1 });
+          const cards = gridRef.current?.querySelectorAll("[data-card]") ?? [];
+          gsap.set(cards, { opacity: 1 });
+        }
+      }, sectionRef);
+
+      return () => ctx.revert();
+    }, []);
 
   return (
     <section ref={sectionRef} id="apps" className={styles.section}>
@@ -118,7 +137,7 @@ export default function AppShowcaseGrid() {
                       {app.iconUrl ? (
                           <Image
                             src={app.iconUrl}
-                            alt={app.name}
+                            alt={`${app.name} - ${app.tagline}`}
                             width={48}
                             height={48}
                             style={{ borderRadius: "12px", objectFit: "cover" }}

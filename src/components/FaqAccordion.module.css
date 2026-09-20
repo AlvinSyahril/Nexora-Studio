@@ -44,6 +44,12 @@
   align-items: center;
   cursor: pointer;
   color: #1a1a2e;
+  border-radius: 16px;
+}
+
+.questionBtn:focus-visible {
+  outline: 3px solid var(--accent-orange);
+  outline-offset: 2px;
 }
 
 .questionText {

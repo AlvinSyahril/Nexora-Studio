@@ -54,6 +54,17 @@ a {
   text-decoration: none;
 }
 
+/* Keyboard focus indicators */
+:focus-visible {
+  outline: 3px solid var(--accent-orange);
+  outline-offset: 2px;
+}
+
+button:focus-visible {
+  outline: 3px solid var(--accent-orange);
+  outline-offset: 2px;
+}
+
 /* Typography Utilities */
 .display-font {
   font-family: var(--font-anton), sans-serif;
