@@ -289,7 +289,7 @@ export default function DesktopMockupSwitcher() {
               src={currentItem.image}
               alt={`${currentItem.label} - screenshot showing ${currentItem.label.toLowerCase()} feature`}
               fill
-              priority
+              priority={currentItem.id === 'home'}
               unoptimized
               quality={100}
               sizes="100vw"
@@ -297,7 +297,9 @@ export default function DesktopMockupSwitcher() {
                 objectFit: "contain",
                 objectPosition: "top center",
                 imageRendering: "-webkit-optimize-contrast",
+                opacity: imageOpacity,
               }}
+              onLoadingComplete={() => setImageOpacity(1)}
               onError={(e) => {
                 e.currentTarget.style.display = 'none';
               }}
