@@ -84,41 +84,21 @@ export default function Navbar() {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     
     if (!prefersReducedMotion) {
-      // Debounce: only trigger if no active animation
-      if (document.querySelectorAll('.emoji-confetti').length > 0) return;
-      
-      // 1. Confetti / Emoji explosion (Whimsy Injector)
-      const emojis = ['🎉', '✨', '🎊', '🚀', '🧡'];
-      for (let i = 0; i < 12; i++) { // Reduced from 20 to 12
-        const emoji = document.createElement('div');
-        emoji.className = 'emoji-confetti';
-        emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-        emoji.style.position = 'fixed';
-        emoji.style.left = `${Math.random() * 100}%`;
-        emoji.style.top = `${Math.random() * 100}%`;
-        emoji.style.fontSize = `${Math.random() * 2 + 1}rem`;
-        emoji.style.zIndex = '1000';
-        emoji.style.pointerEvents = 'none';
-        document.body.appendChild(emoji);
-
-        // Animate
-        gsap.to(emoji, {
-          y: -100,
-          opacity: 0,
-          duration: 2,
-          ease: "power1.out",
-          onComplete: () => emoji.remove()
-        });
-      }
+      // Smooth scroll with slight delay for effect
+      gsap.to(window, {
+        scrollTo: "#apps",
+        duration: 1.5,
+        ease: "power3.inOut",
+        delay: 0.2
+      });
+    } else {
+      // Direct scroll for reduced motion
+      gsap.to(window, {
+        scrollTo: "#apps",
+        duration: 0.5,
+        ease: "power2.inOut"
+      });
     }
-
-    // 2. Smooth scroll to apps section
-    gsap.to(window, {
-      scrollTo: "#apps",
-      duration: 1.5,
-      ease: "power3.inOut",
-      delay: 0.3
-    });
   };
 
   return (
