@@ -45,28 +45,34 @@ export default function Hero() {
   const [dogLoaded, setDogLoaded] = useState(false);
 
   useEffect(() => {
-    // Suppress Next.js Turbopack missing image [object Event] crash
-    const handleRejection = (e: PromiseRejectionEvent) => {
-      // Check for [object Event] or any Event-like object
-      if (e.reason && (e.reason instanceof Event || 
-          (typeof e.reason === 'object' && (e.reason.type === 'error' || e.reason.toString() === '[object Event]')))) {
-        e.preventDefault();
-        return;
-      }
+      // Suppress Next.js Turbopack missing image [object Event] crash
+      const handleRejection = (e: PromiseRejectionEvent) => {
+        // Check for [object Event] or any Event-like object
+        if (e.reason && (e.reason instanceof Event || 
+            (typeof e.reason === 'object' && (e.reason.type === 'error' || e.reason.toString() === '[object Event]')))) {
+          e.preventDefault();
+          return;
+        }
       
-      // Also suppress generic Turbopack error about missing image src
-      if (typeof e.reason === 'string' && e.reason.includes('Turbopack') && e.reason.includes('image')) {
-        e.preventDefault();
-        return;
-      }
-    };
-    window.addEventListener('unhandledrejection', handleRejection);
+        // Also suppress generic Turbopack error about missing image src
+        if (typeof e.reason === 'string' && e.reason.includes('Turbopack') && e.reason.includes('image')) {
+          e.preventDefault();
+          return;
+        }
+      
+        // Catch-all for any unhandled rejection that stringifies to [object Event]
+        if (e.reason && String(e.reason) === '[object Event]') {
+          e.preventDefault();
+          return;
+        }
+      };
+      window.addEventListener('unhandledrejection', handleRejection);
     
-    const playDog = () => {
-      dogRef.current?.playSegments([230, 425], true);
-      setIsAwake(true);
-    };
-    window.addEventListener('play-dog-animation', playDog);
+      const playDog = () => {
+        dogRef.current?.playSegments([230, 425], true);
+        setIsAwake(true);
+      };
+      window.addEventListener('play-dog-animation', playDog);
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
