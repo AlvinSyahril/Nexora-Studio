@@ -129,6 +129,11 @@
   0%, 100% { transform: perspective(1200px) translateY(0) rotateY(-15deg) rotateX(5deg); }
   50% { transform: perspective(1200px) translateY(-20px) rotateY(-15deg) rotateX(5deg); }
 }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .textGradient {
   background: linear-gradient(135deg, #1a1a2e 0%, #9D85F8 100%);
   -webkit-background-clip: text;

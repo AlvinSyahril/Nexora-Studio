@@ -417,204 +417,180 @@ export default function AppDetailsClient({ app }: { app: any }) {
 
                   <div className={`${styles.keyboardGrid}`}>
                     {activeTab === 'all' || activeTab === 'global' ? (
-                      <>
-                        {/* Global Desktop Category */}
-                        <div className={`${styles.keyboardCategory}`}>
-                          <div className={`${styles.keyboardCategoryTitle}`}>
-                            <div className={`${styles.keyboardCategoryIcon}`}>
-                              <Globe size={20} />
-                            </div>
-                            <span>Global Desktop</span>
-                          </div>
+                                          <div className={`${styles.keyboardCategory}`} style={{ animation: 'fadeIn 0.4s ease forwards' }}>
+                                            <div className={`${styles.keyboardCategoryTitle}`}>
+                                              <div className={`${styles.keyboardCategoryIcon}`}>
+                                                <Globe size={20} />
+                                              </div>
+                                              <span>Global Desktop</span>
+                                            </div>
 
-                          <div className={`${styles.shortcutList}`}>
-                            {/* Shortcut 1 */}
-                            <div className={`${styles.shortcutItem}`}>
-                              <div className={`${styles.shortcutKeys}`}>
-                                <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Alt</span>
-                                <span className={`${styles.shortcutPlus}`}>+</span>
-                                <span className={`${styles.shortcutKbd}`}>Space</span>
-                              </div>
-                              <span className={`${styles.shortcutDesc}`}>Floating Desktop Quick Capture</span>
-                            </div>
+                                            <div className={`${styles.shortcutList}`}>
+                                              <div className={`${styles.shortcutItem}`}>
+                                                <div className={`${styles.shortcutKeys}`}>
+                                                  <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Alt</span>
+                                                  <span className={`${styles.shortcutPlus}`}>+</span>
+                                                  <span className={`${styles.shortcutKbd}`}>Space</span>
+                                                </div>
+                                                <span className={`${styles.shortcutDesc}`}>Floating Desktop Quick Capture</span>
+                                              </div>
 
-                            {/* Shortcut 2 */}
-                            <div className={`${styles.shortcutItem}`}>
-                              <div className={`${styles.shortcutKeys}`}>
-                                <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Ctrl</span>
-                                <span className={`${styles.shortcutPlus}`}>+</span>
-                                <span className={`${styles.shortcutKbd}`}>Space</span>
-                              </div>
-                              <span className={`${styles.shortcutDesc}`}>Brain Dump Fullscreen</span>
-                            </div>
+                                              <div className={`${styles.shortcutItem}`}>
+                                                <div className={`${styles.shortcutKeys}`}>
+                                                  <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Ctrl</span>
+                                                  <span className={`${styles.shortcutPlus}`}>+</span>
+                                                  <span className={`${styles.shortcutKbd}`}>Space</span>
+                                                </div>
+                                                <span className={`${styles.shortcutDesc}`}>Brain Dump Fullscreen</span>
+                                              </div>
 
-                            {/* Shortcut 3 */}
-                            <div className={`${styles.shortcutItem}`}>
-                              <div className={`${styles.shortcutKeys}`}>
-                                <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Ctrl</span>
-                                <span className={`${styles.shortcutPlus}`}>+</span>
-                                <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Alt</span>
-                                <span className={`${styles.shortcutPlus}`}>+</span>
-                                <span className={`${styles.shortcutKbd}`}>H</span>
-                              </div>
-                              <span className={`${styles.shortcutDesc}`}>Stealth Mode</span>
-                            </div>
+                                              <div className={`${styles.shortcutItem}`}>
+                                                <div className={`${styles.shortcutKeys}`}>
+                                                  <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Ctrl</span>
+                                                  <span className={`${styles.shortcutPlus}`}>+</span>
+                                                  <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Alt</span>
+                                                  <span className={`${styles.shortcutPlus}`}>+</span>
+                                                  <span className={`${styles.shortcutKbd}`}>H</span>
+                                                </div>
+                                                <span className={`${styles.shortcutDesc}`}>Stealth Mode</span>
+                                              </div>
 
-                            {/* Shortcut 4 */}
-                            <div className={`${styles.shortcutItem}`}>
-                              <div className={`${styles.shortcutKeys}`}>
-                                <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Ctrl</span>
-                                <span className={`${styles.shortcutPlus}`}>+</span>
-                                <span className={`${styles.shortcutKbd}`}>S</span>
-                              </div>
-                              <span className={`${styles.shortcutDesc}`}>Global Search</span>
-                            </div>
+                                              <div className={`${styles.shortcutItem}`}>
+                                                <div className={`${styles.shortcutKeys}`}>
+                                                  <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Ctrl</span>
+                                                  <span className={`${styles.shortcutPlus}`}>+</span>
+                                                  <span className={`${styles.shortcutKbd}`}>S</span>
+                                                </div>
+                                                <span className={`${styles.shortcutDesc}`}>Global Search</span>
+                                              </div>
 
-                            {/* Shortcut 5 */}
-                            <div className={`${styles.shortcutItem}`}>
-                              <div className={`${styles.shortcutKeys}`}>
-                                <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Ctrl</span>
-                                <span className={`${styles.shortcutPlus}`}>+</span>
-                                <span className={`${styles.shortcutKbd}`}>K</span>
-                              </div>
-                              <span className={`${styles.shortcutDesc}`}>Command Palette</span>
-                            </div>
-                          </div>
-                        </div>
-                      </>
-                    ) : null}
+                                              <div className={`${styles.shortcutItem}`}>
+                                                <div className={`${styles.shortcutKeys}`}>
+                                                  <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Ctrl</span>
+                                                  <span className={`${styles.shortcutPlus}`}>+</span>
+                                                  <span className={`${styles.shortcutKbd}`}>K</span>
+                                                </div>
+                                                <span className={`${styles.shortcutDesc}`}>Command Palette</span>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        ) : null}
 
-                    {activeTab === 'all' || activeTab === 'editor' ? (
-                      <>
-                        {/* Editor & Flow Category */}
-                        <div className={`${styles.keyboardCategory}`}>
-                          <div className={`${styles.keyboardCategoryTitle}`}>
-                            <div className={`${styles.keyboardCategoryIcon}`}>
-                              <Edit3 size={20} />
-                            </div>
-                            <span>Editor & Flow</span>
-                          </div>
+                                        {activeTab === 'all' || activeTab === 'editor' ? (
+                                          <div className={`${styles.keyboardCategory}`} style={{ animation: 'fadeIn 0.4s ease forwards', animationDelay: '0.05s' }}>
+                                            <div className={`${styles.keyboardCategoryTitle}`}>
+                                              <div className={`${styles.keyboardCategoryIcon}`}>
+                                                <Edit3 size={20} />
+                                              </div>
+                                              <span>Editor & Flow</span>
+                                            </div>
 
-                          <div className={`${styles.shortcutList}`}>
-                            {/* Shortcut 1 */}
-                            <div className={`${styles.shortcutItem}`}>
-                              <div className={`${styles.shortcutKeys}`}>
-                                <span className={`${styles.shortcutKbd}`}>F11</span>
-                              </div>
-                              <span className={`${styles.shortcutDesc}`}>Zen Mode</span>
-                            </div>
+                                            <div className={`${styles.shortcutList}`}>
+                                              <div className={`${styles.shortcutItem}`}>
+                                                <div className={`${styles.shortcutKeys}`}>
+                                                  <span className={`${styles.shortcutKbd}`}>F11</span>
+                                                </div>
+                                                <span className={`${styles.shortcutDesc}`}>Zen Mode</span>
+                                              </div>
 
-                            {/* Shortcut 2 */}
-                            <div className={`${styles.shortcutItem}`}>
-                              <div className={`${styles.shortcutKeys}`}>
-                                <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Ctrl</span>
-                                <span className={`${styles.shortcutPlus}`}>+</span>
-                                <span className={`${styles.shortcutKbd}`}>H</span>
-                              </div>
-                              <span className={`${styles.shortcutDesc}`}>Time Machine</span>
-                            </div>
+                                              <div className={`${styles.shortcutItem}`}>
+                                                <div className={`${styles.shortcutKeys}`}>
+                                                  <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Ctrl</span>
+                                                  <span className={`${styles.shortcutPlus}`}>+</span>
+                                                  <span className={`${styles.shortcutKbd}`}>H</span>
+                                                </div>
+                                                <span className={`${styles.shortcutDesc}`}>Time Machine</span>
+                                              </div>
 
-                            {/* Shortcut 3 */}
-                            <div className={`${styles.shortcutItem}`}>
-                              <div className={`${styles.shortcutKeys}`}>
-                                <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Ctrl</span>
-                                <span className={`${styles.shortcutPlus}`}>+</span>
-                                <span className={`${styles.shortcutKbd}`}>J</span>
-                              </div>
-                              <span className={`${styles.shortcutDesc}`}>Daily Journal</span>
-                            </div>
+                                              <div className={`${styles.shortcutItem}`}>
+                                                <div className={`${styles.shortcutKeys}`}>
+                                                  <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Ctrl</span>
+                                                  <span className={`${styles.shortcutPlus}`}>+</span>
+                                                  <span className={`${styles.shortcutKbd}`}>J</span>
+                                                </div>
+                                                <span className={`${styles.shortcutDesc}`}>Daily Journal</span>
+                                              </div>
 
-                            {/* Shortcut 4 */}
-                            <div className={`${styles.shortcutItem}`}>
-                              <div className={`${styles.shortcutKeys}`}>
-                                <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Ctrl</span>
-                                <span className={`${styles.shortcutPlus}`}>+</span>
-                                <span className={`${styles.shortcutKbd}`}>E</span>
-                              </div>
-                              <span className={`${styles.shortcutDesc}`}>Multi-Format Export</span>
-                            </div>
+                                              <div className={`${styles.shortcutItem}`}>
+                                                <div className={`${styles.shortcutKeys}`}>
+                                                  <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Ctrl</span>
+                                                  <span className={`${styles.shortcutPlus}`}>+</span>
+                                                  <span className={`${styles.shortcutKbd}`}>E</span>
+                                                </div>
+                                                <span className={`${styles.shortcutDesc}`}>Multi-Format Export</span>
+                                              </div>
 
-                            {/* Shortcut 5 */}
-                            <div className={`${styles.shortcutItem}`}>
-                              <div className={`${styles.shortcutKeys}`}>
-                                <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Shift</span>
-                                <span className={`${styles.shortcutPlus}`}>+</span>
-                                <span className={`${styles.shortcutKbd}`}>B</span>
-                              </div>
-                              <span className={`${styles.shortcutDesc}`}>Auto-Tidy Bento Grid</span>
-                            </div>
-                          </div>
-                        </div>
-                      </>
-                    ) : null}
+                                              <div className={`${styles.shortcutItem}`}>
+                                                <div className={`${styles.shortcutKeys}`}>
+                                                  <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Shift</span>
+                                                  <span className={`${styles.shortcutPlus}`}>+</span>
+                                                  <span className={`${styles.shortcutKbd}`}>B</span>
+                                                </div>
+                                                <span className={`${styles.shortcutDesc}`}>Auto-Tidy Bento Grid</span>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        ) : null}
 
-                    {activeTab === 'all' || activeTab === 'canvas' ? (
-                      <>
-                        {/* Canvas & Navigation Category */}
-                        <div className={`${styles.keyboardCategory}`}>
-                          <div className={`${styles.keyboardCategoryTitle}`}>
-                            <div className={`${styles.keyboardCategoryIcon}`}>
-                              <LayoutDashboard size={20} />
-                            </div>
-                            <span>Canvas & Navigation</span>
-                          </div>
+                                        {activeTab === 'all' || activeTab === 'canvas' ? (
+                                          <div className={`${styles.keyboardCategory}`} style={{ animation: 'fadeIn 0.4s ease forwards', animationDelay: '0.1s' }}>
+                                            <div className={`${styles.keyboardCategoryTitle}`}>
+                                              <div className={`${styles.keyboardCategoryIcon}`}>
+                                                <LayoutDashboard size={20} />
+                                              </div>
+                                              <span>Canvas & Navigation</span>
+                                            </div>
 
-                          <div className={`${styles.shortcutList}`}>
-                            {/* Shortcut 1 */}
-                            <div className={`${styles.shortcutItem}`}>
-                              <div className={`${styles.shortcutKeys}`}>
-                                <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Ctrl</span>
-                                <span className={`${styles.shortcutPlus}`}>+</span>
-                                <span className={`${styles.shortcutKbd}`}>Tab</span>
-                              </div>
-                              <span className={`${styles.shortcutDesc}`}>Cycle Tabs</span>
-                            </div>
+                                            <div className={`${styles.shortcutList}`}>
+                                              <div className={`${styles.shortcutItem}`}>
+                                                <div className={`${styles.shortcutKeys}`}>
+                                                  <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Ctrl</span>
+                                                  <span className={`${styles.shortcutPlus}`}>+</span>
+                                                  <span className={`${styles.shortcutKbd}`}>Tab</span>
+                                                </div>
+                                                <span className={`${styles.shortcutDesc}`}>Cycle Tabs</span>
+                                              </div>
 
-                            {/* Shortcut 2 */}
-                            <div className={`${styles.shortcutItem}`}>
-                              <div className={`${styles.shortcutKeys}`}>
-                                <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Ctrl</span>
-                                <span className={`${styles.shortcutPlus}`}>+</span>
-                                <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Shift</span>
-                                <span className={`${styles.shortcutPlus}`}>+</span>
-                                <span className={`${styles.shortcutKbd}`}>Tab</span>
-                              </div>
-                              <span className={`${styles.shortcutDesc}`}>Reverse Cycle Tabs</span>
-                            </div>
+                                              <div className={`${styles.shortcutItem}`}>
+                                                <div className={`${styles.shortcutKeys}`}>
+                                                  <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Ctrl</span>
+                                                  <span className={`${styles.shortcutPlus}`}>+</span>
+                                                  <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Shift</span>
+                                                  <span className={`${styles.shortcutPlus}`}>+</span>
+                                                  <span className={`${styles.shortcutKbd}`}>Tab</span>
+                                                </div>
+                                                <span className={`${styles.shortcutDesc}`}>Reverse Cycle Tabs</span>
+                                              </div>
 
-                            {/* Shortcut 3 */}
-                            <div className={`${styles.shortcutItem}`}>
-                              <div className={`${styles.shortcutKeys}`}>
-                                <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Ctrl</span>
-                                <span className={`${styles.shortcutPlus}`}>+</span>
-                                <span className={`${styles.shortcutKbd}`}>W</span>
-                              </div>
-                              <span className={`${styles.shortcutDesc}`}>Close Tab</span>
-                            </div>
+                                              <div className={`${styles.shortcutItem}`}>
+                                                <div className={`${styles.shortcutKeys}`}>
+                                                  <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Ctrl</span>
+                                                  <span className={`${styles.shortcutPlus}`}>+</span>
+                                                  <span className={`${styles.shortcutKbd}`}>W</span>
+                                                </div>
+                                                <span className={`${styles.shortcutDesc}`}>Close Tab</span>
+                                              </div>
 
-                            {/* Shortcut 4 */}
-                            <div className={`${styles.shortcutItem}`}>
-                              <div className={`${styles.shortcutKeys}`}>
-                                <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Ctrl</span>
-                                <span className={`${styles.shortcutPlus}`}>+</span>
-                                <span className={`${styles.shortcutKbd}`}>N</span>
-                              </div>
-                              <span className={`${styles.shortcutDesc}`}>New Tab</span>
-                            </div>
+                                              <div className={`${styles.shortcutItem}`}>
+                                                <div className={`${styles.shortcutKeys}`}>
+                                                  <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Ctrl</span>
+                                                  <span className={`${styles.shortcutPlus}`}>+</span>
+                                                  <span className={`${styles.shortcutKbd}`}>N</span>
+                                                </div>
+                                                <span className={`${styles.shortcutDesc}`}>New Tab</span>
+                                              </div>
 
-                            {/* Shortcut 5 */}
-                            <div className={`${styles.shortcutItem}`}>
-                              <div className={`${styles.shortcutKeys}`}>
-                                <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Ctrl</span>
-                                <span className={`${styles.shortcutPlus}`}>+</span>
-                                <span className={`${styles.shortcutKbd}`}>P</span>
-                              </div>
-                              <span className={`${styles.shortcutDesc}`}>Go to Page</span>
-                            </div>
-                          </div>
-                        </div>
-                      </>
-                    ) : null}
+                                              <div className={`${styles.shortcutItem}`}>
+                                                <div className={`${styles.shortcutKeys}`}>
+                                                  <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Ctrl</span>
+                                                  <span className={`${styles.shortcutPlus}`}>+</span>
+                                                  <span className={`${styles.shortcutKbd}`}>P</span>
+                                                </div>
+                                                <span className={`${styles.shortcutDesc}`}>Go to Page</span>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        ) : null}
                   </div>
                 </section>
 
