@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { 
   Home as House, 
@@ -109,7 +109,35 @@ const MENU_ITEMS: MenuItem[] = [
 
 export default function DesktopMockupSwitcher() {
   const [activeMenuId, setActiveMenuId] = useState("home");
+  const [imageOpacity, setImageOpacity] = useState(1);
   const currentItem = MENU_ITEMS.find((item) => item.id === activeMenuId) || MENU_ITEMS[0];
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+      const currentIndex = MENU_ITEMS.findIndex((item) => item.id === activeMenuId);
+      let newIndex = currentIndex;
+      if (e.key === "ArrowRight") newIndex = (currentIndex + 1) % MENU_ITEMS.length;
+      if (e.key === "ArrowLeft") newIndex = (currentIndex - 1 + MENU_ITEMS.length) % MENU_ITEMS.length;
+      if (e.key === "Home") newIndex = 0;
+      if (e.key === "End") newIndex = MENU_ITEMS.length - 1;
+      if (newIndex !== currentIndex) {
+        setActiveMenuId(MENU_ITEMS[newIndex].id);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [activeMenuId]);
+
+  // Smooth image transition
+  const handleImageSwitch = (id: string) => {
+    setImageOpacity(0);
+    setTimeout(() => {
+      setActiveMenuId(id);
+      setImageOpacity(1);
+    }, 150);
+  };
 
   return (
     <div style={{ width: "100%", margin: "0 auto", maxWidth: "1200px" }}>
@@ -124,6 +152,8 @@ export default function DesktopMockupSwitcher() {
           justifyContent: "center",
           flexWrap: "wrap"
         }}
+        role="tablist"
+        aria-label="Loom feature categories"
       >
         {MENU_ITEMS.map((item) => {
           const Icon = item.icon;
@@ -131,7 +161,17 @@ export default function DesktopMockupSwitcher() {
           return (
             <button
               key={item.id}
-              onClick={() => setActiveMenuId(item.id)}
+              onClick={() => handleImageSwitch(item.id)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  handleImageSwitch(item.id);
+                }
+              }}
+              role="tab"
+              aria-selected={isActive}
+              aria-controls={`panel-${item.id}`}
+              id={`tab-${item.id}`}
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -142,13 +182,28 @@ export default function DesktopMockupSwitcher() {
                 fontWeight: 500,
                 cursor: "pointer",
                 transition: "all 0.2s ease",
-                border: isActive ? "1px solid rgba(0,0,0,0.1)" : "1px solid transparent",
-                background: isActive ? "var(--surface)" : "transparent",
-                color: isActive ? "var(--foreground)" : "#6b7280",
-                boxShadow: isActive ? "0 2px 8px rgba(0,0,0,0.04)" : "none"
+                border: isActive ? "1px solid #F59E0B" : "1px solid transparent",
+                background: isActive ? "linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%)" : "transparent",
+                color: isActive ? "#1a1a2e" : "#6b7280",
+                boxShadow: isActive ? "0 4px 20px rgba(245, 158, 11, 0.3)" : "0 2px 8px rgba(0,0,0,0.04)",
+                outline: "none"
+              }}
+              onMouseEnter={(e) => {
+                if (!isActive) {
+                  e.currentTarget.style.borderColor = "#F59E0B";
+                  e.currentTarget.style.color = "#F59E0B";
+                  e.currentTarget.style.background = "rgba(245, 158, 11, 0.08)";
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (!isActive) {
+                  e.currentTarget.style.borderColor = "transparent";
+                  e.currentTarget.style.color = "#6b7280";
+                  e.currentTarget.style.background = "transparent";
+                }
               }}
             >
-              <Icon size={16} />
+              <Icon size={16} style={{ transition: "transform 0.2s ease" }} />
               <span>{item.label}</span>
             </button>
           );
@@ -181,14 +236,39 @@ export default function DesktopMockupSwitcher() {
         >
           {/* Interactive Window Controls */}
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <div style={{ width: "12px", height: "12px", borderRadius: "50%", background: "#ef4444" }} />
-            <div style={{ width: "12px", height: "12px", borderRadius: "50%", background: "#eab308" }} />
-            <div style={{ width: "12px", height: "12px", borderRadius: "50%", background: "#22c55e" }} />
+            <button 
+              style={{ width: "12px", height: "12px", borderRadius: "50%", background: "#ef4444", border: "none", cursor: "pointer", transition: "transform 0.15s ease" }}
+              onMouseDown={(e) => e.currentTarget.style.transform = "scale(0.9)"}
+              onMouseUp={(e) => e.currentTarget.style.transform = "scale(1)"}
+              onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}
+              aria-label="Close window"
+            />
+            <button 
+              style={{ width: "12px", height: "12px", borderRadius: "50%", background: "#eab308", border: "none", cursor: "pointer", transition: "transform 0.15s ease" }}
+              onMouseDown={(e) => e.currentTarget.style.transform = "scale(0.9)"}
+              onMouseUp={(e) => e.currentTarget.style.transform = "scale(1)"}
+              onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}
+              aria-label="Minimize window"
+            />
+            <button 
+              style={{ width: "12px", height: "12px", borderRadius: "50%", background: "#22c55e", border: "none", cursor: "pointer", transition: "transform 0.15s ease" }}
+              onMouseDown={(e) => e.currentTarget.style.transform = "scale(0.9)"}
+              onMouseUp={(e) => e.currentTarget.style.transform = "scale(1)"}
+              onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}
+              aria-label="Maximize window"
+            />
           </div>
 
           <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", margin: "0 auto", transform: "translateX(-1.5rem)" }}>
             <span style={{ fontSize: "0.8rem", fontWeight: 500, color: "#6b7280" }}>
               Loom — {currentItem.label}
+            </span>
+          </div>
+
+          {/* App Icon in Title Bar */}
+          <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: "0.5rem", opacity: 0.6 }}>
+            <span style={{ fontSize: "0.7rem", color: "#9ca3af", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+              {currentItem.id.toUpperCase()}
             </span>
           </div>
         </div>
@@ -199,33 +279,66 @@ export default function DesktopMockupSwitcher() {
             position: "relative",
             width: "100%",
             aspectRatio: "16 / 9.5",
-            background: "#111111", // Keeping dark background inside frame because Loom is a dark app
+            background: "#111111",
             overflow: "hidden"
           }}
         >
-          <Image
-            key={currentItem.id}
-            src={currentItem.image}
-            alt={`${currentItem.label} - screenshot showing ${currentItem.label.toLowerCase()} feature`}
-            fill
-            priority
-            unoptimized
-            quality={100}
-            sizes="100vw"
-            style={{
-              objectFit: "contain",
-              objectPosition: "top center",
-              imageRendering: "-webkit-optimize-contrast",
-              transition: "opacity 0.25s ease"
-            }}
-            onError={(e) => {
-              e.currentTarget.style.display = 'none';
-            }}
-          />
+          <div style={{ position: "absolute", inset: 0, transition: "opacity 0.25s ease", opacity: imageOpacity }}>
+            <Image
+              key={currentItem.id}
+              src={currentItem.image}
+              alt={`${currentItem.label} - screenshot showing ${currentItem.label.toLowerCase()} feature`}
+              fill
+              priority
+              unoptimized
+              quality={100}
+              sizes="100vw"
+              style={{
+                objectFit: "contain",
+                objectPosition: "top center",
+                imageRendering: "-webkit-optimize-contrast",
+              }}
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+              }}
+            />
+            {/* Placeholder when image fails to load */}
+            <div style={{ 
+              position: "absolute", 
+              inset: 0, 
+              display: "flex", 
+              alignItems: "center", 
+              justifyContent: "center",
+              flexDirection: "column",
+              gap: "1rem",
+              color: "#4b5563",
+              padding: "2rem"
+            }}>
+              <div style={{ 
+                width: "80px", 
+                height: "80px", 
+                borderRadius: "50%", 
+                background: "rgba(245, 158, 11, 0.15)", 
+                display: "flex", 
+                alignItems: "center", 
+                justifyContent: "center",
+                animation: "pulse 2s infinite ease-in-out"
+              }}>
+                <Image src="/showcase/loom/logo.png" alt="Loom" width={40} height={40} />
+              </div>
+              <p style={{ fontSize: "1rem", fontWeight: 500 }}>Preview unavailable</p>
+              <p style={{ fontSize: "0.85rem", textAlign: "center", maxWidth: "280px" }}>
+                Screenshot for <strong>{currentItem.label}</strong> not found. Add image at <code>{currentItem.image}</code>
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Feature Context Banner Below Mockup */}
         <div
+          id={`panel-${currentItem.id}`}
+          role="tabpanel"
+          aria-labelledby={`tab-${currentItem.id}`}
           style={{
             padding: "1.5rem 2rem",
             background: "var(--surface)",
@@ -245,8 +358,38 @@ export default function DesktopMockupSwitcher() {
               {currentItem.description}
             </p>
           </div>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+            <span style={{ 
+              fontSize: "0.75rem", 
+              fontWeight: 600, 
+              color: "#6b7280",
+              letterSpacing: "0.1em",
+              textTransform: "uppercase"
+            }}>
+              ← → Navigate
+            </span>
+            <div style={{ 
+              display: "flex", 
+              alignItems: "center", 
+              gap: "0.35rem",
+              padding: "0.35rem 0.75rem",
+              background: "rgba(245, 158, 11, 0.1)",
+              borderRadius: "9999px",
+              color: "#F59E0B",
+              fontSize: "0.7rem",
+              fontWeight: 600
+            }}>
+              <kbd style={{ fontFamily: "inherit" }}>Space</kbd> Quick Capture
+            </div>
+          </div>
         </div>
       </div>
+      <style jsx>{`
+        @keyframes pulse {
+          0%, 100% { transform: scale(1); opacity: 0.8; }
+          50% { transform: scale(1.05); opacity: 1; }
+        }
+      `}</style>
     </div>
   );
 }
