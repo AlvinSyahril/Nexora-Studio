@@ -110,7 +110,10 @@ const MENU_ITEMS: MenuItem[] = [
 export default function DesktopMockupSwitcher() {
   const [activeMenuId, setActiveMenuId] = useState("home");
   const [imageOpacity, setImageOpacity] = useState(1);
+  const [imageError, setImageError] = useState(false);
   const currentItem = MENU_ITEMS.find((item) => item.id === activeMenuId) || MENU_ITEMS[0];
+  const [imgSrc, setImgSrc] = useState(currentItem.image);
+  const [hasFallback, setHasFallback] = useState(false);
 
   // Keyboard navigation
   useEffect(() => {
@@ -123,19 +126,37 @@ export default function DesktopMockupSwitcher() {
       if (e.key === "Home") newIndex = 0;
       if (e.key === "End") newIndex = MENU_ITEMS.length - 1;
       if (newIndex !== currentIndex) {
-        setActiveMenuId(MENU_ITEMS[newIndex].id);
+        handleImageSwitch(MENU_ITEMS[newIndex].id);
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [activeMenuId]);
 
+  // Reset image source and error state when active item changes
+  useEffect(() => {
+    setImageError(false);
+    setHasFallback(false);
+    setImgSrc(currentItem.image);
+    setImageOpacity(1);
+  }, [activeMenuId, currentItem.image]);
+
   // Smooth image transition
   const handleImageSwitch = (id: string) => {
     setImageOpacity(0);
+    setImageError(false);
+    setHasFallback(false);
+
+    // Add a small delay to ensure the fade-out completes before changing the image
     setTimeout(() => {
+      const nextItem = MENU_ITEMS.find((item) => item.id === id) || MENU_ITEMS[0];
+      setImgSrc(nextItem.image);
       setActiveMenuId(id);
-      setImageOpacity(1);
+
+      // Add a slight delay before fading back in to create a smooth transition
+      setTimeout(() => {
+        setImageOpacity(1);
+      }, 50);
     }, 150);
   };
 
@@ -285,8 +306,8 @@ export default function DesktopMockupSwitcher() {
         >
           <div style={{ position: "absolute", inset: 0, transition: "opacity 0.25s ease", opacity: imageOpacity }}>
             <Image
-              key={currentItem.id}
-              src={currentItem.image}
+              key={`${currentItem.id}-${hasFallback ? 'fallback' : 'primary'}`}
+              src={imgSrc}
               alt={`${currentItem.label} - screenshot showing ${currentItem.label.toLowerCase()} feature`}
               fill
               priority={currentItem.id === 'home'}
@@ -298,10 +319,23 @@ export default function DesktopMockupSwitcher() {
                 objectPosition: "top center",
                 imageRendering: "-webkit-optimize-contrast",
                 opacity: imageOpacity,
+                display: imageError ? 'none' : 'block',
               }}
-              onLoadingComplete={() => setImageOpacity(1)}
+              onLoad={(e) => {
+                const target = e.currentTarget as HTMLImageElement;
+                target.style.display = 'block';
+                setImageOpacity(1);
+                setImageError(false);
+              }}
               onError={(e) => {
-                e.currentTarget.style.display = 'none';
+                // If relative path fails (e.g. Vercel WAF 429 challenge), fallback to GitHub Raw CDN
+                if (!hasFallback && currentItem.image.startsWith("/")) {
+                  setHasFallback(true);
+                  setImgSrc(`https://raw.githubusercontent.com/AlvinSyahril/Nexora-Studio/main/public${currentItem.image}`);
+                } else {
+                  (e.currentTarget as HTMLImageElement).style.display = 'none';
+                  setImageError(true);
+                }
               }}
             />
             {/* Placeholder when image fails to load */}
@@ -311,10 +345,13 @@ export default function DesktopMockupSwitcher() {
               display: "flex", 
               alignItems: "center", 
               justifyContent: "center",
-              flexDirection: "column",
-              gap: "1rem",
-              color: "#4b5563",
-              padding: "2rem"
+              flexDirection: "column", 
+              gap: "1rem", 
+              color: "#4b5563", 
+              padding: "2rem", 
+              opacity: imageError ? 1 : 0, 
+              pointerEvents: imageError ? "auto" : "none",
+              transition: "opacity 0.3s ease" 
             }}>
               <div style={{ 
                 width: "80px", 
@@ -328,10 +365,33 @@ export default function DesktopMockupSwitcher() {
               }}>
                 <Image src="/showcase/loom/logo.png" alt="Loom" width={40} height={40} />
               </div>
-              <p style={{ fontSize: "1rem", fontWeight: 500 }}>Preview unavailable</p>
-              <p style={{ fontSize: "0.85rem", textAlign: "center", maxWidth: "280px" }}>
-                Screenshot for <strong>{currentItem.label}</strong> not found. Add image at <code>{currentItem.image}</code>
+              <p style={{ fontSize: "1rem", fontWeight: 500, color: "#9ca3af" }}>Preview unavailable</p>
+              <p style={{ fontSize: "0.85rem", textAlign: "center", maxWidth: "280px", color: "#6b7280" }}>
+                Screenshot for <strong>{currentItem.label}</strong> failed to load.
               </p>
+              {imageError && (
+                <button
+                  onClick={() => {
+                    setImageError(false);
+                    setHasFallback(true);
+                    setImgSrc(`https://raw.githubusercontent.com/AlvinSyahril/Nexora-Studio/main/public${currentItem.image}?t=${Date.now()}`);
+                  }}
+                  style={{
+                    marginTop: "0.25rem",
+                    padding: "0.45rem 1rem",
+                    borderRadius: "8px",
+                    background: "#F59E0B",
+                    color: "#111",
+                    border: "none",
+                    fontWeight: 600,
+                    fontSize: "0.8rem",
+                    cursor: "pointer",
+                    boxShadow: "0 2px 10px rgba(245, 158, 11, 0.2)"
+                  }}
+                >
+                  Retry Loading
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -387,6 +447,11 @@ export default function DesktopMockupSwitcher() {
         </div>
       </div>
       <style jsx>{`
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
         @keyframes pulse {
           0%, 100% { transform: scale(1); opacity: 0.8; }
           50% { transform: scale(1.05); opacity: 1; }
