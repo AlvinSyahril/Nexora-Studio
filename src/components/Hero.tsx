@@ -47,8 +47,17 @@ export default function Hero() {
   useEffect(() => {
     // Suppress Next.js Turbopack missing image [object Event] crash
     const handleRejection = (e: PromiseRejectionEvent) => {
-      if (e.reason instanceof Event || (e.reason && typeof e.reason === 'object' && e.reason.type === 'error')) {
+      // Check for [object Event] or any Event-like object
+      if (e.reason && (e.reason instanceof Event || 
+          (typeof e.reason === 'object' && (e.reason.type === 'error' || e.reason.toString() === '[object Event]')))) {
         e.preventDefault();
+        return;
+      }
+      
+      // Also suppress generic Turbopack error about missing image src
+      if (typeof e.reason === 'string' && e.reason.includes('Turbopack') && e.reason.includes('image')) {
+        e.preventDefault();
+        return;
       }
     };
     window.addEventListener('unhandledrejection', handleRejection);
@@ -183,15 +192,15 @@ export default function Hero() {
         </div>
 
         <div className={styles.rightContent}>
-          <div className={styles.statsCard}>
-            <span className={styles.statsNumber}>{APPS_DATA.length}</span>
-            <span className={styles.statsLabel}>Apps Available</span>
-          </div>
-          <div className={styles.statsCard}>
-            <span className={styles.statsNumber}>4.8★</span>
-            <span className={styles.statsLabel}>Avg Rating</span>
-          </div>
-        </div>
+                  <div className={styles.statsCard}>
+                    <span className={styles.statsNumber}>{APPS_DATA.length}</span>
+                    <span className={styles.statsLabel}>Apps Available</span>
+                  </div>
+                  <div className={styles.statsCard}>
+                    <span className={styles.statsNumber}>99.99%</span>
+                    <span className={styles.statsLabel}>Absolutely Cinema</span>
+                  </div>
+                </div>
       </div>
 
       {/* Bottom bento cards row */}
