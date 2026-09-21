@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from "react";
 import styles from "../app/apps/[id]/page.module.css";
 import loomStyles from "../app/apps/[id]/loom.module.css";
 import Link from "next/link";
-import { ArrowLeft, MapPin, Calendar, CreditCard, Cloud, Globe, Bell, Heart, Sun, HardDrive, Star } from "lucide-react";
+import { ArrowLeft, MapPin, Calendar, CreditCard, Cloud, Globe, Bell, Heart, Sun, HardDrive, Star, Edit3, LayoutDashboard, Link2, Table } from "lucide-react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -242,7 +242,7 @@ export default function AppDetailsClient({ app }: { app: any }) {
               </span>
             </div>
           </div>
-          
+
           <div data-animate="hero-element" style={{ width: "100%", height: "100%", minHeight: "300px" }}>
             {/* Kept empty for asymmetric minimalist layout */}
           </div>
@@ -371,6 +371,355 @@ export default function AppDetailsClient({ app }: { app: any }) {
               <p style={{ color: "#6b7280", lineHeight: 1.6, fontSize: "0.95rem" }}>
                 Engineered with typed IPC contracts, instant full-text search, and quick capture hotkeys. No loading spinners, no bloated memory leaks, just pure fluid responsiveness.
               </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Keyboard Shortcuts Section */}
+        <section className={`${styles.keyboardSection}`}>
+          <div className={`${styles.keyboardHeader}`}>
+            <span style={{ 
+              color: "#6b7280", 
+              fontWeight: 600, 
+              fontSize: "0.75rem", 
+              letterSpacing: "0.1em",
+              textTransform: "uppercase" 
+            }}>
+              Keyboard Mastery
+            </span>
+            <h2 className={`${styles.keyboardSectionTitle}`}>
+              Interactive Keyboard Shortcuts
+            </h2>
+            <p className={`${styles.keyboardSectionDesc}`}>
+              Discover the power of Loom's keyboard-driven workflows. Click any shortcut to see it in action.
+            </p>
+          </div>
+
+          <div className={`${styles.keyboardTabs}`}>
+            <button className={`${styles.keyboardTab} ${styles.keyboardTabActive}`}>All Shortcuts</button>
+            <button className={`${styles.keyboardTab}`}>Global Desktop</button>
+            <button className={`${styles.keyboardTab}`}>Editor & Flow</button>
+            <button className={`${styles.keyboardTab}`}>Canvas & Navigation</button>
+          </div>
+
+          <div className={`${styles.keyboardGrid}`}>
+            {/* Global Desktop Category */}
+            <div className={`${styles.keyboardCategory}`}>
+              <div className={`${styles.keyboardCategoryTitle}`}>
+                <div className={`${styles.keyboardCategoryIcon}`}>
+                  <Globe size={20} />
+                </div>
+                <span>Global Desktop</span>
+              </div>
+
+              <div className={`${styles.shortcutList}`}>
+                {/* Shortcut 1 */}
+                <div className={`${styles.shortcutItem}`}>
+                  <div className={`${styles.shortcutKeys}`}>
+                    <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Alt</span>
+                    <span className={`${styles.shortcutPlus}`}>+</span>
+                    <span className={`${styles.shortcutKbd}`}>Space</span>
+                  </div>
+                  <span className={`${styles.shortcutDesc}`}>Floating Desktop Quick Capture</span>
+                </div>
+
+                {/* Shortcut 2 */}
+                <div className={`${styles.shortcutItem}`}>
+                  <div className={`${styles.shortcutKeys}`}>
+                    <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Ctrl</span>
+                    <span className={`${styles.shortcutPlus}`}>+</span>
+                    <span className={`${styles.shortcutKbd}`}>Space</span>
+                  </div>
+                  <span className={`${styles.shortcutDesc}`}>Brain Dump Fullscreen</span>
+                </div>
+
+                {/* Shortcut 3 */}
+                <div className={`${styles.shortcutItem}`}>
+                  <div className={`${styles.shortcutKeys}`}>
+                    <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Ctrl</span>
+                    <span className={`${styles.shortcutPlus}`}>+</span>
+                    <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Alt</span>
+                    <span className={`${styles.shortcutPlus}`}>+</span>
+                    <span className={`${styles.shortcutKbd}`}>H</span>
+                  </div>
+                  <span className={`${styles.shortcutDesc}`}>Stealth Mode</span>
+                </div>
+
+                {/* Shortcut 4 */}
+                <div className={`${styles.shortcutItem}`}>
+                  <div className={`${styles.shortcutKeys}`}>
+                    <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Ctrl</span>
+                    <span className={`${styles.shortcutPlus}`}>+</span>
+                    <span className={`${styles.shortcutKbd}`}>S</span>
+                  </div>
+                  <span className={`${styles.shortcutDesc}`}>Global Search</span>
+                </div>
+
+                {/* Shortcut 5 */}
+                <div className={`${styles.shortcutItem}`}>
+                  <div className={`${styles.shortcutKeys}`}>
+                    <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Ctrl</span>
+                    <span className={`${styles.shortcutPlus}`}>+</span>
+                    <span className={`${styles.shortcutKbd}`}>K</span>
+                  </div>
+                  <span className={`${styles.shortcutDesc}`}>Command Palette</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Editor & Flow Category */}
+            <div className={`${styles.keyboardCategory}`}>
+              <div className={`${styles.keyboardCategoryTitle}`}>
+                <div className={`${styles.keyboardCategoryIcon}`}>
+                  <Edit3 size={20} />
+                </div>
+                <span>Editor & Flow</span>
+              </div>
+
+              <div className={`${styles.shortcutList}`}>
+                {/* Shortcut 1 */}
+                <div className={`${styles.shortcutItem}`}>
+                  <div className={`${styles.shortcutKeys}`}>
+                    <span className={`${styles.shortcutKbd}`}>F11</span>
+                  </div>
+                  <span className={`${styles.shortcutDesc}`}>Zen Mode</span>
+                </div>
+
+                {/* Shortcut 2 */}
+                <div className={`${styles.shortcutItem}`}>
+                  <div className={`${styles.shortcutKeys}`}>
+                    <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Ctrl</span>
+                    <span className={`${styles.shortcutPlus}`}>+</span>
+                    <span className={`${styles.shortcutKbd}`}>H</span>
+                  </div>
+                  <span className={`${styles.shortcutDesc}`}>Time Machine</span>
+                </div>
+
+                {/* Shortcut 3 */}
+                <div className={`${styles.shortcutItem}`}>
+                  <div className={`${styles.shortcutKeys}`}>
+                    <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Ctrl</span>
+                    <span className={`${styles.shortcutPlus}`}>+</span>
+                    <span className={`${styles.shortcutKbd}`}>J</span>
+                  </div>
+                  <span className={`${styles.shortcutDesc}`}>Daily Journal</span>
+                </div>
+
+                {/* Shortcut 4 */}
+                <div className={`${styles.shortcutItem}`}>
+                  <div className={`${styles.shortcutKeys}`}>
+                    <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Ctrl</span>
+                    <span className={`${styles.shortcutPlus}`}>+</span>
+                    <span className={`${styles.shortcutKbd}`}>E</span>
+                  </div>
+                  <span className={`${styles.shortcutDesc}`}>Multi-Format Export</span>
+                </div>
+
+                {/* Shortcut 5 */}
+                <div className={`${styles.shortcutItem}`}>
+                  <div className={`${styles.shortcutKeys}`}>
+                    <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Shift</span>
+                    <span className={`${styles.shortcutPlus}`}>+</span>
+                    <span className={`${styles.shortcutKbd}`}>B</span>
+                  </div>
+                  <span className={`${styles.shortcutDesc}`}>Auto-Tidy Bento Grid</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Canvas & Navigation Category */}
+            <div className={`${styles.keyboardCategory}`}>
+              <div className={`${styles.keyboardCategoryTitle}`}>
+                <div className={`${styles.keyboardCategoryIcon}`}>
+                  <LayoutDashboard size={20} />
+                </div>
+                <span>Canvas & Navigation</span>
+              </div>
+
+              <div className={`${styles.shortcutList}`}>
+                {/* Shortcut 1 */}
+                <div className={`${styles.shortcutItem}`}>
+                  <div className={`${styles.shortcutKeys}`}>
+                    <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Ctrl</span>
+                    <span className={`${styles.shortcutPlus}`}>+</span>
+                    <span className={`${styles.shortcutKbd}`}>Tab</span>
+                  </div>
+                  <span className={`${styles.shortcutDesc}`}>Cycle Tabs</span>
+                </div>
+
+                {/* Shortcut 2 */}
+                <div className={`${styles.shortcutItem}`}>
+                  <div className={`${styles.shortcutKeys}`}>
+                    <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Ctrl</span>
+                    <span className={`${styles.shortcutPlus}`}>+</span>
+                    <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Shift</span>
+                    <span className={`${styles.shortcutPlus}`}>+</span>
+                    <span className={`${styles.shortcutKbd}`}>Tab</span>
+                  </div>
+                  <span className={`${styles.shortcutDesc}`}>Reverse Cycle Tabs</span>
+                </div>
+
+                {/* Shortcut 3 */}
+                <div className={`${styles.shortcutItem}`}>
+                  <div className={`${styles.shortcutKeys}`}>
+                    <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Ctrl</span>
+                    <span className={`${styles.shortcutPlus}`}>+</span>
+                    <span className={`${styles.shortcutKbd}`}>W</span>
+                  </div>
+                  <span className={`${styles.shortcutDesc}`}>Close Tab</span>
+                </div>
+
+                {/* Shortcut 4 */}
+                <div className={`${styles.shortcutItem}`}>
+                  <div className={`${styles.shortcutKeys}`}>
+                    <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Ctrl</span>
+                    <span className={`${styles.shortcutPlus}`}>+</span>
+                    <span className={`${styles.shortcutKbd}`}>N</span>
+                  </div>
+                  <span className={`${styles.shortcutDesc}`}>New Tab</span>
+                </div>
+
+                {/* Shortcut 5 */}
+                <div className={`${styles.shortcutItem}`}>
+                  <div className={`${styles.shortcutKeys}`}>
+                    <span className={`${styles.shortcutKbd} ${styles.shortcutKbdModifier}`}>Ctrl</span>
+                    <span className={`${styles.shortcutPlus}`}>+</span>
+                    <span className={`${styles.shortcutKbd}`}>P</span>
+                  </div>
+                  <span className={`${styles.shortcutDesc}`}>Go to Page</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Bento Grid Killer Features */}
+        <section className={`${styles.bentoSection}`}>
+          <div className={`${styles.bentoHeader}`}>
+            <span style={{ 
+              color: "#6b7280", 
+              fontWeight: 600, 
+              fontSize: "0.75rem", 
+              letterSpacing: "0.1em",
+              textTransform: "uppercase" 
+            }}>
+              Killer Features
+            </span>
+            <h2 className={`${styles.bentoSectionTitle}`}>
+              Bento Grid Killer Features
+            </h2>
+            <p className={`${styles.bentoSectionDesc}`}>
+              These unique capabilities set Loom apart from traditional productivity tools.
+            </p>
+          </div>
+
+          <div className={`${styles.bentoGrid}`}>
+            {/* Card 1 */}
+            <div className={`${styles.bentoCard}`}>
+              <div className={`${styles.bentoCardInner}`}>
+                <div className={`${styles.bentoCardIcon}`}>
+                  <LayoutDashboard size={24} />
+                </div>
+                <h3 className={`${styles.bentoCardTitle}`}>Hybrid Canvas & Docs</h3>
+                <p className={`${styles.bentoCardDesc}`}>
+                  Switch seamlessly between rich text documents and spatial canvas layouts with a single click. The best of both worlds in one unified workspace.
+                </p>
+                <div className={`${styles.bentoCardFeatures}`}>
+                  <div className={`${styles.bentoFeatureItem}`}>
+                    <div className={`${styles.bentoFeatureDot}`}></div>
+                    <span>Tiptap-powered rich text editor</span>
+                  </div>
+                  <div className={`${styles.bentoFeatureItem}`}>
+                    <div className={`${styles.bentoFeatureDot}`}></div>
+                    <span>Tldraw spatial canvas integration</span>
+                  </div>
+                  <div className={`${styles.bentoFeatureItem}`}>
+                    <div className={`${styles.bentoFeatureDot}`}></div>
+                    <span>Context-aware transitions</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 2 */}
+            <div className={`${styles.bentoCard}`}>
+              <div className={`${styles.bentoCardInner}`}>
+                <div className={`${styles.bentoCardIcon}`}>
+                  <Link2 size={24} />
+                </div>
+                <h3 className={`${styles.bentoCardTitle}`}>Bi-Directional Wiki-Links</h3>
+                <p className={`${styles.bentoCardDesc}`}>
+                  Connect your ideas with [[wiki-links]] and explore them through an interactive graph view. Your knowledge base becomes a living, breathing network.
+                </p>
+                <div className={`${styles.bentoCardFeatures}`}>
+                  <div className={`${styles.bentoFeatureItem}`}>
+                    <div className={`${styles.bentoFeatureDot}`}></div>
+                    <span>Markdown-compatible syntax</span>
+                  </div>
+                  <div className={`${styles.bentoFeatureItem}`}>
+                    <div className={`${styles.bentoFeatureDot}`}></div>
+                    <span>Interactive graph visualization</span>
+                  </div>
+                  <div className={`${styles.bentoFeatureItem}`}>
+                    <div className={`${styles.bentoFeatureDot}`}></div>
+                    <span>Tag-based navigation</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 3 */}
+            <div className={`${styles.bentoCard}`}>
+              <div className={`${styles.bentoCardInner}`}>
+                <div className={`${styles.bentoCardIcon}`}>
+                                  <Table size={24} />
+                                </div>
+                <h3 className={`${styles.bentoCardTitle}`}>True Multi-Tab Engine</h3>
+                <p className={`${styles.bentoCardDesc}`}>
+                  Work with multiple documents and canvases simultaneously, just like a modern browser. Never lose your place in your creative flow.
+                </p>
+                <div className={`${styles.bentoCardFeatures}`}>
+                  <div className={`${styles.bentoFeatureItem}`}>
+                    <div className={`${styles.bentoFeatureDot}`}></div>
+                    <span>Tab persistence across sessions</span>
+                  </div>
+                  <div className={`${styles.bentoFeatureItem}`}>
+                    <div className={`${styles.bentoFeatureDot}`}></div>
+                    <span>Tab group organization</span>
+                  </div>
+                  <div className={`${styles.bentoFeatureItem}`}>
+                    <div className={`${styles.bentoFeatureDot}`}></div>
+                    <span>Cross-document references</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 4 */}
+            <div className={`${styles.bentoCard}`}>
+              <div className={`${styles.bentoCardInner}`}>
+                <div className={`${styles.bentoCardIcon}`}>
+                  <HardDrive size={24} />
+                </div>
+                <h3 className={`${styles.bentoCardTitle}`}>Zero Cloud Lock-in</h3>
+                <p className={`${styles.bentoCardDesc}`}>
+                  Your data stays yours. Export your entire knowledge base as a single .kns archive file that works anywhere, anytime.
+                </p>
+                <div className={`${styles.bentoCardFeatures}`}>
+                  <div className={`${styles.bentoFeatureItem}`}>
+                    <div className={`${styles.bentoFeatureDot}`}></div>
+                    <span>Local-first architecture</span>
+                  </div>
+                  <div className={`${styles.bentoFeatureItem}`}>
+                    <div className={`${styles.bentoFeatureDot}`}></div>
+                    <span>One-click export/import</span>
+                  </div>
+                  <div className={`${styles.bentoFeatureItem}`}>
+                    <div className={`${styles.bentoFeatureDot}`}></div>
+                    <span>Human-readable markdown</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
