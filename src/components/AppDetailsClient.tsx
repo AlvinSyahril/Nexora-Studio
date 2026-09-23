@@ -23,6 +23,55 @@ export default function AppDetailsClient({ app }: { app: any }) {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [gridColumns, setGridColumns] = React.useState("1fr");
   const [activeTab, setActiveTab] = React.useState<'all' | 'global' | 'editor'>('all');
+  const [downloadUrl, setDownloadUrl] = React.useState<string>(
+    app.downloadUrl || "https://github.com/AlvinSyahril/Nexora-Studio/releases"
+  );
+  const [latestVersion, setLatestVersion] = React.useState<string | null>(null);
+
+  useEffect(() => {
+    if (app.id !== "loom") return;
+
+    let isMounted = true;
+    const fetchLatestLoomRelease = async () => {
+      try {
+        const res = await fetch("https://api.github.com/repos/AlvinSyahril/Nexora-Studio/releases", {
+          headers: { Accept: "application/vnd.github.v3+json" }
+        });
+        if (!res.ok) return;
+        const releases = await res.json();
+        if (!Array.isArray(releases) || releases.length === 0) return;
+
+        const loomRelease = releases.find((r: any) =>
+          r.tag_name && (r.tag_name.toLowerCase().includes("loom") || (!r.tag_name.toLowerCase().includes("gtd") && !r.tag_name.toLowerCase().includes("oasis")))
+        ) || releases[0];
+
+        if (loomRelease && isMounted) {
+          const tag = (loomRelease.tag_name || "").replace(/^[vV]/, "").replace(/-Loom$/i, "").trim();
+          if (tag) setLatestVersion(tag);
+
+          if (Array.isArray(loomRelease.assets) && loomRelease.assets.length > 0) {
+            const exeAsset = loomRelease.assets.find((a: any) =>
+              typeof a.name === "string" && a.name.toLowerCase().endsWith(".exe")
+            );
+            if (exeAsset?.browser_download_url) {
+              setDownloadUrl(exeAsset.browser_download_url);
+              return;
+            }
+          }
+          if (loomRelease.html_url) {
+            setDownloadUrl(loomRelease.html_url);
+          }
+        }
+      } catch {
+        // Fallback remains as app.downloadUrl
+      }
+    };
+
+    fetchLatestLoomRelease();
+    return () => {
+      isMounted = false;
+    };
+  }, [app.id]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -138,7 +187,7 @@ export default function AppDetailsClient({ app }: { app: any }) {
               Interactive Tour
             </a>
             <a 
-              href={app.downloadUrl || "https://github.com/vinnssmokee/loom-desktop/releases/latest"}
+              href={downloadUrl}
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -155,7 +204,7 @@ export default function AppDetailsClient({ app }: { app: any }) {
                 transition: "opacity 0.2s ease"
               }}
             >
-              <Download size={16} /> Download .exe
+              <Download size={16} /> Download {latestVersion ? `v${latestVersion}` : '.exe'}
             </a>
           </div>
         </nav>
@@ -227,7 +276,7 @@ export default function AppDetailsClient({ app }: { app: any }) {
               }}
             >
               <a 
-                href={app.downloadUrl || "https://github.com/vinnssmokee/loom-desktop/releases/latest"}
+                href={downloadUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
@@ -243,7 +292,7 @@ export default function AppDetailsClient({ app }: { app: any }) {
                   textDecoration: "none",
                 }}
               >
-                Download for Windows
+                Download for Windows {latestVersion ? `(v${latestVersion})` : ''}
               </a>
             </div>
 
@@ -719,7 +768,7 @@ export default function AppDetailsClient({ app }: { app: any }) {
               Download Loom today and experience the ultimate personal workspace tailored for speed, aesthetics, and privacy.
             </p>
             <a 
-              href={app.downloadUrl || "https://github.com/vinnssmokee/loom-desktop/releases/latest"}
+              href={downloadUrl}
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -736,7 +785,7 @@ export default function AppDetailsClient({ app }: { app: any }) {
                 boxShadow: "0 4px 12px rgba(0,0,0,0.05)"
               }}
             >
-              <Download size={20} /> Download Loom for Windows
+              <Download size={20} /> Download Loom {latestVersion ? `v${latestVersion}` : ''} for Windows
             </a>
             <p style={{ marginTop: "3rem", color: "#9ca3af", fontSize: "0.85rem" }}>
               © 2026 Nexora Studio. Crafted with obsession by @vinnssmokee.
