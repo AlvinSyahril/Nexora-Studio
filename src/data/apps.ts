@@ -27,7 +27,7 @@ export const APPS_DATA: AppData[] = [
       "Quick Capture & Zen Mode (F11)",
       "Native Discord-Style Titlebar"
     ],
-    downloadUrl: "https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v1.0.0-Loom/Loom.Setup.1.0.0.exe"
+    downloadUrl: "https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v1.0.1-Loom/Loom.Setup.1.0.1.exe"
   },
   {
     id: "reminder-app",

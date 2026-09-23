@@ -216,19 +216,19 @@ export default function AppDetailsClient({ app }: { app: any }) {
                 alignItems: "flex-start",
                 gap: "0.85rem",
                 padding: "1rem 1.25rem",
-                background: "rgba(245, 158, 11, 0.08)",
-                border: "1px solid rgba(245, 158, 11, 0.25)",
+                background: "rgba(16, 185, 129, 0.08)",
+                border: "1px solid rgba(16, 185, 129, 0.25)",
                 borderRadius: "var(--radius-md)",
                 maxWidth: "520px"
               }}
             >
-              <AlertTriangle size={20} color="#F59E0B" style={{ flexShrink: 0, marginTop: "2px" }} />
+              <Sparkles size={20} color="#10B981" style={{ flexShrink: 0, marginTop: "2px" }} />
               <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
                 <span style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--foreground)", letterSpacing: "0.01em" }}>
-                  Heads up, explorers! A quick dev note
+                  v1.0.1 is live! Hotfix & bento update ready
                 </span>
                 <p style={{ fontSize: "0.8rem", color: "#6b7280", lineHeight: 1.5, margin: 0 }}>
-                  We noticed a sneaky hiccup in v1.0.0 where workspace state occasionally reset after day 2, along with edgeless canvas shapes playing hide-and-seek. Our bad! The fix is completely cooked and rolling out in the upcoming v1.0.1 hotfix update. Hang tight, big things are landing very soon!
+                  The v1.0.0 workspace reset and canvas shape glitches have been completely resolved in v1.0.1! This update also adds fresh bento card layouts, safe deletion modals, and multi-page A4 print support. Download the latest build below!
                 </p>
               </div>
             </div>
