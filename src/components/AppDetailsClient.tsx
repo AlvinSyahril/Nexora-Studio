@@ -26,7 +26,6 @@ export default function AppDetailsClient({ app }: { app: any }) {
   const [downloadUrl, setDownloadUrl] = React.useState<string>(
     app.downloadUrl || "https://github.com/AlvinSyahril/Nexora-Studio/releases"
   );
-  const [latestVersion, setLatestVersion] = React.useState<string | null>(null);
 
   useEffect(() => {
     if (app.id !== "loom") return;
@@ -46,9 +45,6 @@ export default function AppDetailsClient({ app }: { app: any }) {
         ) || releases[0];
 
         if (loomRelease && isMounted) {
-          const tag = (loomRelease.tag_name || "").replace(/^[vV]/, "").replace(/-Loom$/i, "").trim();
-          if (tag) setLatestVersion(tag);
-
           if (Array.isArray(loomRelease.assets) && loomRelease.assets.length > 0) {
             const exeAsset = loomRelease.assets.find((a: any) =>
               typeof a.name === "string" && a.name.toLowerCase().endsWith(".exe")
@@ -204,7 +200,7 @@ export default function AppDetailsClient({ app }: { app: any }) {
                 transition: "opacity 0.2s ease"
               }}
             >
-              <Download size={16} /> Download {latestVersion ? `v${latestVersion}` : '.exe'}
+              <Download size={16} /> Download .exe
             </a>
           </div>
         </nav>
@@ -292,7 +288,7 @@ export default function AppDetailsClient({ app }: { app: any }) {
                   textDecoration: "none",
                 }}
               >
-                Download for Windows {latestVersion ? `(v${latestVersion})` : ''}
+                Download for Windows
               </a>
             </div>
 
@@ -785,7 +781,7 @@ export default function AppDetailsClient({ app }: { app: any }) {
                 boxShadow: "0 4px 12px rgba(0,0,0,0.05)"
               }}
             >
-              <Download size={20} /> Download Loom {latestVersion ? `v${latestVersion}` : ''} for Windows
+              <Download size={20} /> Download Loom for Windows
             </a>
             <p style={{ marginTop: "3rem", color: "#9ca3af", fontSize: "0.85rem" }}>
               © 2026 Nexora Studio. Crafted with obsession by @vinnssmokee.
