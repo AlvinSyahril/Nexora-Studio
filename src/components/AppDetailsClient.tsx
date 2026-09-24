@@ -208,58 +208,59 @@ export default function AppDetailsClient({ app }: { app: any }) {
         {/* Hero Section */}
         <section className={`${styles.container}`} style={{ padding: "6rem 2rem 4rem", maxWidth: "1200px", margin: "0 auto", display: "grid", gridTemplateColumns: gridColumns, gap: "3rem", alignItems: "center" }}>
           <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
-            {/* Premium Update Pill */}
-            <button 
-              data-animate="hero-element"
-              onClick={() => setIsModalOpen(true)}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.65rem",
-                padding: "0.35rem 0.75rem 0.35rem 0.35rem",
-                background: "var(--surface)",
-                border: "1px solid var(--surface-border)",
-                borderRadius: "9999px",
-                marginBottom: "0.5rem",
-                cursor: "pointer",
-                transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
-                boxShadow: "0 2px 8px rgba(0,0,0,0.04)"
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = "#9ca3af";
-                e.currentTarget.style.transform = "translateY(-1px)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = "var(--surface-border)";
-                e.currentTarget.style.transform = "translateY(0)";
-              }}
+            {/* Premium Agency Update Pill */}
+            <div 
+              data-animate="hero-element" 
+              style={{ display: "flex", justifyContent: "flex-start", width: "100%", marginBottom: "1rem" }}
             >
-              <span style={{ 
-                background: "var(--foreground)", 
-                color: "var(--surface)", 
-                padding: "0.25rem 0.65rem", 
-                borderRadius: "9999px", 
-                fontSize: "0.7rem", 
-                fontWeight: 600,
-                letterSpacing: "0.02em",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.3rem"
-              }}>
-                <Sparkles size={12} /> LATEST
-              </span>
-              <span style={{ 
-                fontSize: "0.8rem", 
-                color: "var(--foreground)", 
-                fontWeight: 500,
-                paddingRight: "0.25rem"
-              }}>
-                Loom v1.0.1 Hotfix is live
-              </span>
-              <span style={{ color: "#9ca3af", display: "flex", alignItems: "center" }}>
-                →
-              </span>
-            </button>
+              <button 
+                onClick={() => setIsModalOpen(true)}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.75rem",
+                  padding: "0.25rem 0.75rem 0.25rem 0.25rem",
+                  background: "rgba(0,0,0,0.03)",
+                  border: "1px solid rgba(0,0,0,0.08)",
+                  borderRadius: "9999px",
+                  cursor: "pointer",
+                  transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+                  color: "#111827"
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "rgba(0,0,0,0.06)";
+                  e.currentTarget.style.transform = "translateY(-1px)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "rgba(0,0,0,0.03)";
+                  e.currentTarget.style.transform = "translateY(0)";
+                }}
+              >
+                <span style={{ 
+                  background: "#111827", 
+                  color: "#ffffff", 
+                  padding: "0.25rem 0.75rem", 
+                  borderRadius: "9999px", 
+                  fontSize: "0.7rem", 
+                  fontWeight: 600,
+                  letterSpacing: "0.03em",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.35rem",
+                  boxShadow: "0 2px 4px rgba(0,0,0,0.1)"
+                }}>
+                  <Sparkles size={12} /> LATEST
+                </span>
+                <span style={{ 
+                  fontSize: "0.85rem", 
+                  fontWeight: 600,
+                  color: "#374151"
+                }}>
+                  Loom v1.0.1 is available
+                </span>
+                <span style={{ color: "#9ca3af", paddingRight: "0.25rem", fontWeight: 600 }}>→</span>
+              </button>
+            </div>
 
             <h1 
               data-animate="hero-element"
