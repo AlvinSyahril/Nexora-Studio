@@ -773,6 +773,48 @@ export default function AppDetailsClient({ app }: { app: any }) {
           <FaqAccordion appId="loom" />
         </div>
 
+        {/* Footer CTA */}
+        <footer 
+          style={{
+            background: "var(--background)",
+            borderTop: "1px solid var(--surface-border)",
+            padding: "6rem 1.5rem 4rem",
+            textAlign: "center",
+            position: "relative",
+            overflow: "hidden"
+          }}
+        >
+          <div style={{ position: "relative", zIndex: 1, maxWidth: "600px", margin: "0 auto" }}>
+            <h2 className="display-font" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", color: "var(--foreground)", marginBottom: "1rem" }}>
+              Ready to Upgrade Your Mind Palace?
+            </h2>
+            <p style={{ color: "#6b7280", marginBottom: "2.5rem", fontSize: "1.1rem" }}>
+              Download Loom today and experience the ultimate personal workspace tailored for speed, aesthetics, and privacy.
+            </p>
+            <a 
+              href={downloadUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.6rem",
+                padding: "1.1rem 2.5rem",
+                background: "var(--foreground)",
+                color: "var(--surface)",
+                borderRadius: "9999px",
+                fontWeight: 600,
+                fontSize: "1.05rem",
+                textDecoration: "none",
+                boxShadow: "0 4px 12px rgba(0,0,0,0.05)"
+              }}
+            >
+              <Download size={20} /> Download Loom for Windows
+            </a>
+            <p style={{ marginTop: "3rem", color: "#9ca3af", fontSize: "0.85rem" }}>
+              © 2026 Nexora Studio. Crafted with obsession by @vinnssmokee.
+            </p>
+          </div>
         </footer>
 
         {/* Premium Changelog Modal */}
