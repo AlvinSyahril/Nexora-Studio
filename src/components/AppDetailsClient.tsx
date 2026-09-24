@@ -208,30 +208,58 @@ export default function AppDetailsClient({ app }: { app: any }) {
         {/* Hero Section */}
         <section className={`${styles.container}`} style={{ padding: "6rem 2rem 4rem", maxWidth: "1200px", margin: "0 auto", display: "grid", gridTemplateColumns: gridColumns, gap: "3rem", alignItems: "center" }}>
           <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
-            {/* Maintenance & Bug Fix Notice Banner */}
-            <div 
+            {/* Premium Update Pill */}
+            <button 
               data-animate="hero-element"
+              onClick={() => setIsModalOpen(true)}
               style={{
                 display: "inline-flex",
-                alignItems: "flex-start",
-                gap: "0.85rem",
-                padding: "1rem 1.25rem",
-                background: "rgba(16, 185, 129, 0.08)",
-                border: "1px solid rgba(16, 185, 129, 0.25)",
-                borderRadius: "var(--radius-md)",
-                maxWidth: "520px"
+                alignItems: "center",
+                gap: "0.65rem",
+                padding: "0.35rem 0.75rem 0.35rem 0.35rem",
+                background: "var(--surface)",
+                border: "1px solid var(--surface-border)",
+                borderRadius: "9999px",
+                marginBottom: "0.5rem",
+                cursor: "pointer",
+                transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.04)"
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = "#9ca3af";
+                e.currentTarget.style.transform = "translateY(-1px)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = "var(--surface-border)";
+                e.currentTarget.style.transform = "translateY(0)";
               }}
             >
-              <Sparkles size={20} color="#10B981" style={{ flexShrink: 0, marginTop: "2px" }} />
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
-                <span style={{ fontSize: "0.85rem", fontWeight: 600, color: "var(--foreground)", letterSpacing: "0.01em" }}>
-                  v1.0.1 is live! Hotfix & bento update ready
-                </span>
-                <p style={{ fontSize: "0.8rem", color: "#6b7280", lineHeight: 1.5, margin: 0 }}>
-                  The v1.0.0 workspace reset and canvas shape glitches have been completely resolved in v1.0.1! This update also adds fresh bento card layouts, safe deletion modals, and multi-page A4 print support. Download the latest build below!
-                </p>
-              </div>
-            </div>
+              <span style={{ 
+                background: "var(--foreground)", 
+                color: "var(--surface)", 
+                padding: "0.25rem 0.65rem", 
+                borderRadius: "9999px", 
+                fontSize: "0.7rem", 
+                fontWeight: 600,
+                letterSpacing: "0.02em",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.3rem"
+              }}>
+                <Sparkles size={12} /> LATEST
+              </span>
+              <span style={{ 
+                fontSize: "0.8rem", 
+                color: "var(--foreground)", 
+                fontWeight: 500,
+                paddingRight: "0.25rem"
+              }}>
+                Loom v1.0.1 Hotfix is live
+              </span>
+              <span style={{ color: "#9ca3af", display: "flex", alignItems: "center" }}>
+                →
+              </span>
+            </button>
 
             <h1 
               data-animate="hero-element"
@@ -745,49 +773,146 @@ export default function AppDetailsClient({ app }: { app: any }) {
           <FaqAccordion appId="loom" />
         </div>
 
-        {/* Footer CTA */}
-        <footer 
-          style={{
-            background: "var(--background)",
-            borderTop: "1px solid var(--surface-border)",
-            padding: "6rem 1.5rem 4rem",
-            textAlign: "center",
-            position: "relative",
-            overflow: "hidden"
-          }}
-        >
-          <div style={{ position: "relative", zIndex: 1, maxWidth: "600px", margin: "0 auto" }}>
-            <h2 className="display-font" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", color: "var(--foreground)", marginBottom: "1rem" }}>
-              Ready to Upgrade Your Mind Palace?
-            </h2>
-            <p style={{ color: "#6b7280", marginBottom: "2.5rem", fontSize: "1.1rem" }}>
-              Download Loom today and experience the ultimate personal workspace tailored for speed, aesthetics, and privacy.
-            </p>
-            <a 
-              href={downloadUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.6rem",
-                padding: "1.1rem 2.5rem",
-                background: "var(--foreground)",
-                color: "var(--surface)",
-                borderRadius: "9999px",
-                fontWeight: 600,
-                fontSize: "1.05rem",
-                textDecoration: "none",
-                boxShadow: "0 4px 12px rgba(0,0,0,0.05)"
-              }}
-            >
-              <Download size={20} /> Download Loom for Windows
-            </a>
-            <p style={{ marginTop: "3rem", color: "#9ca3af", fontSize: "0.85rem" }}>
-              © 2026 Nexora Studio. Crafted with obsession by @vinnssmokee.
-            </p>
-          </div>
         </footer>
+
+        {/* Premium Changelog Modal */}
+        {isModalOpen && (
+          <div 
+            style={{
+              position: "fixed",
+              inset: 0,
+              zIndex: 9999,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: "1.5rem",
+              background: "rgba(0, 0, 0, 0.4)",
+              backdropFilter: "blur(8px)",
+              animation: "fadeIn 0.2s ease-out"
+            }}
+            onClick={() => setIsModalOpen(false)}
+          >
+            <div 
+              style={{
+                background: "var(--surface)",
+                border: "1px solid var(--surface-border)",
+                borderRadius: "16px",
+                width: "100%",
+                maxWidth: "600px",
+                maxHeight: "85vh",
+                overflowY: "auto",
+                boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+                display: "flex",
+                flexDirection: "column",
+                animation: "slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
+              }}
+              onClick={e => e.stopPropagation()}
+              className="custom-scrollbar"
+            >
+              <div style={{ 
+                padding: "1.5rem 2rem", 
+                borderBottom: "1px solid var(--surface-border)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                position: "sticky",
+                top: 0,
+                background: "var(--surface)",
+                zIndex: 10
+              }}>
+                <div>
+                  <h3 style={{ fontSize: "1.25rem", fontWeight: 700, margin: 0, color: "var(--foreground)" }}>What's New in v1.0.1</h3>
+                  <p style={{ fontSize: "0.85rem", color: "#6b7280", margin: "0.25rem 0 0 0" }}>September 2026 Update</p>
+                </div>
+                <button 
+                  onClick={() => setIsModalOpen(false)}
+                  style={{
+                    background: "rgba(0,0,0,0.05)",
+                    border: "none",
+                    width: "32px",
+                    height: "32px",
+                    borderRadius: "50%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    cursor: "pointer",
+                    color: "var(--foreground)",
+                    transition: "background 0.2s ease"
+                  }}
+                  onMouseEnter={e => e.currentTarget.style.background = "rgba(0,0,0,0.1)"}
+                  onMouseLeave={e => e.currentTarget.style.background = "rgba(0,0,0,0.05)"}
+                >
+                  ✕
+                </button>
+              </div>
+              
+              <div style={{ padding: "2rem" }}>
+                {/* Feature Highlights */}
+                <h4 style={{ fontSize: "0.85rem", textTransform: "uppercase", letterSpacing: "0.1em", color: "#10B981", fontWeight: 700, marginBottom: "1rem" }}>
+                  Hotfixes & Stability
+                </h4>
+                <ul style={{ listStyle: "none", padding: 0, margin: "0 0 2rem 0", display: "flex", flexDirection: "column", gap: "1rem" }}>
+                  <li style={{ display: "flex", gap: "1rem", alignItems: "flex-start" }}>
+                    <div style={{ marginTop: "4px", color: "#10B981" }}><AlertTriangle size={18} /></div>
+                    <div>
+                      <strong style={{ display: "block", color: "var(--foreground)", fontSize: "0.95rem", marginBottom: "0.25rem" }}>Tldraw Infinite Canvas Restored</strong>
+                      <span style={{ color: "#6b7280", fontSize: "0.9rem", lineHeight: 1.5, display: "block" }}>The v1.0.0 bug causing the Edgeless mode to suddenly disappear has been completely bypassed and patched.</span>
+                    </div>
+                  </li>
+                  <li style={{ display: "flex", gap: "1rem", alignItems: "flex-start" }}>
+                    <div style={{ marginTop: "4px", color: "#10B981" }}><AlertTriangle size={18} /></div>
+                    <div>
+                      <strong style={{ display: "block", color: "var(--foreground)", fontSize: "0.95rem", marginBottom: "0.25rem" }}>Prevent Workspace Reset</strong>
+                      <span style={{ color: "#6b7280", fontSize: "0.9rem", lineHeight: 1.5, display: "block" }}>Resolved startup storage race condition with a hydration gate splash screen ensuring notes are fully loaded.</span>
+                    </div>
+                  </li>
+                </ul>
+
+                <h4 style={{ fontSize: "0.85rem", textTransform: "uppercase", letterSpacing: "0.1em", color: "#3B82F6", fontWeight: 700, marginBottom: "1rem" }}>
+                  New Features
+                </h4>
+                <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "1rem" }}>
+                  <li style={{ display: "flex", gap: "1rem", alignItems: "flex-start" }}>
+                    <div style={{ marginTop: "4px", color: "#3B82F6" }}><LayoutDashboard size={18} /></div>
+                    <div>
+                      <strong style={{ display: "block", color: "var(--foreground)", fontSize: "0.95rem", marginBottom: "0.25rem" }}>Modern Bento Grid Layouts</strong>
+                      <span style={{ color: "#6b7280", fontSize: "0.9rem", lineHeight: 1.5, display: "block" }}>Tags, Collections, and Favorites redesigned into responsive bento cards with micro-elevation and smooth hover feedback.</span>
+                    </div>
+                  </li>
+                  <li style={{ display: "flex", gap: "1rem", alignItems: "flex-start" }}>
+                    <div style={{ marginTop: "4px", color: "#3B82F6" }}><ShieldCheck size={18} /></div>
+                    <div>
+                      <strong style={{ display: "block", color: "var(--foreground)", fontSize: "0.95rem", marginBottom: "0.25rem" }}>Safe Deletion Dialogs</strong>
+                      <span style={{ color: "#6b7280", fontSize: "0.9rem", lineHeight: 1.5, display: "block" }}>Clear confirmation prompts before deleting tags or collections ensure your notes stay completely safe in the library.</span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              
+              <div style={{ padding: "1.5rem 2rem", background: "var(--background)", borderTop: "1px solid var(--surface-border)", display: "flex", justifyContent: "flex-end" }}>
+                <a 
+                  href={downloadUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                    padding: "0.75rem 1.5rem",
+                    background: "var(--foreground)",
+                    color: "var(--surface)",
+                    borderRadius: "8px",
+                    fontWeight: 600,
+                    fontSize: "0.9rem",
+                    textDecoration: "none",
+                  }}
+                >
+                  <Download size={16} /> Download v1.0.1
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
