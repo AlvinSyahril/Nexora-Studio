@@ -1,129 +1,129 @@
 "use client";
 
-import Image from "next/image";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { Plus } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import styles from "./Navbar.module.css";
-import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-import { Menu, X } from "lucide-react";
 
-gsap.registerPlugin(ScrollToPlugin);
+const MENU_ITEMS = [
+  { index: "01", label: "Studio", href: "/#hero" },
+  { index: "02", label: "Product Suite", href: "/#product-roster" },
+  { index: "03", label: "Philosophy", href: "/#studio-philosophy" },
+  { index: "04", label: "Loom", href: "/apps/loom" },
+  { index: "05", label: "Get Things Done", href: "/apps/reminder-app" },
+  { index: "06", label: "Oasis", href: "/apps/oasis" },
+];
 
 export default function Navbar() {
-  const navRef = useRef<HTMLElement>(null);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
 
   useEffect(() => {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    
-    const ctx = gsap.context(() => {
-      if (!prefersReducedMotion) {
-        gsap.from(navRef.current, {
-          y: -80,
-          opacity: 0,
-          duration: 0.9,
-          ease: "power3.out",
-          delay: 0.1,
-        });
-      } else {
-        gsap.set(navRef.current, { opacity: 1 });
-      }
-    });
-    return () => ctx.revert();
-  }, []);
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-    if (!isMobileMenuOpen) {
+    if (isMenuOpen) {
       document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = "";
     }
-  };
 
-  const closeMobileMenu = () => {
-    setIsMobileMenuOpen(false);
-    document.body.style.overflow = "auto";
-  };
-
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth > 768 && isMobileMenuOpen) {
-        closeMobileMenu();
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isMenuOpen) {
+        closeMenu();
       }
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [isMobileMenuOpen]);
-
-  const handleAppsClick = (e: React.MouseEvent) => {
-    if (e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey) return;
-    e.preventDefault();
-    gsap.to(window, { scrollTo: "#apps", duration: 1, ease: "power3.inOut" });
-  };
-
-  const handleAboutClick = (e: React.MouseEvent) => {
-    if (e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey) return;
-    e.preventDefault();
-    
-    const navHeight = navRef.current?.offsetHeight || 80;
-    gsap.to(window, { 
-      scrollTo: { y: "#about", offsetY: navHeight + 70 }, 
-      duration: 1, 
-      ease: "power3.inOut" 
-    });
-    // Trigger dog animation whimsy!
-    window.dispatchEvent(new CustomEvent('play-dog-animation'));
-  };
-
-  const handleGetStartedClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    
-    if (!prefersReducedMotion) {
-      // Smooth scroll with slight delay for effect
-      gsap.to(window, {
-        scrollTo: "#apps",
-        duration: 1.5,
-        ease: "power3.inOut",
-        delay: 0.2
-      });
-    } else {
-      // Direct scroll for reduced motion
-      gsap.to(window, {
-        scrollTo: "#apps",
-        duration: 0.5,
-        ease: "power2.inOut"
-      });
-    }
-  };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isMenuOpen]);
 
   return (
-    <header className={styles.header}>
-      <nav ref={navRef} className={styles.navbar}>
-        <Link href="/" className={styles.logo} onClick={closeMobileMenu}>
-          <Image src="/nexora-logo-orange.png" alt="Nexora Studio Logo" width={28} height={28} style={{ borderRadius: "7px" }} onError={(e) => { const parent = e.currentTarget.parentElement; if (parent) parent.innerHTML = '<div style="width: 28px; height: 28px; background: var(--accent-orange); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: bold; color: white;">N</div>'; }} />
-          <span className={styles.logoText}>Nexora Studio</span>
+    <>
+      <header className={styles.header}>
+        <Link href="/" className={styles.logoLink} onClick={closeMenu}>
+          nexora
         </Link>
-
-        <button
-          className={styles.hamburger}
-          onClick={toggleMobileMenu}
-          aria-expanded={isMobileMenuOpen}
-          aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+        <motion.button
+          className={styles.menuButton}
+          onClick={toggleMenu}
+          aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={isMenuOpen}
+          animate={{ rotate: isMenuOpen ? 45 : 0 }}
+          transition={{ type: "spring", stiffness: 350, damping: 25 }}
+          whileTap={{ scale: 0.9 }}
         >
-          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+          <Plus size={32} strokeWidth={2} />
+        </motion.button>
+      </header>
 
-        <div className={`${styles.links} ${isMobileMenuOpen ? styles.linksOpen : ''}`}>
-          <a href="#apps" onClick={(e) => { handleAppsClick(e); closeMobileMenu(); }} className={styles.link}>Apps</a>
-          <a href="#about" onClick={(e) => { handleAboutClick(e); closeMobileMenu(); }} className={styles.link}>About</a>
-          <a href="#apps" onClick={(e) => { handleGetStartedClick(e); closeMobileMenu(); }} className={styles.ctaBtn}>Get Started</a>
-        </div>
-      </nav>
-    </header>
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            key="nav-overlay"
+            className={`${styles.menuOverlay} ${styles.menuOverlayOpen}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <nav aria-label="Main Navigation">
+              <ul className={styles.menuList}>
+                {MENU_ITEMS.map((item, i) => (
+                  <motion.li
+                    key={item.label}
+                    className={styles.menuItem}
+                    initial={{ opacity: 0, x: -24 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{
+                      delay: 0.08 + i * 0.045,
+                      duration: 0.35,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                  >
+                    <span className={styles.itemIndex}>{item.index}</span>
+                    <Link href={item.href} className={styles.itemLink} onClick={closeMenu}>
+                      {item.label}
+                    </Link>
+                  </motion.li>
+                ))}
+              </ul>
+            </nav>
+
+            <motion.div
+              className={styles.menuFooter}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.35, duration: 0.3 }}
+            >
+              <div className={styles.menuFooterLinks}>
+                <Link href="/privacy" className={styles.footerLink} onClick={closeMenu}>
+                  Privacy Policy
+                </Link>
+                <Link href="/terms" className={styles.footerLink} onClick={closeMenu}>
+                  Terms & Conditions
+                </Link>
+              </div>
+              <a
+                href="https://github.com/AlvinSyahril/Nexora-Studio"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.footerLink}
+              >
+                GitHub
+              </a>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

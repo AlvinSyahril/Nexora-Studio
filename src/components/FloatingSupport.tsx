@@ -1,18 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { usePathname } from "next/navigation";
 import styles from "./FloatingSupport.module.css";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function FloatingSupport() {
-  const pathname = usePathname();
   const [isVisible, setIsVisible] = useState(false);
   const [bubbleVisible, setBubbleVisible] = useState(false);
   const [displayedText, setDisplayedText] = useState("");
   const [isTypingFinished, setIsTypingFinished] = useState(false);
-  const fullText = "Hi! If you love my apps, consider supporting my work! ☕️";
+  const fullText = "Hi! If you love my apps, consider supporting my work!";
 
   useEffect(() => {
     // Show avatar first

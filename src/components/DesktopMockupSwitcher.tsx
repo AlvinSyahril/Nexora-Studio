@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 import { 
   Home as House, 
   FileText, 
@@ -107,13 +108,110 @@ const MENU_ITEMS: MenuItem[] = [
   }
 ];
 
+function MockupSlide({ item }: { item: MenuItem }) {
+  const [imageError, setImageError] = useState(false);
+  const [hasFallback, setHasFallback] = useState(false);
+  const [imgSrc, setImgSrc] = useState(item.image);
+
+  return (
+    <motion.div
+      key={item.id}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+      style={{ position: "absolute", inset: 0 }}
+    >
+      <Image
+        key={`${item.id}-${hasFallback ? 'fallback' : 'primary'}`}
+        src={imgSrc}
+        alt={`${item.label} - screenshot showing ${item.label.toLowerCase()} feature`}
+        fill
+        priority={item.id === 'home'}
+        unoptimized
+        quality={100}
+        sizes="100vw"
+        style={{
+          objectFit: "contain",
+          objectPosition: "top center",
+          imageRendering: "-webkit-optimize-contrast",
+          display: imageError ? 'none' : 'block',
+        }}
+        onLoad={() => {
+          setImageError(false);
+        }}
+        onError={(e) => {
+          // If relative path fails (e.g. Vercel WAF 429 challenge), fallback to GitHub Raw CDN
+          if (!hasFallback && item.image.startsWith("/")) {
+            setHasFallback(true);
+            setImgSrc(`https://raw.githubusercontent.com/AlvinSyahril/Nexora-Studio/main/public${item.image}`);
+          } else {
+            (e.currentTarget as HTMLImageElement).style.display = 'none';
+            setImageError(true);
+          }
+        }}
+      />
+      {/* Placeholder when image fails to load */}
+      <div style={{ 
+        position: "absolute", 
+        inset: 0, 
+        display: "flex", 
+        alignItems: "center", 
+        justifyContent: "center",
+        flexDirection: "column", 
+        gap: "1rem", 
+        color: "#4b5563", 
+        padding: "2rem", 
+        opacity: imageError ? 1 : 0, 
+        pointerEvents: imageError ? "auto" : "none",
+        transition: "opacity 0.3s ease" 
+      }}>
+        <div style={{ 
+          width: "80px", 
+          height: "80px", 
+          borderRadius: "50%", 
+          background: "rgba(245, 158, 11, 0.15)", 
+          display: "flex", 
+          alignItems: "center", 
+          justifyContent: "center"
+        }}>
+          <Image src="/showcase/loom/logo.png" alt="Loom" width={40} height={40} />
+        </div>
+        <p style={{ fontSize: "1rem", fontWeight: 500, color: "#9ca3af" }}>Preview unavailable</p>
+        <p style={{ fontSize: "0.85rem", textAlign: "center", maxWidth: "280px", color: "#6b7280" }}>
+          Screenshot for <strong>{item.label}</strong> failed to load.
+        </p>
+        {imageError && (
+          <button
+            onClick={() => {
+              setImageError(false);
+              setHasFallback(true);
+              setImgSrc(`https://raw.githubusercontent.com/AlvinSyahril/Nexora-Studio/main/public${item.image}?t=${Date.now()}`);
+            }}
+            style={{
+              marginTop: "0.25rem",
+              padding: "0.45rem 1rem",
+              borderRadius: "8px",
+              background: "#F59E0B",
+              color: "#111",
+              border: "none",
+              fontWeight: 600,
+              fontSize: "0.8rem",
+              cursor: "pointer",
+              boxShadow: "0 2px 10px rgba(245, 158, 11, 0.2)"
+            }}
+          >
+            Retry Loading
+          </button>
+        )}
+      </div>
+    </motion.div>
+  );
+}
+
 export default function DesktopMockupSwitcher() {
   const [activeMenuId, setActiveMenuId] = useState("home");
-  const [imageOpacity, setImageOpacity] = useState(1);
-  const [imageError, setImageError] = useState(false);
   const currentItem = MENU_ITEMS.find((item) => item.id === activeMenuId) || MENU_ITEMS[0];
-  const [imgSrc, setImgSrc] = useState(currentItem.image);
-  const [hasFallback, setHasFallback] = useState(false);
 
   // Keyboard navigation
   useEffect(() => {
@@ -126,39 +224,12 @@ export default function DesktopMockupSwitcher() {
       if (e.key === "Home") newIndex = 0;
       if (e.key === "End") newIndex = MENU_ITEMS.length - 1;
       if (newIndex !== currentIndex) {
-        handleImageSwitch(MENU_ITEMS[newIndex].id);
+        setActiveMenuId(MENU_ITEMS[newIndex].id);
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [activeMenuId]);
-
-  // Reset image source and error state when active item changes
-  useEffect(() => {
-    setImageError(false);
-    setHasFallback(false);
-    setImgSrc(currentItem.image);
-    setImageOpacity(1);
-  }, [activeMenuId, currentItem.image]);
-
-  // Smooth image transition
-  const handleImageSwitch = (id: string) => {
-    setImageOpacity(0);
-    setImageError(false);
-    setHasFallback(false);
-
-    // Add a small delay to ensure the fade-out completes before changing the image
-    setTimeout(() => {
-      const nextItem = MENU_ITEMS.find((item) => item.id === id) || MENU_ITEMS[0];
-      setImgSrc(nextItem.image);
-      setActiveMenuId(id);
-
-      // Add a slight delay before fading back in to create a smooth transition
-      setTimeout(() => {
-        setImageOpacity(1);
-      }, 50);
-    }, 150);
-  };
 
   return (
     <div style={{ width: "100%", margin: "0 auto", maxWidth: "1200px" }}>
@@ -180,53 +251,58 @@ export default function DesktopMockupSwitcher() {
           const Icon = item.icon;
           const isActive = item.id === activeMenuId;
           return (
-            <button
+            <motion.button
               key={item.id}
-              onClick={() => handleImageSwitch(item.id)}
+              onClick={() => setActiveMenuId(item.id)}
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault();
-                  handleImageSwitch(item.id);
+                  setActiveMenuId(item.id);
                 }
               }}
               role="tab"
               aria-selected={isActive}
               aria-controls={`panel-${item.id}`}
               id={`tab-${item.id}`}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 450, damping: 30 }}
               style={{
+                position: "relative",
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "0.5rem",
-                padding: "0.5rem 1.15rem",
+                padding: "0.55rem 1.25rem",
                 borderRadius: "9999px",
                 fontSize: "0.85rem",
-                fontWeight: 500,
+                fontWeight: 600,
                 cursor: "pointer",
-                transition: "all 0.2s ease",
-                border: isActive ? "1px solid #F59E0B" : "1px solid transparent",
-                background: isActive ? "linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%)" : "transparent",
+                border: "1px solid transparent",
+                background: "transparent",
                 color: isActive ? "#1a1a2e" : "#6b7280",
-                boxShadow: isActive ? "0 4px 20px rgba(245, 158, 11, 0.3)" : "0 2px 8px rgba(0,0,0,0.04)",
                 outline: "none"
               }}
-              onMouseEnter={(e) => {
-                if (!isActive) {
-                  e.currentTarget.style.borderColor = "#F59E0B";
-                  e.currentTarget.style.color = "#F59E0B";
-                  e.currentTarget.style.background = "rgba(245, 158, 11, 0.08)";
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (!isActive) {
-                  e.currentTarget.style.borderColor = "transparent";
-                  e.currentTarget.style.color = "#6b7280";
-                  e.currentTarget.style.background = "transparent";
-                }
-              }}
             >
-              <Icon size={16} style={{ transition: "transform 0.2s ease" }} />
-              <span>{item.label}</span>
-            </button>
+              {isActive && (
+                <motion.div
+                  layoutId="desktopSwitcherActivePill"
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    borderRadius: "9999px",
+                    background: "linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%)",
+                    boxShadow: "0 4px 20px rgba(245, 158, 11, 0.32)",
+                    border: "1px solid #F59E0B",
+                    zIndex: 0
+                  }}
+                  transition={{ type: "spring", stiffness: 420, damping: 32 }}
+                />
+              )}
+              <span style={{ position: "relative", zIndex: 1, display: "inline-flex", alignItems: "center", gap: "0.5rem" }}>
+                <Icon size={16} />
+                <span>{item.label}</span>
+              </span>
+            </motion.button>
           );
         })}
       </div>
@@ -304,96 +380,9 @@ export default function DesktopMockupSwitcher() {
             overflow: "hidden"
           }}
         >
-          <div style={{ position: "absolute", inset: 0, transition: "opacity 0.25s ease", opacity: imageOpacity }}>
-            <Image
-              key={`${currentItem.id}-${hasFallback ? 'fallback' : 'primary'}`}
-              src={imgSrc}
-              alt={`${currentItem.label} - screenshot showing ${currentItem.label.toLowerCase()} feature`}
-              fill
-              priority={currentItem.id === 'home'}
-              unoptimized
-              quality={100}
-              sizes="100vw"
-              style={{
-                objectFit: "contain",
-                objectPosition: "top center",
-                imageRendering: "-webkit-optimize-contrast",
-                opacity: imageOpacity,
-                display: imageError ? 'none' : 'block',
-              }}
-              onLoad={(e) => {
-                const target = e.currentTarget as HTMLImageElement;
-                target.style.display = 'block';
-                setImageOpacity(1);
-                setImageError(false);
-              }}
-              onError={(e) => {
-                // If relative path fails (e.g. Vercel WAF 429 challenge), fallback to GitHub Raw CDN
-                if (!hasFallback && currentItem.image.startsWith("/")) {
-                  setHasFallback(true);
-                  setImgSrc(`https://raw.githubusercontent.com/AlvinSyahril/Nexora-Studio/main/public${currentItem.image}`);
-                } else {
-                  (e.currentTarget as HTMLImageElement).style.display = 'none';
-                  setImageError(true);
-                }
-              }}
-            />
-            {/* Placeholder when image fails to load */}
-            <div style={{ 
-              position: "absolute", 
-              inset: 0, 
-              display: "flex", 
-              alignItems: "center", 
-              justifyContent: "center",
-              flexDirection: "column", 
-              gap: "1rem", 
-              color: "#4b5563", 
-              padding: "2rem", 
-              opacity: imageError ? 1 : 0, 
-              pointerEvents: imageError ? "auto" : "none",
-              transition: "opacity 0.3s ease" 
-            }}>
-              <div style={{ 
-                width: "80px", 
-                height: "80px", 
-                borderRadius: "50%", 
-                background: "rgba(245, 158, 11, 0.15)", 
-                display: "flex", 
-                alignItems: "center", 
-                justifyContent: "center",
-                animation: "pulse 2s infinite ease-in-out"
-              }}>
-                <Image src="/showcase/loom/logo.png" alt="Loom" width={40} height={40} />
-              </div>
-              <p style={{ fontSize: "1rem", fontWeight: 500, color: "#9ca3af" }}>Preview unavailable</p>
-              <p style={{ fontSize: "0.85rem", textAlign: "center", maxWidth: "280px", color: "#6b7280" }}>
-                Screenshot for <strong>{currentItem.label}</strong> failed to load.
-              </p>
-              {imageError && (
-                <button
-                  onClick={() => {
-                    setImageError(false);
-                    setHasFallback(true);
-                    setImgSrc(`https://raw.githubusercontent.com/AlvinSyahril/Nexora-Studio/main/public${currentItem.image}?t=${Date.now()}`);
-                  }}
-                  style={{
-                    marginTop: "0.25rem",
-                    padding: "0.45rem 1rem",
-                    borderRadius: "8px",
-                    background: "#F59E0B",
-                    color: "#111",
-                    border: "none",
-                    fontWeight: 600,
-                    fontSize: "0.8rem",
-                    cursor: "pointer",
-                    boxShadow: "0 2px 10px rgba(245, 158, 11, 0.2)"
-                  }}
-                >
-                  Retry Loading
-                </button>
-              )}
-            </div>
-          </div>
+          <AnimatePresence>
+            <MockupSlide key={currentItem.id} item={currentItem} />
+          </AnimatePresence>
         </div>
 
         {/* Feature Context Banner Below Mockup */}
@@ -412,14 +401,23 @@ export default function DesktopMockupSwitcher() {
             gap: "1rem"
           }}
         >
-          <div>
-            <h4 style={{ margin: 0, fontSize: "1.15rem", fontWeight: 600, color: "var(--foreground)" }}>
-              {currentItem.tagline}
-            </h4>
-            <p style={{ margin: "0.5rem 0 0", fontSize: "0.95rem", color: "#6b7280", maxWidth: "800px", lineHeight: 1.6 }}>
-              {currentItem.description}
-            </p>
-          </div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentItem.id}
+              initial={{ opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              style={{ flex: 1, minWidth: "280px" }}
+            >
+              <h4 style={{ margin: 0, fontSize: "1.15rem", fontWeight: 600, color: "var(--foreground)" }}>
+                {currentItem.tagline}
+              </h4>
+              <p style={{ margin: "0.5rem 0 0", fontSize: "0.95rem", color: "#6b7280", maxWidth: "800px", lineHeight: 1.6 }}>
+                {currentItem.description}
+              </p>
+            </motion.div>
+          </AnimatePresence>
           <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
             <span style={{ 
               fontSize: "0.75rem", 

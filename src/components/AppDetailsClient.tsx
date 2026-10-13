@@ -2,26 +2,61 @@
 
 import React, { useEffect, useRef } from "react";
 import styles from "../app/apps/[id]/page.module.css";
-import loomStyles from "../app/apps/[id]/loom.module.css";
 import Link from "next/link";
-import { ArrowLeft, MapPin, Calendar, CreditCard, Cloud, Globe, Bell, Heart, Sun, HardDrive, Star, Edit3, LayoutDashboard, Link2, Table } from "lucide-react";
+import { 
+  ArrowLeft, 
+  MapPin, 
+  Calendar, 
+  CreditCard, 
+  Cloud, 
+  Globe, 
+  Bell, 
+  Heart, 
+  Sun, 
+  HardDrive, 
+  Star, 
+  Edit3, 
+  LayoutDashboard, 
+  Link2, 
+  Table,
+  Download, 
+  ShieldCheck, 
+  Zap, 
+  Sparkles, 
+  FolderTree, 
+  Cpu, 
+  AlertTriangle, 
+  X,
+  RefreshCw
+} from "lucide-react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion } from "framer-motion";
 
 import FaqAccordion from "./FaqAccordion";
 import ScreenshotGallery from "./ScreenshotGallery";
 import DownloadButton from "./DownloadButton";
 import ArchitectureDownloadModal from "./ArchitectureDownloadModal";
 import DesktopMockupSwitcher from "./DesktopMockupSwitcher";
-import { Download, Monitor, ShieldCheck, Zap, Sparkles, FolderTree, Cpu, Flame, AlertTriangle } from "lucide-react";
+import { AppData } from "../data/apps";
+
+interface GitHubAsset {
+  name?: string;
+  browser_download_url?: string;
+}
+
+interface GitHubRelease {
+  tag_name?: string;
+  assets?: GitHubAsset[];
+  html_url?: string;
+}
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function AppDetailsClient({ app }: { app: any }) {
+export default function AppDetailsClient({ app }: { app: AppData }) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [isModalOpen, setIsModalOpen] = React.useState(false);
-  const [gridColumns, setGridColumns] = React.useState("1fr");
   const [activeTab, setActiveTab] = React.useState<'all' | 'global' | 'editor'>('all');
   const [downloadUrl, setDownloadUrl] = React.useState<string>(
     app.downloadUrl || "https://github.com/AlvinSyahril/Nexora-Studio/releases"
@@ -37,16 +72,16 @@ export default function AppDetailsClient({ app }: { app: any }) {
           headers: { Accept: "application/vnd.github.v3+json" }
         });
         if (!res.ok) return;
-        const releases = await res.json();
+        const releases: GitHubRelease[] = await res.json();
         if (!Array.isArray(releases) || releases.length === 0) return;
 
-        const loomRelease = releases.find((r: any) =>
+        const loomRelease = releases.find((r: GitHubRelease) =>
           r.tag_name && (r.tag_name.toLowerCase().includes("loom") || (!r.tag_name.toLowerCase().includes("gtd") && !r.tag_name.toLowerCase().includes("oasis")))
         ) || releases[0];
 
         if (loomRelease && isMounted) {
           if (Array.isArray(loomRelease.assets) && loomRelease.assets.length > 0) {
-            const exeAsset = loomRelease.assets.find((a: any) =>
+            const exeAsset = loomRelease.assets.find((a: GitHubAsset) =>
               typeof a.name === "string" && a.name.toLowerCase().endsWith(".exe")
             );
             if (exeAsset?.browser_download_url) {
@@ -119,12 +154,6 @@ export default function AppDetailsClient({ app }: { app: any }) {
     return () => ctx.revert();
   }, []);
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setGridColumns(window.innerWidth > 768 ? "1fr 1fr" : "1fr");
-    }
-  }, []);
-
   if (app.id === "loom") {
     return (
       <div 
@@ -135,18 +164,24 @@ export default function AppDetailsClient({ app }: { app: any }) {
         {/* Navbar */}
         <nav className={`${styles.container} ${styles.nav}`} data-animate="nav">
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-            <Link 
-              href="/#apps" 
-              className={styles.backButton} 
-              title="Back to Nexora"
-              style={{
-                color: "var(--foreground)",
-                border: "1px solid var(--surface-border)",
-                background: "var(--surface)"
-              }}
+            <motion.div
+              whileHover={{ scale: 1.02, y: -1 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
             >
-              <ArrowLeft size={16} /> <span className={styles.backText}>Back</span>
-            </Link>
+              <Link 
+                href="/#product-roster" 
+                className={styles.backButton} 
+                title="Back to Nexora"
+                style={{
+                  color: "var(--foreground)",
+                  border: "1px solid var(--surface-border)",
+                  background: "var(--surface)"
+                }}
+              >
+                <ArrowLeft size={16} /> <span className={styles.backText}>Back</span>
+              </Link>
+            </motion.div>
             <div className={styles.navBrand}>
               <div className={styles.navLogo} style={{ borderRadius: "8px", overflow: "hidden" }}>
                 <Image src="/showcase/loom/logo.png" alt="Loom Logo" width={38} height={38} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
@@ -182,31 +217,33 @@ export default function AppDetailsClient({ app }: { app: any }) {
             >
               Interactive Tour
             </a>
-            <a 
+            <motion.a 
               href={downloadUrl}
               target="_blank"
               rel="noopener noreferrer"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
               style={{
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "0.5rem",
                 padding: "0.65rem 1.35rem",
-                background: "var(--foreground)",
-                color: "var(--surface)",
+                background: "#000000",
+                color: "#FFFFFF",
                 borderRadius: "var(--radius-md)",
-                fontWeight: 500,
+                fontWeight: 600,
                 fontSize: "0.875rem",
-                textDecoration: "none",
-                transition: "opacity 0.2s ease"
+                textDecoration: "none"
               }}
             >
-              <Download size={16} /> Download .exe
-            </a>
+              <Download size={16} color="#FFFFFF" /> Download .exe
+            </motion.a>
           </div>
         </nav>
 
         {/* Hero Section */}
-        <section className={`${styles.container}`} style={{ padding: "6rem 2rem 4rem", maxWidth: "1200px", margin: "0 auto", display: "grid", gridTemplateColumns: gridColumns, gap: "3rem", alignItems: "center" }}>
+        <section className={`${styles.container}`} style={{ padding: "6rem 2rem 4rem", maxWidth: "1200px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 460px), 1fr))", gap: "3rem", alignItems: "center" }}>
           <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
             {/* Premium Agency Update Pill */}
             <div 
@@ -272,7 +309,7 @@ export default function AppDetailsClient({ app }: { app: any }) {
                 margin: 0
               }}
             >
-              Thinking at<br />Human Speed.
+              Your Notes and<br />Ideas, Connected.
             </h1>
 
             <p 
@@ -285,9 +322,7 @@ export default function AppDetailsClient({ app }: { app: any }) {
                 margin: 0
               }}
             >
-              The unified desktop sanctuary designed for obsessive thinkers. 
-              Intertwines bi-directional markdown, Kanban boards, and 2D knowledge graphs 
-              into one lightning-fast, local-first interface.
+              Write in standard Markdown, connect related concepts on a visual graph, and organize projects on a Kanban board. Everything saves directly to your hard drive.
             </p>
 
             <div 
@@ -300,25 +335,29 @@ export default function AppDetailsClient({ app }: { app: any }) {
                 marginTop: "1rem"
               }}
             >
-              <a 
+              <motion.a 
                 href={downloadUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
                   gap: "0.6rem",
                   padding: "0.85rem 2rem",
-                  background: "var(--foreground)",
-                  color: "var(--surface)",
+                  background: "#000000",
+                  color: "#FFFFFF",
                   borderRadius: "var(--radius-md)",
-                  fontWeight: 500,
+                  fontWeight: 600,
                   fontSize: "1rem",
                   textDecoration: "none",
+                  boxShadow: "0 4px 14px rgba(0, 0, 0, 0.15)"
                 }}
               >
-                Download for Windows
-              </a>
+                <Download size={18} color="#FFFFFF" /> Download for Windows
+              </motion.a>
             </div>
 
             {/* Quick Spec Pills */}
@@ -343,8 +382,78 @@ export default function AppDetailsClient({ app }: { app: any }) {
             </div>
           </div>
 
-          <div data-animate="hero-element" style={{ width: "100%", height: "100%", minHeight: "300px" }}>
-            {/* Kept empty for asymmetric minimalist layout */}
+          {/* Desktop Window Mockup Preview */}
+          <div 
+            data-animate="mockup" 
+            style={{ 
+              width: "100%", 
+              position: "relative",
+              maxWidth: "600px",
+              margin: "0 auto"
+            }}
+          >
+            <div
+              style={{
+                borderRadius: "14px",
+                overflow: "hidden",
+                border: "1px solid rgba(0, 0, 0, 0.12)",
+                boxShadow: "0 20px 45px -10px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.04)",
+                background: "#FAFAFA"
+              }}
+            >
+              {/* Window Titlebar */}
+              <div
+                style={{
+                  height: "36px",
+                  background: "#F5F5F7",
+                  borderBottom: "1px solid rgba(0, 0, 0, 0.08)",
+                  display: "flex",
+                  alignItems: "center",
+                  padding: "0 1rem",
+                  gap: "0.5rem",
+                  userSelect: "none"
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                  <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#FF5F56", border: "1px solid rgba(0,0,0,0.1)" }} />
+                  <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#FFBD2E", border: "1px solid rgba(0,0,0,0.1)" }} />
+                  <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#27C93F", border: "1px solid rgba(0,0,0,0.1)" }} />
+                </div>
+                <div style={{ margin: "0 auto", fontSize: "0.75rem", fontFamily: "var(--font-mono)", color: "#737373", letterSpacing: "-0.01em" }}>
+                  loom // vault-local / workspace.md
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: "4px", fontSize: "0.68rem", color: "#16a34a", fontWeight: 600 }}>
+                  <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#16a34a", display: "inline-block" }}></span>
+                  <span>SYNCED</span>
+                </div>
+              </div>
+
+              {/* Window Content / Mockup Image */}
+              <div
+                style={{
+                  position: "relative",
+                  width: "100%",
+                  aspectRatio: "16 / 10",
+                  background: "#111111",
+                  overflow: "hidden"
+                }}
+              >
+                <Image
+                  src="/showcase/loom/home.png"
+                  alt="Loom Workspace Dashboard"
+                  fill
+                  priority
+                  unoptimized
+                  quality={100}
+                  sizes="(max-width: 768px) 100vw, 600px"
+                  style={{
+                    objectFit: "contain",
+                    objectPosition: "top center",
+                    display: "block"
+                  }}
+                />
+              </div>
+            </div>
           </div>
         </section>
 
@@ -787,31 +896,34 @@ export default function AppDetailsClient({ app }: { app: any }) {
         >
           <div style={{ position: "relative", zIndex: 1, maxWidth: "600px", margin: "0 auto" }}>
             <h2 className="display-font" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", color: "var(--foreground)", marginBottom: "1rem" }}>
-              Ready to Upgrade Your Mind Palace?
+              Start writing with Loom.
             </h2>
             <p style={{ color: "#6b7280", marginBottom: "2.5rem", fontSize: "1.1rem" }}>
-              Download Loom today and experience the ultimate personal workspace tailored for speed, aesthetics, and privacy.
+              Install Loom and start organizing your thoughts locally in standard Markdown files. Free, private, and offline-ready.
             </p>
-            <a 
+            <motion.a 
               href={downloadUrl}
               target="_blank"
               rel="noopener noreferrer"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
               style={{
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "0.6rem",
                 padding: "1.1rem 2.5rem",
-                background: "var(--foreground)",
-                color: "var(--surface)",
+                background: "#000000",
+                color: "#FFFFFF",
                 borderRadius: "9999px",
                 fontWeight: 600,
                 fontSize: "1.05rem",
                 textDecoration: "none",
-                boxShadow: "0 4px 12px rgba(0,0,0,0.05)"
+                boxShadow: "0 6px 20px rgba(0,0,0,0.15)"
               }}
             >
-              <Download size={20} /> Download Loom for Windows
-            </a>
+              <Download size={20} color="#FFFFFF" /> Download Loom for Windows
+            </motion.a>
             <p style={{ marginTop: "3rem", color: "#9ca3af", fontSize: "0.85rem" }}>
               © 2026 Nexora Studio. Crafted with obsession by @vinnssmokee.
             </p>
@@ -885,7 +997,7 @@ export default function AppDetailsClient({ app }: { app: any }) {
                   onMouseEnter={e => e.currentTarget.style.background = "rgba(0,0,0,0.1)"}
                   onMouseLeave={e => e.currentTarget.style.background = "rgba(0,0,0,0.05)"}
                 >
-                  ✕
+                  <X size={18} />
                 </button>
               </div>
               
@@ -933,25 +1045,28 @@ export default function AppDetailsClient({ app }: { app: any }) {
               </div>
               
               <div style={{ padding: "1.5rem 2rem", background: "var(--background)", borderTop: "1px solid var(--surface-border)", display: "flex", justifyContent: "flex-end" }}>
-                <a 
+                <motion.a 
                   href={downloadUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
                   style={{
                     display: "inline-flex",
                     alignItems: "center",
                     gap: "0.5rem",
                     padding: "0.75rem 1.5rem",
-                    background: "var(--foreground)",
-                    color: "var(--surface)",
+                    background: "#000000",
+                    color: "#FFFFFF",
                     borderRadius: "8px",
                     fontWeight: 600,
                     fontSize: "0.9rem",
                     textDecoration: "none",
                   }}
                 >
-                  <Download size={16} /> Download v1.0.1
-                </a>
+                  <Download size={16} color="#FFFFFF" /> Download v1.0.1
+                </motion.a>
               </div>
             </div>
           </div>
@@ -962,201 +1077,515 @@ export default function AppDetailsClient({ app }: { app: any }) {
 
   if (app.id === "oasis") {
     return (
-      <div className={styles.showcaseWrapper} ref={wrapperRef}>
-        {/* Background Blobs - customized colors for Oasis */}
-        <div className={`${styles.blob} ${styles.blobGreen}`} style={{ background: 'rgba(182, 226, 211, 0.4)' }}></div>
-        <div className={`${styles.blob} ${styles.blobBlue}`} style={{ background: 'rgba(212, 240, 240, 0.4)' }}></div>
-        <div className={`${styles.blob} ${styles.blobPurple}`} style={{ background: 'rgba(250, 232, 224, 0.4)' }}></div>
-
+      <div 
+        className={styles.showcaseWrapper} 
+        ref={wrapperRef}
+        style={{ background: "var(--background)", color: "var(--foreground)", minHeight: "100vh" }}
+      >
         {/* Navbar */}
         <nav className={`${styles.container} ${styles.nav}`} data-animate="nav">
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-            <Link href="/#apps" className={styles.backButton} title="Back to Nexora">
-              <ArrowLeft size={16} /> <span className={styles.backText}>Back</span>
-            </Link>
+            <motion.div
+              whileHover={{ scale: 1.02, y: -1 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
+            >
+              <Link 
+                href="/#product-roster" 
+                className={styles.backButton} 
+                title="Back to Nexora"
+                style={{
+                  color: "var(--foreground)",
+                  border: "1px solid var(--surface-border)",
+                  background: "var(--surface)"
+                }}
+              >
+                <ArrowLeft size={16} /> <span className={styles.backText}>Back</span>
+              </Link>
+            </motion.div>
             <div className={styles.navBrand}>
-              <div className={styles.navLogo}>
-                <Image src="/showcase/oasis/logo.png" alt="Oasis Logo" width={40} height={40} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
+              <div className={styles.navLogo} style={{ borderRadius: "8px", overflow: "hidden" }}>
+                <Image src="/showcase/oasis/logo.png" alt="Oasis Logo" width={38} height={38} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
               </div>
-              <span className={styles.navTitle}>Oasis</span>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                <span className={styles.navTitle} style={{ color: "var(--foreground)", fontWeight: 600 }}>Oasis</span>
+                <span className="font-mono-meta" style={{ 
+                  fontSize: "0.7rem", 
+                  fontWeight: 600, 
+                  background: "rgba(0,0,0,0.05)", 
+                  color: "#6b7280", 
+                  padding: "0.2rem 0.5rem", 
+                  borderRadius: "4px",
+                  letterSpacing: "0.05em"
+                }}>
+                  ANDROID // v1.0.3
+                </span>
+              </div>
             </div>
           </div>
-          <button onClick={() => setIsModalOpen(true)} className={styles.navBtn}>Download App</button>
+
+          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+            <a 
+              href="#showcase" 
+              style={{ 
+                fontWeight: 500, 
+                color: "#6b7280", 
+                textDecoration: "none",
+                fontSize: "0.9rem",
+                transition: "color 0.2s ease"
+              }}
+              className="hidden md:block"
+            >
+              Architecture & Previews
+            </a>
+            <motion.button 
+              onClick={() => setIsModalOpen(true)}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.5rem",
+                padding: "0.65rem 1.35rem",
+                background: "#000000",
+                color: "#FFFFFF",
+                borderRadius: "var(--radius-md)",
+                fontWeight: 600,
+                fontSize: "0.875rem",
+                border: "none",
+                cursor: "pointer"
+              }}
+            >
+              <Download size={16} color="#FFFFFF" /> Download .apk
+            </motion.button>
+          </div>
         </nav>
 
         {/* Hero Section */}
-        <section className={`${styles.container} ${styles.hero}`}>
-          <div className={styles.heroText}>
-            <h1 className={styles.heroTitle} data-animate="hero-element">
-              Your Daily Space to <br/>
-              <span className={styles.textGradient} style={{ background: 'linear-gradient(to right, #B6E2D3, #D4F0F0)', WebkitBackgroundClip: 'text' }}>Breathe and Reflect.</span>
+        <section className={`${styles.container}`} style={{ padding: "6rem 2rem 4rem", maxWidth: "1200px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 460px), 1fr))", gap: "3rem", alignItems: "center" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+            {/* Spec Pill */}
+            <div 
+              data-animate="hero-element" 
+              style={{ display: "flex", justifyContent: "flex-start", width: "100%", marginBottom: "1rem" }}
+            >
+              <motion.button 
+                onClick={() => setIsModalOpen(true)}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.75rem",
+                  padding: "0.25rem 0.75rem 0.25rem 0.25rem",
+                  background: "rgba(0,0,0,0.03)",
+                  border: "1px solid rgba(0,0,0,0.08)",
+                  borderRadius: "9999px",
+                  cursor: "pointer",
+                  color: "#111827"
+                }}
+              >
+                <span style={{ 
+                  background: "#111827", 
+                  color: "#ffffff", 
+                  padding: "0.25rem 0.75rem", 
+                  borderRadius: "9999px", 
+                  fontSize: "0.7rem", 
+                  fontWeight: 600, 
+                  letterSpacing: "0.03em",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.35rem",
+                  boxShadow: "0 2px 4px rgba(0,0,0,0.1)"
+                }}>
+                  <Sparkles size={12} /> LATEST
+                </span>
+                <span style={{ 
+                  fontSize: "0.85rem", 
+                  fontWeight: 600, 
+                  color: "#374151"
+                }}>
+                  Oasis v1.0.3 is available
+                </span>
+                <span style={{ color: "#9ca3af", paddingRight: "0.25rem", fontWeight: 600 }}>→</span>
+              </motion.button>
+            </div>
+
+            <h1 
+              data-animate="hero-element"
+              className="display-font"
+              style={{
+                fontSize: "clamp(3rem, 7vw, 5.5rem)",
+                lineHeight: 1.05,
+                color: "var(--foreground)",
+                margin: 0
+              }}
+            >
+              Your Daily Space to<br />Breathe and Reflect.
             </h1>
-            <p className={styles.heroDesc} data-animate="hero-element">
-              {app.description}
-            </p>
-            <div className={styles.heroActions} data-animate="hero-element">
-              <button onClick={() => setIsModalOpen(true)} className={styles.btnPrimary} style={{ background: '#B6E2D3', color: '#3F3F3F', padding: '12px 24px', borderRadius: '8px', border: 'none', cursor: 'pointer', fontWeight: 600 }}>Get Started Free</button>
-              <a href="#features" className={styles.btnSecondary}>Explore Features</a>
-            </div>
-          </div>
-          <div className={styles.heroVisual} data-animate="hero-element">
-            <div className={`${styles.samsungMockup} ${styles.heroMockup}`} data-animate="mockup">
-              <Image src="/showcase/oasis/welcome.png" alt="Oasis Welcome Home" width={300} height={649} priority style={{ borderRadius: '30px', objectFit: 'cover' }} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
-            </div>
-          </div>
-        </section>
 
-        {/* Feature 1: Mood History */}
-        <section id="features" className={`${styles.container} ${styles.feature1}`} data-animate="feature">
-          <div className={styles.f1Text}>
-            <div className={styles.iconBadgeGreen} style={{ background: 'rgba(182, 226, 211, 0.2)', color: '#4CAF50' }}>
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-            </div>
-            <h2 className={styles.fTitle}>Track Your Mood & Activities.</h2>
-            <p className={styles.fDesc}>
-              Easily log your daily emotions and activities. Build a streak and visualize your mental health journey over time with our beautiful calendar view.
+            <p 
+              data-animate="hero-element"
+              style={{
+                fontSize: "1.125rem",
+                color: "#6b7280",
+                maxWidth: "520px",
+                lineHeight: 1.6,
+                margin: 0
+              }}
+            >
+              Log your mood in two taps, follow guided breathing rhythms when stress hits, and record personal reflections behind a secure PIN code. Includes an on-device conversational assistant for daily check-ins.
             </p>
-            <ul className={styles.fList}>
-              <li className={styles.fListItem}>
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg> 
-                Cute cat mascots for every mood
-              </li>
-              <li className={styles.fListItem}>
-                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg> 
-                Attach images and write journals
-              </li>
-            </ul>
-          </div>
-          <div className={styles.f1Visual}>
-            <div className={`${styles.samsungMockup} ${styles.floatCenter}`}>
-               <Image src="/showcase/oasis/history.png" alt="Mood History" width={300} height={649} style={{ borderRadius: '30px', objectFit: 'cover' }} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
-            </div>
-          </div>
-        </section>
 
-        {/* Feature 2: Insights */}
-        <section className={`${styles.container} ${styles.feature2}`} data-animate="feature">
-          <div className={styles.f2Text}>
-            <div className={styles.iconBadgeBlue} style={{ background: 'rgba(212, 240, 240, 0.5)', color: '#5C9EAD' }}>
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+            <div 
+              data-animate="hero-element"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "1rem",
+                flexWrap: "wrap",
+                marginTop: "1rem"
+              }}
+            >
+              <motion.button 
+                onClick={() => setIsModalOpen(true)}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.6rem",
+                  padding: "0.85rem 2rem",
+                  background: "#000000",
+                  color: "#FFFFFF",
+                  borderRadius: "var(--radius-md)",
+                  fontWeight: 600,
+                  fontSize: "1rem",
+                  border: "none",
+                  cursor: "pointer",
+                  boxShadow: "0 4px 14px rgba(0, 0, 0, 0.15)"
+                }}
+              >
+                <Download size={18} color="#FFFFFF" /> Download Oasis v1.0.3 (.apk)
+              </motion.button>
+              <motion.a 
+                href="#pillars"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.5rem",
+                  padding: "0.85rem 1.5rem",
+                  background: "var(--surface)",
+                  color: "var(--foreground)",
+                  border: "1px solid var(--surface-border)",
+                  borderRadius: "var(--radius-md)",
+                  fontWeight: 600,
+                  fontSize: "0.95rem",
+                  textDecoration: "none"
+                }}
+              >
+                Explore Architecture
+              </motion.a>
             </div>
-            <h2 className={styles.fTitle}>Discover Deep Insights.</h2>
-            <p className={styles.fDesc}>
-              Identify your top mood boosters and stress triggers with detailed monthly statistics. Understand yourself better and focus on what makes you happy.
-            </p>
-          </div>
-          <div className={styles.f2Visual}>
-             <div className={`${styles.samsungMockup} ${styles.floatCenter}`}>
-               <Image src="/showcase/oasis/insights.png" alt="Oasis Insights" width={300} height={649} style={{ borderRadius: '30px', objectFit: 'cover' }} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
-            </div>
-          </div>
-        </section>
 
-        {/* Feature 3: Ozie AI */}
-        <section className={`${styles.container} ${styles.feature1}`} data-animate="feature">
-          <div className={styles.f1Text}>
-            <div className={styles.iconBadgeGreen} style={{ background: 'rgba(250, 232, 224, 1)', color: '#E59866' }}>
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+            {/* Quick Spec Badges */}
+            <div 
+              data-animate="hero-element"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "1.25rem",
+                color: "#6b7280",
+                fontSize: "0.85rem",
+                fontWeight: 500,
+                marginTop: "1rem",
+                flexWrap: "wrap"
+              }}
+            >
+              <span className="font-mono-meta" style={{ display: "flex", alignItems: "center", gap: "0.35rem" }}>
+                <ShieldCheck size={16} /> PIN-PROTECTED
+              </span>
+              <span className="font-mono-meta" style={{ display: "flex", alignItems: "center", gap: "0.35rem" }}>
+                <Sparkles size={16} /> ON-DEVICE AI
+              </span>
+              <span className="font-mono-meta" style={{ display: "flex", alignItems: "center", gap: "0.35rem" }}>
+                <Zap size={16} /> ZERO TELEMETRY
+              </span>
             </div>
-            <h2 className={styles.fTitle}>Meet Ozie, Your AI Companion.</h2>
-            <p className={styles.fDesc}>
-              Feel lonely or just want to vent? Chat with Ozie, your virtual Oasis companion. Share stories, complaints, or happiness anytime you need a listening ear.
-            </p>
           </div>
-          <div className={styles.f1Visual}>
-            <div className={`${styles.samsungMockup} ${styles.floatCenter}`}>
-               <Image src="/showcase/oasis/chat.png" alt="Ozie AI Chat" width={300} height={649} style={{ borderRadius: '30px', objectFit: 'cover' }} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
-            </div>
-          </div>
-        </section>
 
-        {/* Feature 4: Privacy & PIN */}
-        <section className={`${styles.container} ${styles.feature2}`} data-animate="feature">
-          <div className={styles.f2Text}>
-            <div className={styles.iconBadgeBlue} style={{ background: 'rgba(232, 232, 232, 0.5)', color: '#A0AAB2' }}>
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-            </div>
-            <h2 className={styles.fTitle}>100% Private & Secure.</h2>
-            <p className={styles.fDesc}>
-              Your journals and thoughts belong to you. Secure your safe space with a PIN lock, ensuring that no one else can read your personal reflections.
-            </p>
-          </div>
-          <div className={styles.f2Visual}>
-             <div className={`${styles.samsungMockup} ${styles.floatCenter}`}>
-               <Image src="/showcase/oasis/pin.png" alt="Oasis PIN Lock" width={300} height={649} style={{ borderRadius: '30px', objectFit: 'cover' }} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
-            </div>
-          </div>
-        </section>
-
-        {/* All Features Grid Section (No Mockups) for Oasis */}
-        <section id="all-features" className={`${styles.container} ${styles.featuresSection}`} data-animate="feature">
-          <div className={styles.featuresHeader}>
-            <h2 className={styles.featuresSectionTitle}>Everything You Need to Heal.</h2>
-            <p className={styles.featuresSectionDesc}>
-              Discover all the core capabilities designed to help you breathe, reflect, and stay mindful every single day.
-            </p>
-          </div>
-          
-          <div className={styles.featuresGrid}>
-            {/* Card 1 */}
-            <div className={styles.featureCard}>
-              <div className={`${styles.featureIconWrapper} ${styles.fcGreen}`}>
-                <Heart />
+          {/* Clean Hardware Smartphone Mockup */}
+          <div 
+            data-animate="mockup" 
+            style={{ 
+              width: "100%", 
+              position: "relative",
+              maxWidth: "340px",
+              margin: "0 auto"
+            }}
+          >
+            <div
+              style={{
+                borderRadius: "44px",
+                overflow: "hidden",
+                border: "1px solid rgba(0, 0, 0, 0.14)",
+                boxShadow: "0 25px 60px -15px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(0, 0, 0, 0.05)",
+                background: "#0D0D0E",
+                padding: "10px"
+              }}
+            >
+              {/* Top Punch-Hole / Camera Pill */}
+              <div style={{ width: "88px", height: "18px", borderRadius: "10px", background: "#050505", margin: "4px auto 8px" }} />
+              
+              {/* Mockup Screen Image */}
+              <div
+                style={{
+                  position: "relative",
+                  width: "100%",
+                  aspectRatio: "9 / 19.5",
+                  borderRadius: "32px",
+                  overflow: "hidden",
+                  background: "#000000"
+                }}
+              >
+                <Image
+                  src="/showcase/oasis/welcome.png"
+                  alt="Oasis Welcome Screen"
+                  fill
+                  priority
+                  sizes="(max-width: 768px) 100vw, 340px"
+                  style={{
+                    objectFit: "cover",
+                    display: "block"
+                  }}
+                />
               </div>
-              <h3 className={styles.featureCardTitle}>Emergency Warmth</h3>
-              <p className={styles.featureCardDesc}>
-                Feeling anxious? The screen dims to a calming green, playing soothing instrumentals while guiding you through a 5-second breathing exercise.
+            </div>
+          </div>
+        </section>
+
+        {/* Structured Architectural Pillars Section */}
+        <section id="pillars" className={`${styles.container}`} style={{ padding: "5rem 1.5rem 6rem" }}>
+          <div style={{ textAlign: "center", marginBottom: "4rem" }}>
+            <span className="font-mono-meta" style={{ color: "#6b7280", fontWeight: 600, fontSize: "0.75rem", letterSpacing: "0.12em" }}>
+              [ ARCHITECTURAL PILLARS // SYSTEM DESIGN ]
+            </span>
+            <h2 className="display-font" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", color: "var(--foreground)", marginTop: "0.5rem" }}>
+              Private Wellness Engineering
+            </h2>
+            <p style={{ color: "#6b7280", maxWidth: "620px", margin: "0.75rem auto 0", fontSize: "1.05rem", lineHeight: 1.6 }}>
+              Built without cloud telemetry, surveillance SDKs, or algorithmic feeds. Your personal reflections stay strictly on your device.
+            </p>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1.5rem" }}>
+            {/* Pillar 1 */}
+            <div style={{ padding: "2rem", background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "16px", boxShadow: "var(--shadow-card)" }}>
+              <div style={{ width: "40px", height: "40px", borderRadius: "8px", background: "rgba(0,0,0,0.04)", color: "var(--foreground)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1.5rem" }}>
+                <Sparkles size={20} />
+              </div>
+              <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280", display: "block", marginBottom: "0.5rem" }}>PILLAR 01 // LOCAL AI</span>
+              <h3 style={{ fontSize: "1.25rem", fontWeight: 600, color: "var(--foreground)", marginBottom: "0.65rem", letterSpacing: "-0.01em" }}>
+                Ozie Reflection Assistant
+              </h3>
+              <p style={{ color: "#6b7280", lineHeight: 1.6, fontSize: "0.95rem" }}>
+                Talk through rough moments, small wins, or daily stress whenever you need to reflect. Conversational check-ins run securely without third-party data tracking.
+              </p>
+            </div>
+
+            {/* Pillar 2 */}
+            <div style={{ padding: "2rem", background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "16px", boxShadow: "var(--shadow-card)" }}>
+              <div style={{ width: "40px", height: "40px", borderRadius: "8px", background: "rgba(0,0,0,0.04)", color: "var(--foreground)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1.5rem" }}>
+                <Sun size={20} />
+              </div>
+              <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280", display: "block", marginBottom: "0.5rem" }}>PILLAR 02 // SOMATIC CADENCE</span>
+              <h3 style={{ fontSize: "1.25rem", fontWeight: 600, color: "var(--foreground)", marginBottom: "0.65rem", letterSpacing: "-0.01em" }}>
+                Guided Breathing Pacer
+              </h3>
+              <p style={{ color: "#6b7280", lineHeight: 1.6, fontSize: "0.95rem" }}>
+                Visual cadence circles guide your breathing to lower your heart rate in under two minutes with scientifically validated pacing intervals.
+              </p>
+            </div>
+
+            {/* Pillar 3 */}
+            <div style={{ padding: "2rem", background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "16px", boxShadow: "var(--shadow-card)" }}>
+              <div style={{ width: "40px", height: "40px", borderRadius: "8px", background: "rgba(0,0,0,0.04)", color: "var(--foreground)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1.5rem" }}>
+                <LayoutDashboard size={20} />
+              </div>
+              <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280", display: "block", marginBottom: "0.5rem" }}>PILLAR 03 // ANALYTICS</span>
+              <h3 style={{ fontSize: "1.25rem", fontWeight: 600, color: "var(--foreground)", marginBottom: "0.65rem", letterSpacing: "-0.01em" }}>
+                Monthly Mood Insights
+              </h3>
+              <p style={{ color: "#6b7280", lineHeight: 1.6, fontSize: "0.95rem" }}>
+                Identify how work habits, exercise, and sleep correlate with your emotional patterns with high-resolution monthly visual analytics.
+              </p>
+            </div>
+
+            {/* Pillar 4 */}
+            <div style={{ padding: "2rem", background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "16px", boxShadow: "var(--shadow-card)" }}>
+              <div style={{ width: "40px", height: "40px", borderRadius: "8px", background: "rgba(0,0,0,0.04)", color: "var(--foreground)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1.5rem" }}>
+                <ShieldCheck size={20} />
+              </div>
+              <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280", display: "block", marginBottom: "0.5rem" }}>PILLAR 04 // CRYPTOGRAPHY</span>
+              <h3 style={{ fontSize: "1.25rem", fontWeight: 600, color: "var(--foreground)", marginBottom: "0.65rem", letterSpacing: "-0.01em" }}>
+                PIN-Protected Storage
+              </h3>
+              <p style={{ color: "#6b7280", lineHeight: 1.6, fontSize: "0.95rem" }}>
+                Lock your personal entries, journal logs, and photos on your phone behind cryptographic on-device PIN authentication.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Interface & Native Hardware Mockup Showcase */}
+        <section id="showcase" className={`${styles.container}`} style={{ padding: "4rem 1.5rem 6rem" }}>
+          <div style={{ textAlign: "center", marginBottom: "4rem" }}>
+            <span className="font-mono-meta" style={{ color: "#6b7280", fontWeight: 600, fontSize: "0.75rem", letterSpacing: "0.12em" }}>
+              [ SYSTEM INTERFACE // SCREEN SPECIFICATIONS ]
+            </span>
+            <h2 className="display-font" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", color: "var(--foreground)", marginTop: "0.5rem" }}>
+              Interface & Native Workflows
+            </h2>
+            <p style={{ color: "#6b7280", fontSize: "1.1rem", maxWidth: "640px", margin: "0.75rem auto 0", lineHeight: 1.6 }}>
+              Engineered for fluid touch interaction, minimal cognitive friction, and immediate comfort.
+            </p>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "2rem" }}>
+            {/* Screen 1 */}
+            <div style={{ background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "20px", padding: "2rem 1.5rem", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", boxShadow: "var(--shadow-card)" }}>
+              <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280" }}>01 // TEMPORAL LOGGING</span>
+              <div style={{ width: "210px", background: "#0D0D0E", borderRadius: "34px", padding: "8px", border: "1px solid rgba(0, 0, 0, 0.12)", boxShadow: "0 16px 36px -10px rgba(0,0,0,0.18)", margin: "1.5rem 0" }}>
+                <div style={{ width: "60px", height: "14px", borderRadius: "8px", background: "#050505", margin: "2px auto 6px" }} />
+                <div style={{ position: "relative", width: "100%", aspectRatio: "9 / 19.5", borderRadius: "24px", overflow: "hidden", background: "#000" }}>
+                  <Image src="/showcase/oasis/history.png" alt="Mood History" fill sizes="210px" style={{ objectFit: "cover" }} />
+                </div>
+              </div>
+              <h4 style={{ fontSize: "1.15rem", fontWeight: 600, color: "var(--foreground)", margin: "0 0 0.5rem" }}>Visual Mood Timeline</h4>
+              <p style={{ fontSize: "0.9rem", color: "#6b7280", lineHeight: 1.5, margin: 0 }}>Log emotions in two taps, maintain streaks, and inspect monthly calendar trends.</p>
+            </div>
+
+            {/* Screen 2 */}
+            <div style={{ background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "20px", padding: "2rem 1.5rem", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", boxShadow: "var(--shadow-card)" }}>
+              <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280" }}>02 // DATA SYNTHESIS</span>
+              <div style={{ width: "210px", background: "#0D0D0E", borderRadius: "34px", padding: "8px", border: "1px solid rgba(0, 0, 0, 0.12)", boxShadow: "0 16px 36px -10px rgba(0,0,0,0.18)", margin: "1.5rem 0" }}>
+                <div style={{ width: "60px", height: "14px", borderRadius: "8px", background: "#050505", margin: "2px auto 6px" }} />
+                <div style={{ position: "relative", width: "100%", aspectRatio: "9 / 19.5", borderRadius: "24px", overflow: "hidden", background: "#000" }}>
+                  <Image src="/showcase/oasis/insights.png" alt="Oasis Insights" fill sizes="210px" style={{ objectFit: "cover" }} />
+                </div>
+              </div>
+              <h4 style={{ fontSize: "1.15rem", fontWeight: 600, color: "var(--foreground)", margin: "0 0 0.5rem" }}>Deep Wellness Insights</h4>
+              <p style={{ fontSize: "0.9rem", color: "#6b7280", lineHeight: 1.5, margin: 0 }}>Correlate activities with mood trends using comprehensive monthly statistical charts.</p>
+            </div>
+
+            {/* Screen 3 */}
+            <div style={{ background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "20px", padding: "2rem 1.5rem", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", boxShadow: "var(--shadow-card)" }}>
+              <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280" }}>03 // LOCAL COMPANION</span>
+              <div style={{ width: "210px", background: "#0D0D0E", borderRadius: "34px", padding: "8px", border: "1px solid rgba(0, 0, 0, 0.12)", boxShadow: "0 16px 36px -10px rgba(0,0,0,0.18)", margin: "1.5rem 0" }}>
+                <div style={{ width: "60px", height: "14px", borderRadius: "8px", background: "#050505", margin: "2px auto 6px" }} />
+                <div style={{ position: "relative", width: "100%", aspectRatio: "9 / 19.5", borderRadius: "24px", overflow: "hidden", background: "#000" }}>
+                  <Image src="/showcase/oasis/chat.png" alt="Ozie AI Chat" fill sizes="210px" style={{ objectFit: "cover" }} />
+                </div>
+              </div>
+              <h4 style={{ fontSize: "1.15rem", fontWeight: 600, color: "var(--foreground)", margin: "0 0 0.5rem" }}>Ozie Reflection Assistant</h4>
+              <p style={{ fontSize: "0.9rem", color: "#6b7280", lineHeight: 1.5, margin: 0 }}>Private conversational companion for venting, working through stress, or quiet reflection.</p>
+            </div>
+
+            {/* Screen 4 */}
+            <div style={{ background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "20px", padding: "2rem 1.5rem", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", boxShadow: "var(--shadow-card)" }}>
+              <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280" }}>04 // SECURITY VAULT</span>
+              <div style={{ width: "210px", background: "#0D0D0E", borderRadius: "34px", padding: "8px", border: "1px solid rgba(0, 0, 0, 0.12)", boxShadow: "0 16px 36px -10px rgba(0,0,0,0.18)", margin: "1.5rem 0" }}>
+                <div style={{ width: "60px", height: "14px", borderRadius: "8px", background: "#050505", margin: "2px auto 6px" }} />
+                <div style={{ position: "relative", width: "100%", aspectRatio: "9 / 19.5", borderRadius: "24px", overflow: "hidden", background: "#000" }}>
+                  <Image src="/showcase/oasis/pin.png" alt="Oasis PIN Lock" fill sizes="210px" style={{ objectFit: "cover" }} />
+                </div>
+              </div>
+              <h4 style={{ fontSize: "1.15rem", fontWeight: 600, color: "var(--foreground)", margin: "0 0 0.5rem" }}>PIN-Protected Vault</h4>
+              <p style={{ fontSize: "0.9rem", color: "#6b7280", lineHeight: 1.5, margin: 0 }}>Secure personal entries and memories behind encrypted on-device PIN authentication.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* Core Capabilities Bento Grid */}
+        <section id="all-features" className={`${styles.container}`} style={{ padding: "4rem 1.5rem 6rem" }}>
+          <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
+            <span className="font-mono-meta" style={{ color: "#6b7280", fontWeight: 600, fontSize: "0.75rem", letterSpacing: "0.12em" }}>
+              [ CORE CAPABILITIES // FEATURE MATRIX ]
+            </span>
+            <h2 className="display-font" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", color: "var(--foreground)", marginTop: "0.5rem" }}>
+              Everything Built In
+            </h2>
+            <p style={{ color: "#6b7280", fontSize: "1.05rem", maxWidth: "600px", margin: "0.75rem auto 0" }}>
+              Complete suite of wellness tools built into a single lightweight Android application.
+            </p>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "1.5rem" }}>
+            {/* Card 1 */}
+            <div style={{ padding: "1.75rem", background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "16px", boxShadow: "var(--shadow-card)" }}>
+              <div style={{ width: "36px", height: "36px", borderRadius: "8px", background: "rgba(0,0,0,0.04)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1rem" }}>
+                <Heart size={18} />
+              </div>
+              <h3 style={{ fontSize: "1.1rem", fontWeight: 600, color: "var(--foreground)", marginBottom: "0.5rem" }}>Emergency Warmth</h3>
+              <p style={{ fontSize: "0.9rem", color: "#6b7280", lineHeight: 1.6, margin: 0 }}>
+                Dims the screen to a soothing dark hue and guides you through instant calming 5-second cadence breathing.
               </p>
             </div>
 
             {/* Card 2 */}
-            <div className={styles.featureCard}>
-              <div className={`${styles.featureIconWrapper} ${styles.fcPink}`}>
-                <Sun />
+            <div style={{ padding: "1.75rem", background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "16px", boxShadow: "var(--shadow-card)" }}>
+              <div style={{ width: "36px", height: "36px", borderRadius: "8px", background: "rgba(0,0,0,0.04)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1rem" }}>
+                <Sun size={18} />
               </div>
-              <h3 className={styles.featureCardTitle}>Wellness Report</h3>
-              <p className={styles.featureCardDesc}>
-                Receive a self-appreciation report every Sunday night summarizing your positivity and resilience throughout the week.
+              <h3 style={{ fontSize: "1.1rem", fontWeight: 600, color: "var(--foreground)", marginBottom: "0.5rem" }}>Weekly Wellness Synthesis</h3>
+              <p style={{ fontSize: "0.9rem", color: "#6b7280", lineHeight: 1.6, margin: 0 }}>
+                Automated summary generated every Sunday night reviewing emotional stability, top activities, and streaks.
               </p>
             </div>
 
             {/* Card 3 */}
-            <div className={styles.featureCard}>
-              <div className={`${styles.featureIconWrapper} ${styles.fcOrange}`}>
-                <Star />
+            <div style={{ padding: "1.75rem", background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "16px", boxShadow: "var(--shadow-card)" }}>
+              <div style={{ width: "36px", height: "36px", borderRadius: "8px", background: "rgba(0,0,0,0.04)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1rem" }}>
+                <Star size={18} />
               </div>
-              <h3 className={styles.featureCardTitle}>Adaptive Themes</h3>
-              <p className={styles.featureCardDesc}>
-                The app's background colors dynamically adapt based on your mood history, from Warm Sunset for joyful days to Calming Forest for stress.
+              <h3 style={{ fontSize: "1.1rem", fontWeight: 600, color: "var(--foreground)", marginBottom: "0.5rem" }}>Adaptive Color Palettes</h3>
+              <p style={{ fontSize: "0.9rem", color: "#6b7280", lineHeight: 1.6, margin: 0 }}>
+                Interface accents subtly adapt to prevailing emotional states, from warm amber tones to serene forest tones.
               </p>
             </div>
 
             {/* Card 4 */}
-            <div className={styles.featureCard}>
-              <div className={`${styles.featureIconWrapper} ${styles.fcBlue}`}>
-                <HardDrive />
+            <div style={{ padding: "1.75rem", background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "16px", boxShadow: "var(--shadow-card)" }}>
+              <div style={{ width: "36px", height: "36px", borderRadius: "8px", background: "rgba(0,0,0,0.04)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1rem" }}>
+                <HardDrive size={18} />
               </div>
-              <h3 className={styles.featureCardTitle}>Backup & Restore</h3>
-              <p className={styles.featureCardDesc}>
-                Securely backup your precious journals and mood history, or export them to CSV and PDF whenever you need them.
+              <h3 style={{ fontSize: "1.1rem", fontWeight: 600, color: "var(--foreground)", marginBottom: "0.5rem" }}>Local Vault Backup & Export</h3>
+              <p style={{ fontSize: "0.9rem", color: "#6b7280", lineHeight: 1.6, margin: 0 }}>
+                Export full journal archives and mood timelines to standard CSV and JSON with zero cloud dependency.
               </p>
             </div>
 
             {/* Card 5 */}
-            <div className={styles.featureCard}>
-              <div className={`${styles.featureIconWrapper} ${styles.fcPurple}`}>
-                <Globe />
+            <div style={{ padding: "1.75rem", background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "16px", boxShadow: "var(--shadow-card)" }}>
+              <div style={{ width: "36px", height: "36px", borderRadius: "8px", background: "rgba(0,0,0,0.04)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1rem" }}>
+                <Globe size={18} />
               </div>
-              <h3 className={styles.featureCardTitle}>Milestone Achievements</h3>
-              <p className={styles.featureCardDesc}>
-                Earn exclusive badges like "Resilient Soul" as a validation of your emotional strength and consistency in journaling.
+              <h3 style={{ fontSize: "1.1rem", fontWeight: 600, color: "var(--foreground)", marginBottom: "0.5rem" }}>Consistency Milestones</h3>
+              <p style={{ fontSize: "0.9rem", color: "#6b7280", lineHeight: 1.6, margin: 0 }}>
+                Visual milestone markers celebrate reflective consistency and long-term mindfulness streaks.
               </p>
             </div>
           </div>
         </section>
 
         {/* Screenshot Gallery Section */}
-        <section style={{ width: '100%', overflow: 'hidden' }} data-animate="feature">
+        <section style={{ width: '100%', overflow: 'hidden' }}>
           <ScreenshotGallery screenshots={[
             "/showcase/oasis/gallery/Screenshot_1782649668.png",
             "/showcase/oasis/gallery/Screenshot_1782649679.png",
@@ -1173,17 +1602,53 @@ export default function AppDetailsClient({ app }: { app: any }) {
         </section>
 
         {/* FAQ Section */}
-        <div data-animate="feature">
+        <div style={{ maxWidth: "900px", margin: "0 auto", padding: "0 1.5rem 6rem" }}>
           <FaqAccordion appId="oasis" />
         </div>
 
         {/* Footer CTA */}
-        <footer className={styles.footer} data-animate="feature">
-          <div className={styles.footerBg} style={{ background: 'linear-gradient(135deg, #B6E2D3 0%, #D4F0F0 100%)' }}></div>
-          <div className={styles.container}>
-            <h2 className={styles.footerTitle}>Ready to find your peace?</h2>
-            <button onClick={() => setIsModalOpen(true)} className={styles.footerBtn} style={{ padding: '14px 28px', borderRadius: '8px', border: 'none', cursor: 'pointer', fontWeight: 600, background: '#fff', color: '#B6E2D3' }}>Download Oasis</button>
-            <p className={styles.footerCopy}>© 2026 Nexora Studio. All rights reserved.</p>
+        <footer 
+          style={{
+            background: "var(--background)",
+            borderTop: "1px solid var(--surface-border)",
+            padding: "6rem 1.5rem 4rem",
+            textAlign: "center",
+            position: "relative",
+            overflow: "hidden"
+          }}
+        >
+          <div style={{ position: "relative", zIndex: 1, maxWidth: "600px", margin: "0 auto" }}>
+            <h2 className="display-font" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", color: "var(--foreground)", marginBottom: "1rem" }}>
+              Take two minutes to check in with yourself.
+            </h2>
+            <p style={{ color: "#6b7280", marginBottom: "2.5rem", fontSize: "1.1rem" }}>
+              Install Oasis and start recording your reflections with complete privacy. Free, offline-ready, and PIN-secured.
+            </p>
+            <motion.button 
+              onClick={() => setIsModalOpen(true)}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.6rem",
+                padding: "1.1rem 2.5rem",
+                background: "#000000",
+                color: "#FFFFFF",
+                borderRadius: "9999px",
+                fontWeight: 600,
+                fontSize: "1.05rem",
+                border: "none",
+                cursor: "pointer",
+                boxShadow: "0 6px 20px rgba(0,0,0,0.15)"
+              }}
+            >
+              <Download size={20} color="#FFFFFF" /> Download Oasis v1.0.3 (.apk)
+            </motion.button>
+            <p style={{ marginTop: "3rem", color: "#9ca3af", fontSize: "0.85rem" }}>
+              © 2026 Nexora Studio. Crafted with obsession by @vinnssmokee.
+            </p>
           </div>
         </footer>
 
@@ -1201,199 +1666,566 @@ export default function AppDetailsClient({ app }: { app: any }) {
     );
   }
 
+  // Get Things Done (reminder-app)
   return (
-    <div className={styles.showcaseWrapper} ref={wrapperRef}>
-      {/* Background Blobs */}
-      <div className={`${styles.blob} ${styles.blobPurple}`}></div>
-      <div className={`${styles.blob} ${styles.blobGreen}`}></div>
-      <div className={`${styles.blob} ${styles.blobBlue}`}></div>
-
+    <div 
+      className={styles.showcaseWrapper} 
+      ref={wrapperRef}
+      style={{ background: "var(--background)", color: "var(--foreground)", minHeight: "100vh" }}
+    >
       {/* Navbar */}
       <nav className={`${styles.container} ${styles.nav}`} data-animate="nav">
         <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-          <Link href="/#apps" className={styles.backButton} title="Back to Nexora">
-            <ArrowLeft size={16} /> <span className={styles.backText}>Back</span>
-          </Link>
+          <motion.div
+            whileHover={{ scale: 1.02, y: -1 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: "spring", stiffness: 400, damping: 25 }}
+          >
+            <Link 
+              href="/#product-roster" 
+              className={styles.backButton} 
+              title="Back to Nexora"
+              style={{
+                color: "var(--foreground)",
+                border: "1px solid var(--surface-border)",
+                background: "var(--surface)"
+              }}
+            >
+              <ArrowLeft size={16} /> <span className={styles.backText}>Back</span>
+            </Link>
+          </motion.div>
           <div className={styles.navBrand}>
-            <div className={styles.navLogo}>
-              <Image src="/showcase/logo.png" alt="Get Things Done app logo showing task management icon" width={40} height={40} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
+            <div className={styles.navLogo} style={{ borderRadius: "8px", overflow: "hidden" }}>
+              <Image src="/showcase/logo.png" alt="Get Things Done Logo" width={38} height={38} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
             </div>
-            <span className={styles.navTitle}>Get Things Done</span>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+              <span className={styles.navTitle} style={{ color: "var(--foreground)", fontWeight: 600 }}>Get Things Done</span>
+              <span className="font-mono-meta" style={{ 
+                fontSize: "0.7rem", 
+                fontWeight: 600, 
+                background: "rgba(0,0,0,0.05)", 
+                color: "#6b7280", 
+                padding: "0.2rem 0.5rem", 
+                borderRadius: "4px",
+                letterSpacing: "0.05em"
+              }}>
+                ANDROID // v2.1.4
+              </span>
+            </div>
           </div>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-          <a href="#all-features" style={{ fontWeight: 600, color: '#1a1a2e', textDecoration: 'none', display: 'none' }} className="hidden md:block">All Features</a>
-          <DownloadButton href="https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v2.1.4-GTD/Get-Things-Done.apk" className={styles.navBtn}>Download App</DownloadButton>
+
+        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+          <a 
+            href="#showcase" 
+            style={{ 
+              fontWeight: 500, 
+              color: "#6b7280", 
+              textDecoration: "none",
+              fontSize: "0.9rem",
+              transition: "color 0.2s ease"
+            }}
+            className="hidden md:block"
+          >
+            Architecture & Previews
+          </a>
+          <DownloadButton 
+            href="https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v2.1.4-GTD/Get-Things-Done.apk" 
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.5rem",
+              padding: "0.65rem 1.35rem",
+              background: "#000000",
+              color: "#FFFFFF",
+              borderRadius: "var(--radius-md)",
+              fontWeight: 600,
+              fontSize: "0.875rem",
+              textDecoration: "none"
+            }}
+          >
+            <Download size={16} color="#FFFFFF" /> Download .apk
+          </DownloadButton>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className={`${styles.container} ${styles.hero}`}>
-        <div className={styles.heroText}>
-          <h1 className={styles.heroTitle} data-animate="hero-element">
-            Your Minimalist <br/>Companion to <br/>
-            <span className={styles.textGradient}>Get Things Done.</span>
+      <section className={`${styles.container}`} style={{ padding: "6rem 2rem 4rem", maxWidth: "1200px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 460px), 1fr))", gap: "3rem", alignItems: "center" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+          {/* Spec Pill */}
+          <div 
+            data-animate="hero-element" 
+            style={{ display: "flex", justifyContent: "flex-start", width: "100%", marginBottom: "1rem" }}
+          >
+            <motion.div 
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.75rem",
+                padding: "0.25rem 0.75rem 0.25rem 0.25rem",
+                background: "rgba(0,0,0,0.03)",
+                border: "1px solid rgba(0,0,0,0.08)",
+                borderRadius: "9999px",
+                color: "#111827",
+                cursor: "default"
+              }}
+            >
+              <span style={{ 
+                background: "#111827", 
+                color: "#ffffff", 
+                padding: "0.25rem 0.75rem", 
+                borderRadius: "9999px", 
+                fontSize: "0.7rem", 
+                fontWeight: 600, 
+                letterSpacing: "0.03em",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.35rem",
+                boxShadow: "0 2px 4px rgba(0,0,0,0.1)"
+              }}>
+                <Sparkles size={12} /> LATEST
+              </span>
+              <span style={{ 
+                fontSize: "0.85rem", 
+                fontWeight: 600, 
+                color: "#374151"
+              }}>
+                Get Things Done v2.1.4 is available
+              </span>
+              <span style={{ color: "#9ca3af", paddingRight: "0.25rem", fontWeight: 600 }}>→</span>
+            </motion.div>
+          </div>
+
+          <h1 
+            data-animate="hero-element"
+            className="display-font"
+            style={{
+              fontSize: "clamp(3rem, 7vw, 5.5rem)",
+              lineHeight: 1.05,
+              color: "var(--foreground)",
+              margin: 0
+            }}
+          >
+            Type Tasks Naturally.<br />Never Miss a Due Date.
           </h1>
-          <p className={styles.heroDesc} data-animate="hero-element">
-            Designed for focus. No clutter, just what you need to achieve your goals today. Sync instantly across all your devices securely.
-          </p>
-          <div className={styles.heroActions} data-animate="hero-element">
-            <DownloadButton href="https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v2.1.4-GTD/Get-Things-Done.apk" className={styles.btnPrimary}>Get Started Free</DownloadButton>
-            <a href="#features" className={styles.btnSecondary}>Explore Features</a>
-          </div>
-        </div>
-        <div className={styles.heroVisual} data-animate="hero-element">
-          <div className={`${styles.samsungMockup} ${styles.heroMockup}`} data-animate="mockup">
-            <Image src="/screenshots/1.png" alt="Get Things Done Home" width={300} height={600} priority style={{ borderRadius: '30px' }} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
-          </div>
-        </div>
-      </section>
 
-      {/* Feature 3: System Update Dashboard */}
-      <section id="features" className={`${styles.container} ${styles.feature1}`} data-animate="feature">
-        <div className={styles.f1Text}>
-          <div className={styles.iconBadgeGreen}>
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
-          </div>
-          <h2 className={styles.fTitle}>Seamless System Updates.</h2>
-          <p className={styles.fDesc}>
-            Stay on the cutting edge effortlessly. With our new Global Update Checker and dedicated Update Dashboard, you'll never miss a new feature or bug fix again.
+          <p 
+            data-animate="hero-element"
+            style={{
+              fontSize: "1.125rem",
+              color: "#6b7280",
+              maxWidth: "520px",
+              lineHeight: 1.6,
+              margin: 0
+            }}
+          >
+            Type reminders in plain English to assign dates, times, and priorities automatically. Keep your daily to-dos and recurring monthly bills organized in one clean view without analytics tracking.
           </p>
-          <ul className={styles.fList}>
-            <li className={styles.fListItem}>
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg> 
-              Automatic background checks on startup
-            </li>
-            <li className={styles.fListItem}>
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg> 
-              Non-intrusive global notification popups
-            </li>
-            <li className={styles.fListItem}>
-              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg> 
-              Detailed changelogs built-in natively
-            </li>
-          </ul>
-        </div>
-        <div className={styles.f1Visual}>
-          <div className={`${styles.samsungMockup} ${styles.floatCenter}`}>
-             <Image src="/screenshots/2.png" alt="System Update Dashboard" width={300} height={600} style={{ borderRadius: '30px' }} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
-          </div>
-        </div>
-      </section>
 
-      {/* Feature 4: Bill Schedule & Financial Tracking */}
-      <section className={`${styles.container} ${styles.feature2}`} data-animate="feature">
-        <div className={styles.f2Text}>
-          <div className={styles.iconBadgeBlue} style={{ background: 'rgba(234, 179, 8, 0.1)', color: '#eab308' }}>
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          <div 
+            data-animate="hero-element"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "1rem",
+              flexWrap: "wrap",
+              marginTop: "1rem"
+            }}
+          >
+            <DownloadButton 
+              href="https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v2.1.4-GTD/Get-Things-Done.apk"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.6rem",
+                padding: "0.85rem 2rem",
+                background: "#000000",
+                color: "#FFFFFF",
+                borderRadius: "var(--radius-md)",
+                fontWeight: 600,
+                fontSize: "1rem",
+                textDecoration: "none",
+                boxShadow: "0 4px 14px rgba(0, 0, 0, 0.15)"
+              }}
+            >
+              <Download size={18} color="#FFFFFF" /> Download v2.1.4 (.apk)
+            </DownloadButton>
+            <motion.a 
+              href="#pillars"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.5rem",
+                padding: "0.85rem 1.5rem",
+                background: "var(--surface)",
+                color: "var(--foreground)",
+                border: "1px solid var(--surface-border)",
+                borderRadius: "var(--radius-md)",
+                fontWeight: 600,
+                fontSize: "0.95rem",
+                textDecoration: "none"
+              }}
+            >
+              Explore Architecture
+            </motion.a>
           </div>
-          <h2 className={styles.fTitle}>Track Bills Effortlessly.</h2>
-          <p className={styles.fDesc}>
-            Manage your finances seamlessly with the brand new Bill Schedule feature. Never miss a payment deadline again, neatly integrated with your daily reminders.
-          </p>
-        </div>
-        <div className={styles.f2Visual}>
-           <div className={`${styles.samsungMockup} ${styles.floatCenter}`}>
-             <Image src="/screenshots/Screenshot_1782481470.png" alt="Bill Schedule" width={300} height={600} style={{ borderRadius: '30px' }} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
-          </div>
-        </div>
-      </section>
 
-      {/* All Features Grid Section (No Mockups) */}
-      <section id="all-features" className={`${styles.container} ${styles.featuresSection}`} data-animate="feature">
-        <div className={styles.featuresHeader}>
-          <h2 className={styles.featuresSectionTitle}>Everything You Need.</h2>
-          <p className={styles.featuresSectionDesc}>
-            Discover all the core capabilities designed to help you stay focused, organized, and ahead of your schedule.
-          </p>
+          {/* Quick Spec Badges */}
+          <div 
+            data-animate="hero-element"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "1.25rem",
+              color: "#6b7280",
+              fontSize: "0.85rem",
+              fontWeight: 500,
+              marginTop: "1rem",
+              flexWrap: "wrap"
+            }}
+          >
+            <span className="font-mono-meta" style={{ display: "flex", alignItems: "center", gap: "0.35rem" }}>
+              <Zap size={16} /> NATURAL LANGUAGE NLP
+            </span>
+            <span className="font-mono-meta" style={{ display: "flex", alignItems: "center", gap: "0.35rem" }}>
+              <ShieldCheck size={16} /> 100% OFFLINE-READY
+            </span>
+            <span className="font-mono-meta" style={{ display: "flex", alignItems: "center", gap: "0.35rem" }}>
+              <RefreshCw size={16} /> IN-APP OTA UPDATES
+            </span>
+          </div>
         </div>
-        
-        <div className={styles.featuresGrid}>
-          {/* Card 1 */}
-          <div className={styles.featureCard}>
-            <div className={`${styles.featureIconWrapper} ${styles.fcPurple}`}>
-              <MapPin />
+
+        {/* Clean Hardware Smartphone Mockup */}
+        <div 
+          data-animate="mockup" 
+          style={{ 
+            width: "100%", 
+            position: "relative",
+            maxWidth: "340px",
+            margin: "0 auto"
+          }}
+        >
+          <div
+            style={{
+              borderRadius: "44px",
+              overflow: "hidden",
+              border: "1px solid rgba(0, 0, 0, 0.14)",
+              boxShadow: "0 25px 60px -15px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(0, 0, 0, 0.05)",
+              background: "#0D0D0E",
+              padding: "10px"
+            }}
+          >
+            {/* Top Punch-Hole / Camera Pill */}
+            <div style={{ width: "88px", height: "18px", borderRadius: "10px", background: "#050505", margin: "4px auto 8px" }} />
+            
+            {/* Mockup Screen Image */}
+            <div
+              style={{
+                position: "relative",
+                width: "100%",
+                aspectRatio: "9 / 19.5",
+                borderRadius: "32px",
+                overflow: "hidden",
+                background: "#000000"
+              }}
+            >
+              <Image
+                src="/screenshots/1.png"
+                alt="Get Things Done Home Screen"
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, 340px"
+                style={{
+                  objectFit: "cover",
+                  display: "block"
+                }}
+              />
             </div>
-            <h3 className={styles.featureCardTitle}>Location Reminders</h3>
-            <p className={styles.featureCardDesc}>
-              Never forget to buy groceries again. Set geographical triggers that alert you the moment you arrive at or leave a specific location.
+          </div>
+        </div>
+      </section>
+
+      {/* Structured Architectural Pillars Section */}
+      <section id="pillars" className={`${styles.container}`} style={{ padding: "5rem 1.5rem 6rem" }}>
+        <div style={{ textAlign: "center", marginBottom: "4rem" }}>
+          <span className="font-mono-meta" style={{ color: "#6b7280", fontWeight: 600, fontSize: "0.75rem", letterSpacing: "0.12em" }}>
+            [ ARCHITECTURAL PILLARS // SYSTEM DESIGN ]
+          </span>
+          <h2 className="display-font" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", color: "var(--foreground)", marginTop: "0.5rem" }}>
+            Task Execution Architecture
+          </h2>
+          <p style={{ color: "#6b7280", maxWidth: "620px", margin: "0.75rem auto 0", fontSize: "1.05rem", lineHeight: 1.6 }}>
+            Built from the ground up for speed, local autonomy, and zero telemetry overhead.
+          </p>
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1.5rem" }}>
+          {/* Pillar 1 */}
+          <div style={{ padding: "2rem", background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "16px", boxShadow: "var(--shadow-card)" }}>
+            <div style={{ width: "40px", height: "40px", borderRadius: "8px", background: "rgba(0,0,0,0.04)", color: "var(--foreground)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1.5rem" }}>
+              <Zap size={20} />
+            </div>
+            <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280", display: "block", marginBottom: "0.5rem" }}>PILLAR 01 // PARSER CORE</span>
+            <h3 style={{ fontSize: "1.25rem", fontWeight: 600, color: "var(--foreground)", marginBottom: "0.65rem", letterSpacing: "-0.01em" }}>
+              Natural Language Input
+            </h3>
+            <p style={{ color: "#6b7280", lineHeight: 1.6, fontSize: "0.95rem" }}>
+              Type sentences naturally like &quot;Dentist Friday at 4pm&quot;. The parser extracts due dates, times, and priority tiers in real time as you write.
+            </p>
+          </div>
+
+          {/* Pillar 2 */}
+          <div style={{ padding: "2rem", background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "16px", boxShadow: "var(--shadow-card)" }}>
+            <div style={{ width: "40px", height: "40px", borderRadius: "8px", background: "rgba(0,0,0,0.04)", color: "var(--foreground)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1.5rem" }}>
+              <CreditCard size={20} />
+            </div>
+            <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280", display: "block", marginBottom: "0.5rem" }}>PILLAR 02 // FINANCIAL CADENCE</span>
+            <h3 style={{ fontSize: "1.25rem", fontWeight: 600, color: "var(--foreground)", marginBottom: "0.65rem", letterSpacing: "-0.01em" }}>
+              Recurring Bill Schedule
+            </h3>
+            <p style={{ color: "#6b7280", lineHeight: 1.6, fontSize: "0.95rem" }}>
+              Track utilities, subscriptions, and recurring commitments so upcoming dues never surprise your cash flow.
+            </p>
+          </div>
+
+          {/* Pillar 3 */}
+          <div style={{ padding: "2rem", background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "16px", boxShadow: "var(--shadow-card)" }}>
+            <div style={{ width: "40px", height: "40px", borderRadius: "8px", background: "rgba(0,0,0,0.04)", color: "var(--foreground)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1.5rem" }}>
+              <RefreshCw size={20} />
+            </div>
+            <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280", display: "block", marginBottom: "0.5rem" }}>PILLAR 03 // LIFECYCLE</span>
+            <h3 style={{ fontSize: "1.25rem", fontWeight: 600, color: "var(--foreground)", marginBottom: "0.65rem", letterSpacing: "-0.01em" }}>
+              In-App System Updates
+            </h3>
+            <p style={{ color: "#6b7280", lineHeight: 1.6, fontSize: "0.95rem" }}>
+              Install feature updates and stability patches directly through our built-in release checker without downloading manual APK files.
+            </p>
+          </div>
+
+          {/* Pillar 4 */}
+          <div style={{ padding: "2rem", background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "16px", boxShadow: "var(--shadow-card)" }}>
+            <div style={{ width: "40px", height: "40px", borderRadius: "8px", background: "rgba(0,0,0,0.04)", color: "var(--foreground)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1.5rem" }}>
+              <ShieldCheck size={20} />
+            </div>
+            <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280", display: "block", marginBottom: "0.5rem" }}>PILLAR 04 // ZERO TELEMETRY</span>
+            <h3 style={{ fontSize: "1.25rem", fontWeight: 600, color: "var(--foreground)", marginBottom: "0.65rem", letterSpacing: "-0.01em" }}>
+              Zero Analytics Trackers
+            </h3>
+            <p style={{ color: "#6b7280", lineHeight: 1.6, fontSize: "0.95rem" }}>
+              Runs completely offline without advertising SDKs or third-party telemetry libraries embedded in the background.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Interface & Native Hardware Mockup Showcase */}
+      <section id="showcase" className={`${styles.container}`} style={{ padding: "4rem 1.5rem 6rem" }}>
+        <div style={{ textAlign: "center", marginBottom: "4rem" }}>
+          <span className="font-mono-meta" style={{ color: "#6b7280", fontWeight: 600, fontSize: "0.75rem", letterSpacing: "0.12em" }}>
+            [ SYSTEM INTERFACE // SCREEN SPECIFICATIONS ]
+          </span>
+          <h2 className="display-font" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", color: "var(--foreground)", marginTop: "0.5rem" }}>
+            Interface & Native Workflows
+          </h2>
+          <p style={{ color: "#6b7280", fontSize: "1.1rem", maxWidth: "640px", margin: "0.75rem auto 0", lineHeight: 1.6 }}>
+            Every screen optimized for speed, clarity, and rapid one-handed task capture.
+          </p>
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "2rem" }}>
+          {/* Screen 1 */}
+          <div style={{ background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "20px", padding: "2rem 1.5rem", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", boxShadow: "var(--shadow-card)" }}>
+            <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280" }}>01 // TASK SCHEDULING</span>
+            <div style={{ width: "210px", background: "#0D0D0E", borderRadius: "34px", padding: "8px", border: "1px solid rgba(0, 0, 0, 0.12)", boxShadow: "0 16px 36px -10px rgba(0,0,0,0.18)", margin: "1.5rem 0" }}>
+              <div style={{ width: "60px", height: "14px", borderRadius: "8px", background: "#050505", margin: "2px auto 6px" }} />
+              <div style={{ position: "relative", width: "100%", aspectRatio: "9 / 19.5", borderRadius: "24px", overflow: "hidden", background: "#000" }}>
+                <Image src="/screenshots/1.png" alt="Get Things Done Home" fill sizes="210px" style={{ objectFit: "cover" }} />
+              </div>
+            </div>
+            <h4 style={{ fontSize: "1.15rem", fontWeight: 600, color: "var(--foreground)", margin: "0 0 0.5rem" }}>Daily Plan Agenda</h4>
+            <p style={{ fontSize: "0.9rem", color: "#6b7280", lineHeight: 1.5, margin: 0 }}>Type reminders in plain English to automatically extract dates, times, and priority tiers.</p>
+          </div>
+
+          {/* Screen 2 */}
+          <div style={{ background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "20px", padding: "2rem 1.5rem", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", boxShadow: "var(--shadow-card)" }}>
+            <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280" }}>02 // RELEASE LIFECYCLE</span>
+            <div style={{ width: "210px", background: "#0D0D0E", borderRadius: "34px", padding: "8px", border: "1px solid rgba(0, 0, 0, 0.12)", boxShadow: "0 16px 36px -10px rgba(0,0,0,0.18)", margin: "1.5rem 0" }}>
+              <div style={{ width: "60px", height: "14px", borderRadius: "8px", background: "#050505", margin: "2px auto 6px" }} />
+              <div style={{ position: "relative", width: "100%", aspectRatio: "9 / 19.5", borderRadius: "24px", overflow: "hidden", background: "#000" }}>
+                <Image src="/screenshots/2.png" alt="System Update Dashboard" fill sizes="210px" style={{ objectFit: "cover" }} />
+              </div>
+            </div>
+            <h4 style={{ fontSize: "1.15rem", fontWeight: 600, color: "var(--foreground)", margin: "0 0 0.5rem" }}>System Update Dashboard</h4>
+            <p style={{ fontSize: "0.9rem", color: "#6b7280", lineHeight: 1.5, margin: 0 }}>Automatic background checks and in-app version patching with full changelog visibility.</p>
+          </div>
+
+          {/* Screen 3 */}
+          <div style={{ background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "20px", padding: "2rem 1.5rem", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", boxShadow: "var(--shadow-card)" }}>
+            <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280" }}>03 // FISCAL OBLIGATIONS</span>
+            <div style={{ width: "210px", background: "#0D0D0E", borderRadius: "34px", padding: "8px", border: "1px solid rgba(0, 0, 0, 0.12)", boxShadow: "0 16px 36px -10px rgba(0,0,0,0.18)", margin: "1.5rem 0" }}>
+              <div style={{ width: "60px", height: "14px", borderRadius: "8px", background: "#050505", margin: "2px auto 6px" }} />
+              <div style={{ position: "relative", width: "100%", aspectRatio: "9 / 19.5", borderRadius: "24px", overflow: "hidden", background: "#000" }}>
+                <Image src="/screenshots/Screenshot_1782481470.png" alt="Bill Schedule" fill sizes="210px" style={{ objectFit: "cover" }} />
+              </div>
+            </div>
+            <h4 style={{ fontSize: "1.15rem", fontWeight: 600, color: "var(--foreground)", margin: "0 0 0.5rem" }}>Recurring Bill Tracker</h4>
+            <p style={{ fontSize: "0.9rem", color: "#6b7280", lineHeight: 1.5, margin: 0 }}>Organize utilities and subscription billing cycles directly alongside daily to-dos.</p>
+          </div>
+
+          {/* Screen 4 */}
+          <div style={{ background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "20px", padding: "2rem 1.5rem", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", boxShadow: "var(--shadow-card)" }}>
+            <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280" }}>04 // GEO-FENCED ALERTS</span>
+            <div style={{ width: "210px", background: "#0D0D0E", borderRadius: "34px", padding: "8px", border: "1px solid rgba(0, 0, 0, 0.12)", boxShadow: "0 16px 36px -10px rgba(0,0,0,0.18)", margin: "1.5rem 0" }}>
+              <div style={{ width: "60px", height: "14px", borderRadius: "8px", background: "#050505", margin: "2px auto 6px" }} />
+              <div style={{ position: "relative", width: "100%", aspectRatio: "9 / 19.5", borderRadius: "24px", overflow: "hidden", background: "#000" }}>
+                <Image src="/screenshots/Screenshot_1782481446.png" alt="Location Reminders" fill sizes="210px" style={{ objectFit: "cover" }} />
+              </div>
+            </div>
+            <h4 style={{ fontSize: "1.15rem", fontWeight: 600, color: "var(--foreground)", margin: "0 0 0.5rem" }}>Location Triggers</h4>
+            <p style={{ fontSize: "0.9rem", color: "#6b7280", lineHeight: 1.5, margin: 0 }}>Geographical triggers notify you when arriving at or departing designated places.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Core Capabilities Bento Grid */}
+      <section id="all-features" className={`${styles.container}`} style={{ padding: "4rem 1.5rem 6rem" }}>
+        <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
+          <span className="font-mono-meta" style={{ color: "#6b7280", fontWeight: 600, fontSize: "0.75rem", letterSpacing: "0.12em" }}>
+            [ CORE CAPABILITIES // FEATURE MATRIX ]
+          </span>
+          <h2 className="display-font" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", color: "var(--foreground)", marginTop: "0.5rem" }}>
+            Every Capability Built In
+          </h2>
+          <p style={{ color: "#6b7280", fontSize: "1.05rem", maxWidth: "600px", margin: "0.75rem auto 0" }}>
+            Designed for frictionless execution, reliability, and precision scheduling.
+          </p>
+        </div>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "1.5rem" }}>
+          {/* Card 1 */}
+          <div style={{ padding: "1.75rem", background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "16px", boxShadow: "var(--shadow-card)" }}>
+            <div style={{ width: "36px", height: "36px", borderRadius: "8px", background: "rgba(0,0,0,0.04)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1rem" }}>
+              <MapPin size={18} />
+            </div>
+            <h3 style={{ fontSize: "1.1rem", fontWeight: 600, color: "var(--foreground)", marginBottom: "0.5rem" }}>Location Reminders</h3>
+            <p style={{ fontSize: "0.9rem", color: "#6b7280", lineHeight: 1.6, margin: 0 }}>
+              Set geographical triggers that alert you the moment you arrive at or leave a specific location.
             </p>
           </div>
 
           {/* Card 2 */}
-          <div className={styles.featureCard}>
-            <div className={`${styles.featureIconWrapper} ${styles.fcBlue}`}>
-              <Calendar />
+          <div style={{ padding: "1.75rem", background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "16px", boxShadow: "var(--shadow-card)" }}>
+            <div style={{ width: "36px", height: "36px", borderRadius: "8px", background: "rgba(0,0,0,0.04)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1rem" }}>
+              <Calendar size={18} />
             </div>
-            <h3 className={styles.featureCardTitle}>Daily Plan Agenda</h3>
-            <p className={styles.featureCardDesc}>
-              Visualize your entire day at a glance. Our beautiful calendar view organizes your tasks logically so you know exactly what's next.
+            <h3 style={{ fontSize: "1.1rem", fontWeight: 600, color: "var(--foreground)", marginBottom: "0.5rem" }}>Daily Plan Agenda</h3>
+            <p style={{ fontSize: "0.9rem", color: "#6b7280", lineHeight: 1.6, margin: 0 }}>
+              Visualize your entire day at a glance with chronological ordering and priority indicators.
             </p>
           </div>
 
           {/* Card 3 */}
-          <div className={styles.featureCard}>
-            <div className={`${styles.featureIconWrapper} ${styles.fcOrange}`}>
-              <CreditCard />
+          <div style={{ padding: "1.75rem", background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "16px", boxShadow: "var(--shadow-card)" }}>
+            <div style={{ width: "36px", height: "36px", borderRadius: "8px", background: "rgba(0,0,0,0.04)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1rem" }}>
+              <CreditCard size={18} />
             </div>
-            <h3 className={styles.featureCardTitle}>Smart Bill Tracker</h3>
-            <p className={styles.featureCardDesc}>
-              Automatically track your recurring financial obligations. Get reminded ahead of time and keep your credit score pristine.
+            <h3 style={{ fontSize: "1.1rem", fontWeight: 600, color: "var(--foreground)", marginBottom: "0.5rem" }}>Smart Bill Tracker</h3>
+            <p style={{ fontSize: "0.9rem", color: "#6b7280", lineHeight: 1.6, margin: 0 }}>
+              Track recurring financial commitments and get notified in advance of billing cutoffs.
             </p>
           </div>
 
           {/* Card 4 */}
-          <div className={styles.featureCard}>
-            <div className={`${styles.featureIconWrapper} ${styles.fcGreen}`}>
-              <Cloud />
+          <div style={{ padding: "1.75rem", background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "16px", boxShadow: "var(--shadow-card)" }}>
+            <div style={{ width: "36px", height: "36px", borderRadius: "8px", background: "rgba(0,0,0,0.04)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1rem" }}>
+              <Cloud size={18} />
             </div>
-            <h3 className={styles.featureCardTitle}>Real-time Cloud Sync</h3>
-            <p className={styles.featureCardDesc}>
-              Powered by Firebase, your data securely syncs across all your devices in real-time, instantly. Always accessible, anywhere.
+            <h3 style={{ fontSize: "1.1rem", fontWeight: 600, color: "var(--foreground)", marginBottom: "0.5rem" }}>Optional Cloud Sync</h3>
+            <p style={{ fontSize: "0.9rem", color: "#6b7280", lineHeight: 1.6, margin: 0 }}>
+              Optional real-time encrypted backup allows seamless synchronization across devices when desired.
             </p>
           </div>
 
           {/* Card 5 */}
-          <div className={styles.featureCard}>
-            <div className={`${styles.featureIconWrapper} ${styles.fcPink}`}>
-              <Globe />
+          <div style={{ padding: "1.75rem", background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "16px", boxShadow: "var(--shadow-card)" }}>
+            <div style={{ width: "36px", height: "36px", borderRadius: "8px", background: "rgba(0,0,0,0.04)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1rem" }}>
+              <Globe size={18} />
             </div>
-            <h3 className={styles.featureCardTitle}>Multi-Language</h3>
-            <p className={styles.featureCardDesc}>
-              Fully localized for global users. Seamlessly switch between English, Indonesian, and other supported languages on the fly.
+            <h3 style={{ fontSize: "1.1rem", fontWeight: 600, color: "var(--foreground)", marginBottom: "0.5rem" }}>Multi-Language Support</h3>
+            <p style={{ fontSize: "0.9rem", color: "#6b7280", lineHeight: 1.6, margin: 0 }}>
+              Fully localized for global users, supporting seamless language toggling between English and Indonesian.
             </p>
           </div>
 
           {/* Card 6 */}
-          <div className={styles.featureCard}>
-            <div className={`${styles.featureIconWrapper} ${styles.fcTeal}`}>
-              <Bell />
+          <div style={{ padding: "1.75rem", background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "16px", boxShadow: "var(--shadow-card)" }}>
+            <div style={{ width: "36px", height: "36px", borderRadius: "8px", background: "rgba(0,0,0,0.04)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1rem" }}>
+              <Bell size={18} />
             </div>
-            <h3 className={styles.featureCardTitle}>Push Notifications</h3>
-            <p className={styles.featureCardDesc}>
-              Reliable background alerts ensure you never miss a beat, even if the app is closed. Stay notified without draining your battery.
+            <h3 style={{ fontSize: "1.1rem", fontWeight: 600, color: "var(--foreground)", marginBottom: "0.5rem" }}>High-Precision Alarms</h3>
+            <p style={{ fontSize: "0.9rem", color: "#6b7280", lineHeight: 1.6, margin: 0 }}>
+              Battery-optimized background service ensures alarms fire on the exact second, even in deep sleep mode.
             </p>
           </div>
         </div>
       </section>
 
       {/* Screenshot Gallery Section */}
-      <section style={{ width: '100%', overflow: 'hidden' }} data-animate="feature">
+      <section style={{ width: '100%', overflow: 'hidden' }}>
         <ScreenshotGallery />
       </section>
 
       {/* FAQ Section */}
-      <div data-animate="feature">
+      <div style={{ maxWidth: "900px", margin: "0 auto", padding: "0 1.5rem 6rem" }}>
         <FaqAccordion appId="gtd" />
       </div>
 
       {/* Footer CTA */}
-      <footer className={styles.footer} data-animate="feature">
-        <div className={styles.footerBg}></div>
-        <div className={styles.container}>
-          <h2 className={styles.footerTitle}>Ready to organize your life?</h2>
-          <DownloadButton href="https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v2.1.4-GTD/Get-Things-Done.apk" className={styles.footerBtn}>Download Get Things Done</DownloadButton>
-          <p className={styles.footerCopy}>© 2026 Nexora Studio. All rights reserved.</p>
+      <footer 
+        style={{
+          background: "var(--background)",
+          borderTop: "1px solid var(--surface-border)",
+          padding: "6rem 1.5rem 4rem",
+          textAlign: "center",
+          position: "relative",
+          overflow: "hidden"
+        }}
+      >
+        <div style={{ position: "relative", zIndex: 1, maxWidth: "600px", margin: "0 auto" }}>
+          <h2 className="display-font" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", color: "var(--foreground)", marginBottom: "1rem" }}>
+            Keep your daily schedule in order.
+          </h2>
+          <p style={{ color: "#6b7280", marginBottom: "2.5rem", fontSize: "1.1rem" }}>
+            Install Get Things Done and experience natural language reminder capture. Free, private, and offline-ready.
+          </p>
+          <DownloadButton 
+            href="https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v2.1.4-GTD/Get-Things-Done.apk"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.6rem",
+              padding: "1.1rem 2.5rem",
+              background: "#000000",
+              color: "#FFFFFF",
+              borderRadius: "9999px",
+              fontWeight: 600,
+              fontSize: "1.05rem",
+              textDecoration: "none",
+              boxShadow: "0 6px 20px rgba(0,0,0,0.15)"
+            }}
+          >
+            <Download size={20} color="#FFFFFF" /> Download Get Things Done v2.1.4 (.apk)
+          </DownloadButton>
+          <p style={{ marginTop: "3rem", color: "#9ca3af", fontSize: "0.85rem" }}>
+            © 2026 Nexora Studio. Crafted with obsession by @vinnssmokee.
+          </p>
         </div>
       </footer>
     </div>

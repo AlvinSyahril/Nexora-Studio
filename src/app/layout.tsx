@@ -1,13 +1,19 @@
 import type { Metadata } from "next";
-import { Inter, Anton } from "next/font/google";
+import { Inter, JetBrains_Mono, Anton } from "next/font/google";
 import "./globals.css";
-import FloatingSupport from "@/components/FloatingSupport";
+import CustomCursor from "@/components/CustomCursor";
 import { Analytics } from "@vercel/analytics/next";
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-mono-code",
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
 });
 
 const anton = Anton({
@@ -17,8 +23,22 @@ const anton = Anton({
 });
 
 export const metadata: Metadata = {
-  title: "Nexora Studio - Developer Showcase",
-  description: "Official App Studio and Developer Portfolio",
+  metadataBase: new URL("https://nexorastudio.com"),
+  title: "Nexora Studio - Independent Software Tools",
+  description: "Independent software studio building local-first desktop tools and private mobile applications without telemetry.",
+  openGraph: {
+    title: "Nexora Studio - Independent Software Tools",
+    description: "Independent software studio building local-first desktop tools and private mobile applications without telemetry.",
+    url: "https://nexorastudio.com",
+    siteName: "Nexora Studio",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Nexora Studio - Independent Software Tools",
+    description: "Independent software studio building local-first desktop tools and private mobile applications without telemetry.",
+  },
 };
 
 export default function RootLayout({
@@ -29,11 +49,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${anton.variable}`}
+      className={`${inter.variable} ${jetbrainsMono.variable} ${anton.variable} scroll-smooth`}
     >
-      <body className="main-content">
+      <body>
+        <CustomCursor />
         {children}
-        <FloatingSupport />
         <Analytics />
       </body>
     </html>

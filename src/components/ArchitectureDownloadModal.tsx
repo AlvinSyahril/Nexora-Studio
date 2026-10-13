@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { track } from '@vercel/analytics/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { X, Download, Star } from 'lucide-react';
 
 interface ArchitectureDownloadModalProps {
@@ -27,8 +28,12 @@ export default function ArchitectureDownloadModal({ isOpen, onClose, appName, li
           
           // 1. Try modern userAgentData API
           if (typeof navigator !== 'undefined' && 'userAgentData' in navigator) {
-            const nav: any = navigator;
-            if (nav.userAgentData.getHighEntropyValues) {
+            const nav = navigator as Navigator & {
+              userAgentData?: {
+                getHighEntropyValues?: (hints: string[]) => Promise<{ architecture?: string; bitness?: string }>;
+              };
+            };
+            if (nav.userAgentData?.getHighEntropyValues) {
               const uaData = await nav.userAgentData.getHighEntropyValues(['architecture', 'bitness']);
               if (uaData.architecture === 'arm' || uaData.architecture === 'arm64') {
                 arch = (uaData.bitness === '64' || uaData.architecture === 'arm64') ? 'arm64-v8a' : 'armeabi-v7a';
@@ -51,10 +56,6 @@ export default function ArchitectureDownloadModal({ isOpen, onClose, appName, li
               arch = 'arm64-v8a';
             } else if (ua.includes('arm') || platform.includes('arm')) {
               arch = 'armeabi-v7a';
-            } else if (ua.includes('android')) {
-              // As a last resort for unknown Android devices, we can either leave it null (recommends Universal)
-              // or guess arm64 since 99% of Androids since 2016 are 64-bit.
-              // Let's leave it null to be safe so it recommends Universal.
             }
           }
           
@@ -66,113 +67,194 @@ export default function ArchitectureDownloadModal({ isOpen, onClose, appName, li
         }
       };
       detect();
-    }
-  }, [isOpen]);
 
-  if (!isOpen) return null;
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          onClose();
+        }
+      };
+      window.addEventListener('keydown', handleKeyDown);
+      return () => {
+        window.removeEventListener('keydown', handleKeyDown);
+      };
+    }
+  }, [isOpen, onClose]);
 
   return (
-    <div style={{
-      position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
-      backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 9999,
-      display: 'flex', alignItems: 'center', justifyContent: 'center',
-      padding: '20px'
-    }}>
-      <div style={{
-        backgroundColor: '#fff', borderRadius: '16px', padding: '24px',
-        maxWidth: '400px', width: '100%', position: 'relative',
-        boxShadow: '0 10px 25px rgba(0,0,0,0.1)'
-      }}>
-        <button onClick={onClose} style={{ position: 'absolute', top: '16px', right: '16px', background: 'none', border: 'none', cursor: 'pointer', color: '#666' }}>
-          <X size={20} />
-        </button>
-        
-        <h3 style={{ fontSize: '20px', fontWeight: 'bold', marginBottom: '8px', color: '#333' }}>Download {appName}</h3>
-        <p style={{ fontSize: '14px', color: '#666', marginBottom: '20px' }}>
-          Please select the version that matches your device architecture for optimal performance and smaller app size.
-        </p>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-          
-          <a 
-            href={links.arm64}
-            download
-            onClick={() => track('Download APK', { type: 'arm64' })}
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div 
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="modal-title"
+          onClick={onClose}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          style={{
+            position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.45)', backdropFilter: 'blur(8px)', zIndex: 9999,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            padding: '20px'
+          }}
+        >
+          <motion.div 
+            onClick={(e) => e.stopPropagation()}
+            initial={{ opacity: 0, scale: 0.96, y: 12 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.96, y: 8 }}
+            transition={{ type: "spring", stiffness: 420, damping: 30 }}
             style={{
-              display: 'flex', alignItems: 'center', padding: '12px 16px',
-              border: detectedArch === 'arm64-v8a' ? '2px solid #5C9EAD' : '1px solid #eee',
-              borderRadius: '8px', textDecoration: 'none', color: '#333',
-              backgroundColor: detectedArch === 'arm64-v8a' ? '#F4F9F9' : '#fafafa',
-              transition: 'all 0.2s'
+              backgroundColor: '#FFFFFF', 
+              borderRadius: '20px', 
+              padding: '28px',
+              maxWidth: '440px', 
+              width: '100%', 
+              position: 'relative',
+              boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.2)',
+              border: '1px solid rgba(0, 0, 0, 0.08)'
             }}
           >
-            <div style={{ flex: 1 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{ fontWeight: '600' }}>arm64-v8a</span>
-                {detectedArch === 'arm64-v8a' && (
-                  <span style={{ display: 'flex', alignItems: 'center', fontSize: '12px', color: '#5C9EAD', background: '#D4F0F0', padding: '2px 6px', borderRadius: '4px' }}>
-                    <Star size={12} style={{ marginRight: '4px' }}/> Recommended
-                  </span>
-                )}
-              </div>
-              <span style={{ fontSize: '12px', color: '#888' }}>For most modern Android devices (~40MB)</span>
+            <button 
+              onClick={onClose} 
+              aria-label="Close dialog"
+              style={{ 
+                position: 'absolute', 
+                top: '20px', 
+                right: '20px', 
+                background: 'rgba(0, 0, 0, 0.04)', 
+                border: 'none', 
+                borderRadius: '50%',
+                width: '32px',
+                height: '32px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer', 
+                color: '#525252',
+                transition: 'background 0.2s ease'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(0, 0, 0, 0.08)'}
+              onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(0, 0, 0, 0.04)'}
+            >
+              <X size={16} />
+            </button>
+            
+            <div style={{ marginBottom: '18px' }}>
+              <span className="font-mono-meta" style={{ fontSize: '0.72rem', color: '#737373', display: 'block', marginBottom: '4px' }}>
+                ARCHITECTURE SPECIFICATION
+              </span>
+              <h3 id="modal-title" style={{ fontSize: '1.25rem', fontWeight: 700, margin: 0, color: '#000000', letterSpacing: '-0.02em' }}>
+                Download {appName} for Android
+              </h3>
             </div>
-            <Download size={20} color="#5C9EAD" />
-          </a>
 
-          <a 
-            href={links.arm32}
-            download
-            onClick={() => track('Download APK', { type: 'arm32' })}
-            style={{
-              display: 'flex', alignItems: 'center', padding: '12px 16px',
-              border: detectedArch === 'armeabi-v7a' ? '2px solid #5C9EAD' : '1px solid #eee',
-              borderRadius: '8px', textDecoration: 'none', color: '#333',
-              backgroundColor: detectedArch === 'armeabi-v7a' ? '#F4F9F9' : '#fafafa',
-              transition: 'all 0.2s'
-            }}
-          >
-            <div style={{ flex: 1 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{ fontWeight: '600' }}>armeabi-v7a</span>
-                {detectedArch === 'armeabi-v7a' && (
-                  <span style={{ display: 'flex', alignItems: 'center', fontSize: '12px', color: '#5C9EAD', background: '#D4F0F0', padding: '2px 6px', borderRadius: '4px' }}>
-                    <Star size={12} style={{ marginRight: '4px' }}/> Recommended
-                  </span>
-                )}
-              </div>
-              <span style={{ fontSize: '12px', color: '#888' }}>For older Android devices (~40MB)</span>
-            </div>
-            <Download size={20} color="#5C9EAD" />
-          </a>
+            <p style={{ fontSize: '0.9rem', color: '#666666', lineHeight: 1.5, marginBottom: '22px' }}>
+              Select the binary matching your device architecture for optimal CPU execution speed and compact install size.
+            </p>
 
-          <a 
-            href={links.universal}
-            download
-            onClick={() => track('Download APK', { type: 'universal' })}
-            style={{
-              display: 'flex', alignItems: 'center', padding: '12px 16px',
-              border: (detectedArch !== 'arm64-v8a' && detectedArch !== 'armeabi-v7a') ? '2px solid #5C9EAD' : '1px solid #eee',
-              borderRadius: '8px', textDecoration: 'none', color: '#333',
-              backgroundColor: (detectedArch !== 'arm64-v8a' && detectedArch !== 'armeabi-v7a') ? '#F4F9F9' : '#fafafa',
-              transition: 'all 0.2s'
-            }}
-          >
-            <div style={{ flex: 1 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{ fontWeight: '600', display: 'block' }}>Universal</span>
-                {(detectedArch !== 'arm64-v8a' && detectedArch !== 'armeabi-v7a') && (
-                  <span style={{ display: 'flex', alignItems: 'center', fontSize: '12px', color: '#5C9EAD', background: '#D4F0F0', padding: '2px 6px', borderRadius: '4px' }}>
-                    <Star size={12} style={{ marginRight: '4px' }}/> Recommended for you
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              
+              <motion.a 
+                href={links.arm64}
+                download
+                onClick={() => track('Download APK', { type: 'arm64' })}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                style={{
+                  display: 'flex', alignItems: 'center', padding: '14px 18px',
+                  border: detectedArch === 'arm64-v8a' ? '2px solid #000000' : '1px solid rgba(0, 0, 0, 0.08)',
+                  borderRadius: '12px', textDecoration: 'none', color: '#000000',
+                  backgroundColor: detectedArch === 'arm64-v8a' ? '#F9F9F9' : '#FFFFFF',
+                  boxShadow: detectedArch === 'arm64-v8a' ? '0 4px 16px rgba(0, 0, 0, 0.06)' : 'none',
+                }}
+              >
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontWeight: '700', fontSize: '0.95rem' }}>arm64-v8a</span>
+                    {detectedArch === 'arm64-v8a' && (
+                      <span className="font-mono-meta" style={{ display: 'flex', alignItems: 'center', fontSize: '0.65rem', color: '#FFFFFF', background: '#000000', padding: '2px 8px', borderRadius: '4px' }}>
+                        <Star size={10} style={{ marginRight: '4px' }}/> RECOMMENDED
+                      </span>
+                    )}
+                  </div>
+                  <span style={{ fontSize: '0.8rem', color: '#737373', display: 'block', marginTop: '2px' }}>
+                    Standard for modern 64-bit Android devices (~40MB)
                   </span>
-                )}
-              </div>
-              <span style={{ fontSize: '12px', color: '#888' }}>Works on all devices but larger size (~130MB)</span>
+                </div>
+                <Download size={18} color="#000000" />
+              </motion.a>
+
+              <motion.a 
+                href={links.arm32}
+                download
+                onClick={() => track('Download APK', { type: 'arm32' })}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                style={{
+                  display: 'flex', alignItems: 'center', padding: '14px 18px',
+                  border: detectedArch === 'armeabi-v7a' ? '2px solid #000000' : '1px solid rgba(0, 0, 0, 0.08)',
+                  borderRadius: '12px', textDecoration: 'none', color: '#000000',
+                  backgroundColor: detectedArch === 'armeabi-v7a' ? '#F9F9F9' : '#FFFFFF',
+                  boxShadow: detectedArch === 'armeabi-v7a' ? '0 4px 16px rgba(0, 0, 0, 0.06)' : 'none',
+                }}
+              >
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontWeight: '700', fontSize: '0.95rem' }}>armeabi-v7a</span>
+                    {detectedArch === 'armeabi-v7a' && (
+                      <span className="font-mono-meta" style={{ display: 'flex', alignItems: 'center', fontSize: '0.65rem', color: '#FFFFFF', background: '#000000', padding: '2px 8px', borderRadius: '4px' }}>
+                        <Star size={10} style={{ marginRight: '4px' }}/> RECOMMENDED
+                      </span>
+                    )}
+                  </div>
+                  <span style={{ fontSize: '0.8rem', color: '#737373', display: 'block', marginTop: '2px' }}>
+                    Legacy 32-bit Android devices (~40MB)
+                  </span>
+                </div>
+                <Download size={18} color="#000000" />
+              </motion.a>
+
+              <motion.a 
+                href={links.universal}
+                download
+                onClick={() => track('Download APK', { type: 'universal' })}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                style={{
+                  display: 'flex', alignItems: 'center', padding: '14px 18px',
+                  border: (detectedArch !== 'arm64-v8a' && detectedArch !== 'armeabi-v7a') ? '2px solid #000000' : '1px solid rgba(0, 0, 0, 0.08)',
+                  borderRadius: '12px', textDecoration: 'none', color: '#000000',
+                  backgroundColor: (detectedArch !== 'arm64-v8a' && detectedArch !== 'armeabi-v7a') ? '#F9F9F9' : '#FFFFFF',
+                  boxShadow: (detectedArch !== 'arm64-v8a' && detectedArch !== 'armeabi-v7a') ? '0 4px 16px rgba(0, 0, 0, 0.06)' : 'none',
+                }}
+              >
+                <div style={{ flex: 1 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ fontWeight: '700', fontSize: '0.95rem' }}>Universal APK</span>
+                    {(detectedArch !== 'arm64-v8a' && detectedArch !== 'armeabi-v7a') && (
+                      <span className="font-mono-meta" style={{ display: 'flex', alignItems: 'center', fontSize: '0.65rem', color: '#FFFFFF', background: '#000000', padding: '2px 8px', borderRadius: '4px' }}>
+                        <Star size={10} style={{ marginRight: '4px' }}/> RECOMMENDED
+                      </span>
+                    )}
+                  </div>
+                  <span style={{ fontSize: '0.8rem', color: '#737373', display: 'block', marginTop: '2px' }}>
+                    Universal binary running on all CPU architectures (~130MB)
+                  </span>
+                </div>
+                <Download size={18} color="#000000" />
+              </motion.a>
             </div>
-            <Download size={20} color={(detectedArch !== 'arm64-v8a' && detectedArch !== 'armeabi-v7a') ? '#5C9EAD' : '#A0AAB2'} />
-          </a>
-        </div>
-      </div>
-    </div>
+          </motion.div>
+        </motion.div>
+
+      )}
+    </AnimatePresence>
   );
 }
+
+

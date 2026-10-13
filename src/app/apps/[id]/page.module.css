@@ -34,23 +34,7 @@
   transform: translateY(-2px);
 }
 
-/* Animations & Blobs */
-.blob {
-  position: absolute;
-  filter: blur(100px);
-  z-index: 0;
-  opacity: 0.5;
-  border-radius: 50%;
-  animation: float-blob 12s infinite alternate ease-in-out;
-}
-.blobPurple { background: #9D85F8; width: 600px; height: 600px; top: -200px; right: -100px; }
-.blobGreen { background: #6EE7B7; width: 500px; height: 500px; top: 40%; left: -200px; animation-delay: -3s; }
-.blobBlue { background: #3B82F6; width: 600px; height: 600px; bottom: -200px; right: 10%; animation-delay: -6s; opacity: 0.3; }
 
-@keyframes float-blob {
-  from { transform: translate(0, 0) scale(1); }
-  to { transform: translate(40px, 60px) scale(1.1); }
-}
 
 /* Samsung Mockup Styling */
 .samsungMockup {

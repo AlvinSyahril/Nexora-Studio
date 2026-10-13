@@ -39,3 +39,17 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# ai & agent rules
+AGENTS.md
+CLAUDE.md
+.agents/
+.claude/
+
+# internal scratchpads & debug artifacts
+IDEA.md
+UI_UX_BUG_REPORT.md
+diff.txt
+find_*.js
+*.tmp
+*.log
