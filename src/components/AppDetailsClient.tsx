@@ -76,7 +76,7 @@ export default function AppDetailsClient({ app }: { app: AppData }) {
         if (!Array.isArray(releases) || releases.length === 0) return;
 
         const loomRelease = releases.find((r: GitHubRelease) =>
-          r.tag_name && (r.tag_name.toLowerCase().includes("loom") || (!r.tag_name.toLowerCase().includes("gtd") && !r.tag_name.toLowerCase().includes("oasis")))
+          r.tag_name && (r.tag_name.toLowerCase().includes("loom") || (!r.tag_name.toLowerCase().includes("gtd") && !r.tag_name.toLowerCase().includes("oasis") && !r.tag_name.toLowerCase().includes("ohm")))
         ) || releases[0];
 
         if (loomRelease && isMounted) {

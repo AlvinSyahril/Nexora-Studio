@@ -60,5 +60,23 @@ export const APPS_DATA: AppData[] = [
       "PIN-Protected Storage"
     ],
     downloadUrl: "https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v1.0.3-oasis/Oasis-universal.apk"
+  },
+  {
+    id: "ohm",
+    name: "Ohm",
+    tagline: "Lean music streaming with dual-deck crossfade and synced lyrics",
+    description: "A dark, keyboard-first Windows music player built around Swiss minimalism. Stream tracks with a dual-deck Web Audio crossfade engine, 3-band EQ presets, time-synced lyrics, and zero tracking.",
+    iconUrl: "/showcase/ohm/logo.png",
+    accentColor: "#2eb872",
+    platform: "desktop",
+    features: [
+      "Dual-Deck Crossfade Engine",
+      "3-Band Parametric EQ & Presets",
+      "Live Time-Synced Lyrics Stage",
+      "Algorithmic Radio & Queue Reordering",
+      "Sleep Timer with Smooth Fade-Out",
+      "System Tray & Frameless Dark Shell"
+    ],
+    downloadUrl: "https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v0.1.0-ohm/Ohm-Setup-0.1.0.exe"
   }
 ];

@@ -33,6 +33,15 @@ const loomFaqs = [
   { q: "What are the system requirements?", a: "Loom requires Windows 10 (Build 19041) or later with at least 4GB of RAM. 8GB is recommended for optimal performance with large knowledge graphs." },
 ];
 
+const ohmFaqs = [
+  { q: "What platforms does Ohm support?", a: "Ohm is built for Windows 10 and Windows 11 (x64) as a native desktop application with frameless dark window controls and System Tray integration." },
+  { q: "Is Ohm completely free?", a: "Yes. Ohm is 100% free with no subscriptions, ads, or paywalled audio features. Every EQ preset, crossfade control, and lyrics view is unlocked out of the box." },
+  { q: "How does the dual-deck crossfade and EQ work?", a: "Ohm routes two independent HTMLAudio decks through a Web Audio API filter chain (low-shelf, mid-peak, high-shelf, and master gain), allowing smooth 3s or 6s overlap crossfades and real-time 3-band EQ tuning." },
+  { q: "Does Ohm collect analytics or require an account?", a: "No. Ohm does not require an account and contains zero third-party analytics or telemetry trackers. Your playlists, liked songs, and listening history stay locally on your machine." },
+  { q: "How do in-app updates work?", a: "When you open About inside Ohm or check for updates, Ohm queries our GitHub release feed and verifies installer downloads using SHA-256 checksums before launching the Windows installer." },
+  { q: "What keyboard shortcuts are supported?", a: "Use Space to play/pause, N/P for next/previous, 1-5 to switch between Home, Explore, Songs, Albums, and Artists, / or Ctrl+K to search, L for the Now Playing stage, Q for Queue, and ? for the full shortcuts modal." },
+];
+
 interface FaqAccordionProps {
   appId?: string;
 }
@@ -44,7 +53,14 @@ export default function FaqAccordion({ appId = "gtd" }: FaqAccordionProps) {
     setOpenIndex(openIndex === index ? null : index);
   };
 
-  const activeFaqs = appId === "oasis" ? oasisFaqs : appId === "loom" ? loomFaqs : gtdFaqs;
+  const activeFaqs =
+    appId === "oasis"
+      ? oasisFaqs
+      : appId === "loom"
+      ? loomFaqs
+      : appId === "ohm"
+      ? ohmFaqs
+      : gtdFaqs;
 
   return (
     <section className={styles.faqSection}>

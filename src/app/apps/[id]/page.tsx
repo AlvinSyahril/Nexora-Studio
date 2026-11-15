@@ -1,6 +1,7 @@
 import { APPS_DATA } from "@/data/apps";
 import { notFound } from "next/navigation";
 import AppDetailsClient from "@/components/AppDetailsClient";
+import OhmDetailsClient from "@/components/OhmDetailsClient";
 import type { Metadata } from "next";
 import ErrorBoundary from "@/components/ErrorBoundary";
 
@@ -66,7 +67,7 @@ export default async function AppDetailsPage({ params }: { params: Promise<{ id:
         </div>
       }
     >
-      <AppDetailsClient app={app} />
+      {app.id === "ohm" ? <OhmDetailsClient app={app} /> : <AppDetailsClient app={app} />}
     </ErrorBoundary>
   );
 }

@@ -57,6 +57,9 @@ export default function Footer() {
               <Link href="/apps/loom">Loom</Link>
             </li>
             <li className={styles.linkItem}>
+              <Link href="/apps/ohm">Ohm</Link>
+            </li>
+            <li className={styles.linkItem}>
               <Link href="/apps/reminder-app">Get Things Done</Link>
             </li>
             <li className={styles.linkItem}>

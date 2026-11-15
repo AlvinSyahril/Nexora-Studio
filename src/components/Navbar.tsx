@@ -11,8 +11,9 @@ const MENU_ITEMS = [
   { index: "02", label: "Product Suite", href: "/#product-roster" },
   { index: "03", label: "Philosophy", href: "/#studio-philosophy" },
   { index: "04", label: "Loom", href: "/apps/loom" },
-  { index: "05", label: "Get Things Done", href: "/apps/reminder-app" },
-  { index: "06", label: "Oasis", href: "/apps/oasis" },
+  { index: "05", label: "Ohm", href: "/apps/ohm" },
+  { index: "06", label: "Get Things Done", href: "/apps/reminder-app" },
+  { index: "07", label: "Oasis", href: "/apps/oasis" },
 ];
 
 export default function Navbar() {

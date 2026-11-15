@@ -12,6 +12,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const CARD_THEMES: Record<string, { bg: string; text: string; accent: string }> = {
   loom: { bg: "#FFFBEB", text: "#1a1a1a", accent: "#F59E0B" }, // Soft amber background
+  ohm: { bg: "#ECFDF5", text: "#1a1a1a", accent: "#2eb872" }, // Soft emerald background
   "reminder-app": { bg: "#FFF7ED", text: "#1a1a1a", accent: "#F97316" }, // Soft orange background
   oasis: { bg: "#E8F5E9", text: "#1a3a1a", accent: "#4CAF50" },
 };

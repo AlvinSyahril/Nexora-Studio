@@ -61,8 +61,41 @@ const PRODUCTS: RosterProduct[] = [
     ],
   },
   {
+    id: "ohm",
+    index: "02 // WINDOWS AUDIO PLAYER",
+    status: "v0.1.0 STABLE // PRODUCTION READY",
+    name: "Ohm",
+    tagline: "Lean music streaming with dual-deck crossfade and synced lyrics.",
+    manifesto:
+      "A dark, keyboard-first Windows music player built around Swiss minimalism. Stream tracks through a dual-deck Web Audio crossfade engine, tune sound with a 3-band EQ, follow live time-synced lyrics, and keep playback docked in the system tray with zero telemetry.",
+    iconUrl: "/showcase/ohm/logo.png",
+    platformBadges: ["WINDOWS", "DUAL-DECK EQ", "ZERO TELEMETRY"],
+    detailsUrl: "/apps/ohm",
+    downloadUrl:
+      "https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v0.1.0-ohm/Ohm-Setup-0.1.0.exe",
+    downloadLabel: "Download for Windows (.exe)",
+    pillars: [
+      {
+        title: "Dual-Deck Crossfade Engine",
+        description: "Seamless overlap transitions between Deck A and Deck B with configurable 3s and 6s crossfades.",
+      },
+      {
+        title: "3-Band Parametric EQ",
+        description: "Shape Bass, Vocals, and Treble on the fly with instant presets and a smooth fade-out sleep timer.",
+      },
+      {
+        title: "Synced Lyrics Stage",
+        description: "Full-screen Now Playing view with live time-synced lyrics, queue previews, and album artwork.",
+      },
+      {
+        title: "Keyboard-First & System Tray",
+        description: "Navigate sections with 1-5, search with /, toggle stage with L, and minimize straight to the Windows tray.",
+      },
+    ],
+  },
+  {
     id: "reminder-app",
-    index: "02 // ANDROID TASK MANAGER",
+    index: "03 // ANDROID TASK MANAGER",
     status: "v2.1.4 STABLE // PRODUCTION READY",
     name: "Get Things Done",
     tagline: "Type naturally, set reminders automatically.",
@@ -95,7 +128,7 @@ const PRODUCTS: RosterProduct[] = [
   },
   {
     id: "oasis",
-    index: "03 // MOOD & JOURNALING APP",
+    index: "04 // MOOD & JOURNALING APP",
     status: "v1.0.3 STABLE // PRODUCTION READY",
     name: "Oasis",
     tagline: "Track how you feel and unpack your day in private.",
@@ -136,7 +169,7 @@ export default function ProductRoster() {
           <h2 className={styles.sectionTitle}>Production Software Suite</h2>
         </div>
         <span className={`font-mono-meta ${styles.sectionBadge}`}>
-          [ 03 PRODUCTION APPS // ZERO TELEMETRY ]
+          [ 04 PRODUCTION APPS // ZERO TELEMETRY ]
         </span>
       </div>
 

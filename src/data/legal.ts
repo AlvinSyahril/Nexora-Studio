@@ -66,6 +66,23 @@ export const LEGAL_DOCS: Record<"privacy" | "terms", LegalDocument> = {
         ]
       },
       {
+        id: "ohm-data",
+        index: "02B // OHM DESKTOP",
+        title: "Ohm Desktop Audio Player Data Handling",
+        badge: "WINDOWS DESKTOP",
+        takeaway: "Ohm stores your library, liked tracks, playlists, and EQ preferences locally on your device. No account or analytics telemetry is used.",
+        content: [
+          "Ohm is a standalone Windows desktop music player with an embedded local streaming resolver. Your saved songs, custom playlists, play history, and sound tuning presets remain stored locally on your machine.",
+          "Ohm operates without user accounts, advertising SDKs, or telemetry trackers. Network requests are only made to resolve audio streams, fetch synced lyrics, or check official release manifests on GitHub."
+        ],
+        subsections: [
+          {
+            subtitle: "Verified Updates",
+            text: "In-app update checks query our public release manifest and verify installer binaries against a published SHA-256 checksum before installation."
+          }
+        ]
+      },
+      {
         id: "gtd-data",
         index: "03 // GET THINGS DONE",
         title: "Get Things Done (GTD) Mobile Data Handling",
@@ -161,7 +178,7 @@ export const LEGAL_DOCS: Record<"privacy" | "terms", LegalDocument> = {
     readingTime: "4 min read",
     version: "v2.0 // STUDIO AGREEMENT",
     summary:
-      "Nexora Studio builds independent software for thinkers and builders. By downloading or using Loom, Get Things Done, Oasis, or visiting our site, you agree to these transparent terms. Our tools are provided as-is, with respect for your autonomy and device ownership.",
+      "Nexora Studio builds independent software for thinkers and builders. By downloading or using Loom, Ohm, Get Things Done, Oasis, or visiting our site, you agree to these transparent terms. Our tools are provided as-is, with respect for your autonomy and device ownership.",
     sections: [
       {
         id: "acceptance",
@@ -170,7 +187,7 @@ export const LEGAL_DOCS: Record<"privacy" | "terms", LegalDocument> = {
         badge: "FOUNDATIONAL",
         takeaway: "By using our website, apps, or downloading our installation packages, you agree to these fair terms.",
         content: [
-          "These Terms of Service ('Terms') govern your access to and use of software, services, and websites operated by Nexora Studio ('Nexora', 'we', 'us', or 'our'), including Loom, Get Things Done, and Oasis.",
+          "These Terms of Service ('Terms') govern your access to and use of software, services, and websites operated by Nexora Studio ('Nexora', 'we', 'us', or 'our'), including Loom, Ohm, Get Things Done, and Oasis.",
           "By accessing our website or downloading, installing, or operating our applications, you affirm that you have read, understood, and agree to be bound by these Terms."
         ]
       },

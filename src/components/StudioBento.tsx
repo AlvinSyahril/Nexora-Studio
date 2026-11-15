@@ -144,6 +144,17 @@ export default function StudioBento() {
               </div>
             </Link>
 
+            <Link href="/apps/ohm" className={styles.catalogItem}>
+              <div className={styles.itemLeft}>
+                <span className={styles.itemName}>Ohm</span>
+                <span className={`font-mono-meta ${styles.itemPlatform}`}>Windows Desktop</span>
+              </div>
+              <div className={styles.itemRight}>
+                <span className={`font-mono-meta ${styles.itemVersion}`}>v0.1.0 Stable</span>
+                <ArrowUpRight size={16} />
+              </div>
+            </Link>
+
             <Link href="/apps/reminder-app" className={styles.catalogItem}>
               <div className={styles.itemLeft}>
                 <span className={styles.itemName}>Get Things Done</span>
