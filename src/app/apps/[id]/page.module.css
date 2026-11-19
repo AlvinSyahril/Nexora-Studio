@@ -9,6 +9,16 @@
   overflow: clip;
 }
 
+.ohmTheme {
+  --accent-primary: #2eb872;
+  --accent-secondary: #1f8f56;
+  --accent-tint: rgba(46, 184, 114, 0.12);
+  --accent-tint-soft: rgba(46, 184, 114, 0.05);
+  --accent-border: rgba(46, 184, 114, 0.28);
+  --accent-shadow: rgba(46, 184, 114, 0.18);
+  --accent-text-on: #07120c;
+}
+
 .topBar {
   padding-top: 1.5rem;
 }
@@ -554,8 +564,8 @@
 
 /* Keyboard Shortcuts Section */
 .keyboardSection {
-  padding: 8rem 0;
-  background: linear-gradient(180deg, transparent 0%, rgba(245, 158, 11, 0.03) 50%, transparent 100%);
+  padding: 6rem 1.5rem;
+  background: linear-gradient(180deg, transparent 0%, var(--accent-tint-soft, rgba(245, 158, 11, 0.03)) 50%, transparent 100%);
   position: relative;
   z-index: 10;
 }
@@ -568,7 +578,7 @@
   transform: translateX(-50%);
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(245, 158, 11, 0.08) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--accent-tint, rgba(245, 158, 11, 0.08)) 0%, transparent 70%);
   pointer-events: none;
   z-index: -1;
 }
@@ -614,15 +624,16 @@
 }
 
 .keyboardTab:hover {
-  border-color: #F59E0B;
-  color: #F59E0B;
+  border-color: var(--accent-primary, #F59E0B);
+  color: var(--accent-secondary, #F59E0B);
 }
 
-.keyboardTab.active {
-  background: linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%);
+.keyboardTab.active,
+.keyboardTabActive {
+  background: linear-gradient(135deg, var(--accent-primary, #F59E0B) 0%, var(--accent-secondary, #FBBF24) 100%);
   border-color: transparent;
-  color: #1a1a2e;
-  box-shadow: 0 4px 20px rgba(245, 158, 11, 0.3);
+  color: var(--accent-text-on, #1a1a2e);
+  box-shadow: 0 4px 20px var(--accent-shadow, rgba(245, 158, 11, 0.3));
 }
 
 .keyboardGrid {
@@ -643,8 +654,8 @@
 }
 
 .keyboardCategory:hover {
-  border-color: rgba(245, 158, 11, 0.3);
-  box-shadow: 0 10px 40px -10px rgba(245, 158, 11, 0.15);
+  border-color: var(--accent-border, rgba(245, 158, 11, 0.3));
+  box-shadow: 0 10px 40px -10px var(--accent-shadow, rgba(245, 158, 11, 0.15));
 }
 
 .keyboardCategoryTitle {
@@ -663,8 +674,8 @@
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 0.75rem;
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(251, 191, 36, 0.15) 100%);
-  color: #F59E0B;
+  background: var(--accent-tint, linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(251, 191, 36, 0.15) 100%));
+  color: var(--accent-secondary, #F59E0B);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -694,8 +705,8 @@
 }
 
 .shortcutItem:hover {
-  background: rgba(245, 158, 11, 0.05);
-  border-color: rgba(245, 158, 11, 0.15);
+  background: var(--accent-tint-soft, rgba(245, 158, 11, 0.05));
+  border-color: var(--accent-border, rgba(245, 158, 11, 0.15));
 }
 
 .shortcutKeys {
@@ -726,10 +737,11 @@
   white-space: nowrap;
 }
 
-.shortcutKbd.modifier {
+.shortcutKbd.modifier,
+.shortcutKbdModifier {
   background: linear-gradient(180deg, #fff 0%, #f1f3f5 100%);
-  color: #F59E0B;
-  border-color: #F59E0B;
+  color: var(--accent-secondary, #F59E0B);
+  border-color: var(--accent-primary, #F59E0B);
 }
 
 .shortcutPlus {
@@ -778,7 +790,7 @@
 
 /* Bento Grid Killer Features Section */
 .bentoSection {
-  padding: 8rem 0;
+  padding: 6rem 1.5rem;
   position: relative;
   z-index: 10;
 }
@@ -791,7 +803,7 @@
   transform: translateX(-50%);
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(245, 158, 11, 0.06) 0%, transparent 70%);
+  background: radial-gradient(circle, var(--accent-tint, rgba(245, 158, 11, 0.06)) 0%, transparent 70%);
   pointer-events: none;
   z-index: -1;
 }
@@ -856,16 +868,16 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #F59E0B 0%, #FBBF24 50%, #F59E0B 100%);
+  background: linear-gradient(90deg, var(--accent-primary, #F59E0B) 0%, var(--accent-secondary, #FBBF24) 50%, var(--accent-primary, #F59E0B) 100%);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .bentoCard:hover {
-  transform: translateY(-8px);
-  border-color: rgba(245, 158, 11, 0.3);
-  box-shadow: 0 25px 50px -15px rgba(245, 158, 11, 0.2), 0 0 0 1px rgba(245, 158, 11, 0.1);
+  transform: translateY(-6px);
+  border-color: var(--accent-border, rgba(245, 158, 11, 0.3));
+  box-shadow: 0 25px 50px -15px var(--accent-shadow, rgba(245, 158, 11, 0.2)), 0 0 0 1px var(--accent-border, rgba(245, 158, 11, 0.1));
 }
 
 .bentoCard:hover::before {
@@ -876,24 +888,26 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  gap: 0.75rem;
 }
 
 .bentoCardIcon {
-  width: 3.5rem;
-  height: 3.5rem;
-  border-radius: 1rem;
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(251, 191, 36, 0.15) 100%);
-  color: #F59E0B;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 0.875rem;
+  background: var(--accent-tint, linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(251, 191, 36, 0.15) 100%));
+  color: var(--accent-secondary, #F59E0B);
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 0.35rem;
   transition: all 0.3s ease;
 }
 
 .bentoCard:hover .bentoCardIcon {
-  background: linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%);
-  color: #1a1a2e;
-  transform: scale(1.1) rotate(3deg);
+  background: linear-gradient(135deg, var(--accent-primary, #F59E0B) 0%, var(--accent-secondary, #FBBF24) 100%);
+  color: var(--accent-text-on, #1a1a2e);
+  transform: scale(1.06);
 }
 
 .bentoCardIcon svg {
@@ -934,11 +948,11 @@
 }
 
 .bentoFeatureDot {
-  width: 0.5rem;
-  height: 0.5rem;
+  width: 0.45rem;
+  height: 0.45rem;
   border-radius: 50%;
-  background: linear-gradient(135deg, #F59E0B 0%, #FBBF24 100%);
-  margin-top: 0.375rem;
+  background: linear-gradient(135deg, var(--accent-primary, #F59E0B) 0%, var(--accent-secondary, #FBBF24) 100%);
+  margin-top: 0.42rem;
   flex-shrink: 0;
 }
 
@@ -966,10 +980,11 @@
     box-shadow: 0 2px 4px rgba(0,0,0,0.3), inset 0 -1px 0 rgba(0,0,0,0.2);
   }
   
-  .shortcutKbd.modifier {
+  .shortcutKbd.modifier,
+  .shortcutKbdModifier {
     background: linear-gradient(180deg, #2d2d2d 0%, #1a1a1a 100%);
-    border-color: #F59E0B;
-    color: #F59E0B;
+    border-color: var(--accent-primary, #F59E0B);
+    color: var(--accent-primary, #F59E0B);
   }
   
   .shortcutItem {
@@ -977,6 +992,6 @@
   }
   
   .shortcutItem:hover {
-    background: rgba(245, 158, 11, 0.08);
+    background: var(--accent-tint, rgba(245, 158, 11, 0.08));
   }
 }

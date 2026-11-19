@@ -65,31 +65,31 @@ const PRODUCTS: RosterProduct[] = [
     index: "02 // WINDOWS AUDIO PLAYER",
     status: "v0.2.0 STABLE // PRODUCTION READY",
     name: "Ohm",
-    tagline: "Lean music streaming with dual-deck crossfade and synced lyrics.",
+    tagline: "Music streaming with synced lyrics, lyric cards, and smooth crossfades.",
     manifesto:
-      "A dark, keyboard-first Windows music player built around Swiss minimalism. Stream tracks through a dual-deck Web Audio crossfade engine, tune sound with a 3-band EQ, follow live time-synced lyrics, and keep playback docked in the system tray with zero telemetry.",
+      "A fast, dark-mode Windows music player built around focus. Stream Opus and AAC audio with smooth song crossfades, a 3-band EQ, shareable Lyric Cards, Your Sound Receipt, and Discord Rich Presence — with zero ads or sign-in.",
     iconUrl: "/showcase/ohm/logo.png",
-    platformBadges: ["WINDOWS", "DUAL-DECK EQ", "ZERO TELEMETRY"],
+    platformBadges: ["WINDOWS", "LYRIC CARDS", "DISCORD RPC"],
     detailsUrl: "/apps/ohm",
     downloadUrl:
       "https://github.com/AlvinSyahril/ohm/releases/download/v0.2.0/Ohm-Setup-0.2.0.exe",
     downloadLabel: "Download for Windows (.exe)",
     pillars: [
       {
-        title: "Dual-Deck Crossfade Engine",
-        description: "Seamless overlap transitions between Deck A and Deck B with configurable 3s and 6s crossfades.",
+        title: "Smooth Crossfade & Pure Audio",
+        description: "Blend tracks with 3s or 6s fades, tune the 3-band EQ, or turn on Loudness Normalization.",
       },
       {
-        title: "3-Band Parametric EQ",
-        description: "Shape Bass, Vocals, and Treble on the fly with instant presets and a smooth fade-out sleep timer.",
+        title: "Lyric Card Studio & Receipts",
+        description: "Export 1-4 synced lyric lines or a weekly Sound Receipt as crisp PNG images.",
       },
       {
-        title: "Synced Lyrics Stage",
-        description: "Full-screen Now Playing view with live time-synced lyrics, queue previews, and album artwork.",
+        title: "Live Synced Lyrics & Stage",
+        description: "Full-screen Now Playing view with smooth scrolling lyrics, artwork glow, and instant radio mixes.",
       },
       {
-        title: "Keyboard-First & System Tray",
-        description: "Navigate sections with 1-5, search with /, toggle stage with L, and minimize straight to the Windows tray.",
+        title: "Discord RPC & System Tray",
+        description: "Show what you are listening to on Discord, control music from the Windows tray, and update in one click.",
       },
     ],
   },

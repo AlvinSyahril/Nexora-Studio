@@ -64,18 +64,18 @@ export const APPS_DATA: AppData[] = [
   {
     id: "ohm",
     name: "Ohm",
-    tagline: "Lean music streaming with dual-deck crossfade and synced lyrics",
-    description: "A dark, keyboard-first Windows music player built around Swiss minimalism. Stream tracks with a dual-deck Web Audio crossfade engine, 3-band EQ presets, time-synced lyrics, and zero tracking.",
+    tagline: "Music streaming with synced lyrics, lyric cards, and smooth crossfades",
+    description: "A fast, dark-mode Windows music player with smooth crossfades, 3-band EQ and loudness normalization, shareable Lyric Cards, Your Sound Receipt, and Discord Rich Presence — zero ads and zero sign-in.",
     iconUrl: "/showcase/ohm/logo.png",
     accentColor: "#2eb872",
     platform: "desktop",
     features: [
-      "Dual-Deck Crossfade Engine",
-      "3-Band Parametric EQ & Presets",
-      "Live Time-Synced Lyrics Stage",
-      "Algorithmic Radio & Queue Reordering",
-      "Sleep Timer with Smooth Fade-Out",
-      "System Tray & Frameless Dark Shell"
+      "Shareable Lyric Card Studio (4:5, 1:1, 9:16)",
+      "Your Sound Receipt Listening Stats",
+      "Discord Rich Presence Integration",
+      "Opus Audio, Pure Path & Loudness Normalization",
+      "Dual-Deck Crossfade & 3-Band EQ Presets",
+      "Live Synced Lyrics, Radio & System Tray"
     ],
     downloadUrl: "https://github.com/AlvinSyahril/ohm/releases/download/v0.2.0/Ohm-Setup-0.2.0.exe"
   }

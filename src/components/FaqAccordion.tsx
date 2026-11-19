@@ -34,12 +34,13 @@ const loomFaqs = [
 ];
 
 const ohmFaqs = [
-  { q: "What platforms does Ohm support?", a: "Ohm is built for Windows 10 and Windows 11 (x64) as a native desktop application with frameless dark window controls and System Tray integration." },
-  { q: "Is Ohm completely free?", a: "Yes. Ohm is 100% free with no subscriptions, ads, or paywalled audio features. Every EQ preset, crossfade control, and lyrics view is unlocked out of the box." },
-  { q: "How does the dual-deck crossfade and EQ work?", a: "Ohm routes two independent HTMLAudio decks through a Web Audio API filter chain (low-shelf, mid-peak, high-shelf, and master gain), allowing smooth 3s or 6s overlap crossfades and real-time 3-band EQ tuning." },
-  { q: "Does Ohm collect analytics or require an account?", a: "No. Ohm does not require an account and contains zero third-party analytics or telemetry trackers. Your playlists, liked songs, and listening history stay locally on your machine." },
-  { q: "How do in-app updates work?", a: "When you open About inside Ohm or check for updates, Ohm queries our GitHub release feed and verifies installer downloads using SHA-256 checksums before launching the Windows installer." },
-  { q: "What keyboard shortcuts are supported?", a: "Use Space to play/pause, N/P for next/previous, 1-5 to switch between Home, Explore, Songs, Albums, and Artists, / or Ctrl+K to search, L for the Now Playing stage, Q for Queue, and ? for the full shortcuts modal." },
+  { q: "What platforms does Ohm support?", a: "Ohm runs on Windows 10 and Windows 11 (64-bit) as a desktop app with System Tray playback controls." },
+  { q: "Is Ohm completely free?", a: "Yes. Ohm is 100% free and open-source with no subscriptions, ads, or locked audio features." },
+  { q: "How do Lyric Cards and Sound Receipts work?", a: "Open any playing track with lyrics, click Share lyric, and pick 1 to 4 lines (or tap Best Part) to export a styled PNG card. You can also open Your Sound Receipt in the sidebar to save a receipt of your top tracks and listening time." },
+  { q: "Does Ohm support Discord Rich Presence?", a: "Yes. In Ohm Desktop, your current song, artist, and playback timer appear on your Discord status automatically. You can toggle it or set a custom Discord App ID inside About." },
+  { q: "How does audio quality and volume leveling work?", a: "Ohm picks the cleanest Opus or AAC stream available, shows the live codec and bitrate inside Sound settings, bypasses filters when EQ is flat (Pure Path), and lets you enable Loudness Normalization so quiet and loud songs play at a steady volume." },
+  { q: "Does Ohm require an account or collect telemetry?", a: "No. Ohm never asks for a login and tracks zero analytics. Your liked songs, playlists, listening history, and sound stats stay locally on your PC." },
+  { q: "How do updates work?", a: "Open About -> Check for updates inside Ohm. New installers are downloaded from GitHub Releases and verified with SHA-256 before launching." },
 ];
 
 interface FaqAccordionProps {

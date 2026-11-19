@@ -12,6 +12,7 @@ import {
   Music,
   Disc3,
   Keyboard,
+  Sparkles,
 } from "lucide-react";
 
 interface OhmViewItem {
@@ -30,9 +31,9 @@ const OHM_VIEWS: OhmViewItem[] = [
     label: "Home & Radio",
     icon: House,
     image: "/showcase/ohm/home.png",
-    tagline: "Editorial Discovery & Adaptive Picks",
+    tagline: "Made Around What You Listen To",
     description:
-      "Curated featured picks, quick-access rotation tracks, selected cuts, and recommendations that adapt to what you actually play.",
+      "Your daily rotation, recently played tracks, and smart recommendations that adapt to your taste.",
     shortcutHint: "1 Home",
   },
   {
@@ -40,29 +41,39 @@ const OHM_VIEWS: OhmViewItem[] = [
     label: "Lyrics Stage",
     icon: Mic2,
     image: "/showcase/ohm/stage.png",
-    tagline: "Full-Screen Now Playing & Live Synced Lyrics",
+    tagline: "Full-Screen Artwork & Live Lyrics",
     description:
-      "Distraction-free stage view pairing high-resolution artwork with time-synced lyrics, radio launch, and instant Up Next visibility.",
+      "Full-screen album artwork paired with live time-synced lyrics that scroll smoothly with the song.",
     shortcutHint: "L Stage",
   },
   {
+    id: "lyric-card",
+    label: "Lyric Card Studio",
+    icon: Sparkles,
+    image: "/showcase/ohm/lyric-card.png",
+    tagline: "Shareable Lyric Cards",
+    description:
+      "Highlight up to 4 lines or click Best Part to grab the hook, pick a theme and aspect ratio (4:5, 1:1, 9:16), and copy or download the PNG.",
+    shortcutHint: "Share lyric",
+  },
+  {
     id: "eq",
-    label: "3-Band EQ & Fade",
+    label: "Audio & EQ",
     icon: SlidersHorizontal,
     image: "/showcase/ohm/eq.png",
-    tagline: "Dual-Deck Crossfade, Parametric EQ & Sleep Timer",
+    tagline: "Equalizer, Crossfade & Volume Leveling",
     description:
-      "Switch between Balanced, Warm Bass, Clear Vocals, or Late Night presets, dial Bass/Vocals/Treble (-6 to +6 dB), enable 3s/6s crossfades, or set a gentle fade-out sleep timer.",
+      "Fine-tune Bass, Vocals, and Treble, enable 3s or 6s song crossfades, turn on volume leveling across tracks, or set a sleep timer.",
     shortcutHint: "Space Play/Pause",
   },
   {
     id: "queue",
-    label: "Queue & Autoplay",
+    label: "Up Next Queue",
     icon: ListMusic,
     image: "/showcase/ohm/queue.png",
-    tagline: "Live Reorderable Queue & Algorithmic Autoplay",
+    tagline: "Live Queue & Autoplay",
     description:
-      "Inspect what is playing now, reorder upcoming songs, save your queue straight to a playlist, or toggle similar-song autoplay.",
+      "See what is playing next, drag to reorder songs, save your queue as a playlist, or let Autoplay keep the music going.",
     shortcutHint: "Q Queue",
   },
   {
@@ -72,27 +83,27 @@ const OHM_VIEWS: OhmViewItem[] = [
     image: "/showcase/ohm/explore.png",
     tagline: "New Releases, Charts & Moods",
     description:
-      "Browse fresh singles, albums, charts, and mood-driven collections directly from the integrated discovery feed.",
+      "Browse new releases, trending charts, and mood playlists whenever you want something fresh.",
     shortcutHint: "2 Explore",
   },
   {
     id: "songs",
-    label: "Songs Library",
+    label: "Songs",
     icon: Music,
     image: "/showcase/ohm/songs.png",
-    tagline: "Instant Filter & Sort Across Saved Tracks",
+    tagline: "Instant Search & Sort",
     description:
-      "Filter your library as you type, sort by recent, title, or artist, and launch shuffled or sequential playback in one click.",
+      "Search and sort your saved tracks by title, artist, or date added, and start playback in one click.",
     shortcutHint: "3 Songs",
   },
   {
     id: "albums",
-    label: "Albums Catalog",
+    label: "Albums",
     icon: Disc3,
     image: "/showcase/ohm/albums.png",
-    tagline: "Clean Release Grid Without Clutter",
+    tagline: "Clean Album Grid",
     description:
-      "View every album and single in your library in a crisp Swiss grid with instant title and artist filtering.",
+      "A clean cover-art grid of every album and single saved in your library.",
     shortcutHint: "4 Albums",
   },
   {
@@ -100,9 +111,9 @@ const OHM_VIEWS: OhmViewItem[] = [
     label: "Shortcuts",
     icon: Keyboard,
     image: "/showcase/ohm/shortcuts.png",
-    tagline: "Built for Keyboard-First Flow",
+    tagline: "Keyboard-First Control",
     description:
-      "Jump across views with 1-5, focus search with / or Ctrl+K, seek with arrows, and toggle Stage or Queue without lifting your hands.",
+      "Control playback, switch views with 1-5, search with /, and open Lyrics or Queue without touching the mouse.",
     shortcutHint: "? Shortcuts",
   },
 ];
