@@ -41,7 +41,7 @@ interface GitHubRelease {
 
 gsap.registerPlugin(ScrollTrigger);
 
-const OHM_SHA256 = "93796c3de6e29ad2689eb997b5517bd20be135865bfc77ba15ba57387f78c6c5";
+const OHM_SHA256 = "29d293e630c12fe83bf24061ff12c5ab955e3344c844c1cf59193f1221f56ff5";
 
 export default function OhmDetailsClient({ app }: { app: AppData }) {
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -49,25 +49,23 @@ export default function OhmDetailsClient({ app }: { app: AppData }) {
   const [activeTab, setActiveTab] = useState<"all" | "playback" | "navigation">("all");
   const [downloadUrl, setDownloadUrl] = useState<string>(
     app.downloadUrl ||
-      "https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v0.1.0-ohm/Ohm-Setup-0.1.0.exe"
+      "https://github.com/AlvinSyahril/ohm/releases/download/v0.2.0/Ohm-Setup-0.2.0.exe"
   );
-  const [latestTag, setLatestTag] = useState<string>("v0.1.0");
+  const [latestTag, setLatestTag] = useState<string>("v0.2.0");
 
   useEffect(() => {
     let isMounted = true;
     const fetchLatestOhmRelease = async () => {
       try {
         const res = await fetch(
-          "https://api.github.com/repos/AlvinSyahril/Nexora-Studio/releases",
+          "https://api.github.com/repos/AlvinSyahril/ohm/releases",
           { headers: { Accept: "application/vnd.github.v3+json" } }
         );
         if (!res.ok) return;
         const releases: GitHubRelease[] = await res.json();
         if (!Array.isArray(releases) || releases.length === 0) return;
 
-        const ohmRelease = releases.find(
-          (r: GitHubRelease) => r.tag_name && r.tag_name.toLowerCase().includes("ohm")
-        );
+        const ohmRelease = releases.find((r: GitHubRelease) => Boolean(r.tag_name));
 
         if (ohmRelease && isMounted) {
           const cleanVer = ohmRelease.tag_name?.replace(/-ohm$/i, "");
@@ -1142,7 +1140,7 @@ export default function OhmDetailsClient({ app }: { app: AppData }) {
                     marginBottom: "0.35rem",
                   }}
                 >
-                  Installer SHA-256 Checksum (Ohm-Setup-0.1.0.exe)
+                  Installer SHA-256 Checksum (Ohm-Setup-0.2.0.exe)
                 </div>
                 <code
                   style={{

@@ -63,7 +63,7 @@ const PRODUCTS: RosterProduct[] = [
   {
     id: "ohm",
     index: "02 // WINDOWS AUDIO PLAYER",
-    status: "v0.1.0 STABLE // PRODUCTION READY",
+    status: "v0.2.0 STABLE // PRODUCTION READY",
     name: "Ohm",
     tagline: "Lean music streaming with dual-deck crossfade and synced lyrics.",
     manifesto:
@@ -72,7 +72,7 @@ const PRODUCTS: RosterProduct[] = [
     platformBadges: ["WINDOWS", "DUAL-DECK EQ", "ZERO TELEMETRY"],
     detailsUrl: "/apps/ohm",
     downloadUrl:
-      "https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v0.1.0-ohm/Ohm-Setup-0.1.0.exe",
+      "https://github.com/AlvinSyahril/ohm/releases/download/v0.2.0/Ohm-Setup-0.2.0.exe",
     downloadLabel: "Download for Windows (.exe)",
     pillars: [
       {

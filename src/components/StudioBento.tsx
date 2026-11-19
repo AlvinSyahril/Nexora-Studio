@@ -150,7 +150,7 @@ export default function StudioBento() {
                 <span className={`font-mono-meta ${styles.itemPlatform}`}>Windows Desktop</span>
               </div>
               <div className={styles.itemRight}>
-                <span className={`font-mono-meta ${styles.itemVersion}`}>v0.1.0 Stable</span>
+                <span className={`font-mono-meta ${styles.itemVersion}`}>v0.2.0 Stable</span>
                 <ArrowUpRight size={16} />
               </div>
             </Link>

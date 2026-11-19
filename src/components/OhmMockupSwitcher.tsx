@@ -308,7 +308,7 @@ export default function OhmMockupSwitcher() {
               letterSpacing: "-0.01em",
             }}
           >
-            Ohm v0.1.0 — {currentItem.label}
+            Ohm v0.2.0 — {currentItem.label}
           </div>
           <div style={{ fontSize: "0.68rem", color: "#2eb872", fontWeight: 600, letterSpacing: "0.06em" }}>
             {currentItem.id.toUpperCase()}

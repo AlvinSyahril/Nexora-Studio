@@ -77,6 +77,6 @@ export const APPS_DATA: AppData[] = [
       "Sleep Timer with Smooth Fade-Out",
       "System Tray & Frameless Dark Shell"
     ],
-    downloadUrl: "https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v0.1.0-ohm/Ohm-Setup-0.1.0.exe"
+    downloadUrl: "https://github.com/AlvinSyahril/ohm/releases/download/v0.2.0/Ohm-Setup-0.2.0.exe"
   }
 ];
