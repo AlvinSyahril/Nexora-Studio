@@ -19,9 +19,9 @@ import {
   Mic2,
   Moon,
   Radio,
+  Share2,
   ShieldCheck,
   SlidersHorizontal,
-  Sparkles,
   X,
   Zap,
 } from "lucide-react";
@@ -156,13 +156,12 @@ export default function OhmDetailsClient({ app }: { app: AppData }) {
         delay: 0.15,
       });
 
-      gsap.to("[data-animate='mockup']", {
-        y: -12,
-        duration: 3.2,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-        delay: 0.9,
+      gsap.from("[data-animate='mockup']", {
+        y: 24,
+        opacity: 0,
+        duration: 0.75,
+        ease: "power2.out",
+        delay: 0.25,
       });
 
       const features = gsap.utils.toArray<HTMLElement>("[data-animate='feature']");
@@ -330,7 +329,16 @@ export default function OhmDetailsClient({ app }: { app: AppData }) {
                   gap: "0.35rem",
                 }}
               >
-                <Sparkles size={12} /> NEW IN {latestTag.toUpperCase()}
+                <span
+                  style={{
+                    width: "6px",
+                    height: "6px",
+                    borderRadius: "50%",
+                    background: "#2eb872",
+                    display: "inline-block",
+                  }}
+                />
+                {latestTag}
               </span>
               <span style={{ fontSize: "0.85rem", fontWeight: 600, color: "#374151" }}>
                 Ohm {latestTag} for Windows — What&apos;s new
@@ -470,46 +478,57 @@ export default function OhmDetailsClient({ app }: { app: AppData }) {
                 borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
                 display: "flex",
                 alignItems: "center",
+                justifyContent: "space-between",
                 padding: "0 1rem",
-                gap: "0.5rem",
+                gap: "0.75rem",
                 userSelect: "none",
               }}
             >
-              <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#FF5F56" }} />
-                <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#FFBD2E" }} />
-                <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#27C93F" }} />
-              </div>
-              <div
-                style={{
-                  margin: "0 auto",
-                  fontSize: "0.74rem",
-                  fontFamily: "var(--font-mono)",
-                  color: "#a0a8a3",
-                }}
-              >
-                Ohm {latestTag} — Windows Desktop
-              </div>
               <div
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  gap: "5px",
-                  fontSize: "0.66rem",
-                  color: "#2eb872",
+                  gap: "0.45rem",
+                  fontSize: "0.72rem",
+                  fontFamily: "var(--font-mono)",
+                  color: "#d1d5db",
                   fontWeight: 600,
                 }}
               >
                 <span
                   style={{
-                    width: "6px",
-                    height: "6px",
-                    borderRadius: "50%",
+                    width: "7px",
+                    height: "7px",
+                    borderRadius: "2px",
                     background: "#2eb872",
                     display: "inline-block",
                   }}
                 />
-                <span>READY</span>
+                <span>Ohm {latestTag}</span>
+              </div>
+              <div
+                style={{
+                  fontSize: "0.7rem",
+                  fontFamily: "var(--font-mono)",
+                  color: "#6b7280",
+                }}
+              >
+                Windows Desktop
+              </div>
+              <div
+                aria-hidden="true"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.65rem",
+                  color: "#6b7280",
+                  fontSize: "0.72rem",
+                  lineHeight: 1,
+                }}
+              >
+                <span>—</span>
+                <span>□</span>
+                <span>×</span>
               </div>
             </div>
 
@@ -653,7 +672,7 @@ export default function OhmDetailsClient({ app }: { app: AppData }) {
                 marginBottom: "1.25rem",
               }}
             >
-              <Sparkles size={20} />
+              <Share2 size={20} />
             </div>
             <h3 style={{ fontSize: "1.18rem", fontWeight: 600, marginBottom: "0.6rem" }}>
               Lyric Card Studio

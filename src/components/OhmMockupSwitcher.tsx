@@ -12,7 +12,8 @@ import {
   Music,
   Disc3,
   Keyboard,
-  Sparkles,
+  Share2,
+  FileText,
 } from "lucide-react";
 
 interface OhmViewItem {
@@ -49,12 +50,22 @@ const OHM_VIEWS: OhmViewItem[] = [
   {
     id: "lyric-card",
     label: "Lyric Card Studio",
-    icon: Sparkles,
+    icon: Share2,
     image: "/showcase/ohm/lyric-card.png",
     tagline: "Shareable Lyric Cards",
     description:
       "Highlight up to 4 lines or click Best Part to grab the hook, pick a theme and aspect ratio (4:5, 1:1, 9:16), and copy or download the PNG.",
     shortcutHint: "Share lyric",
+  },
+  {
+    id: "receipt",
+    label: "Sound Receipt",
+    icon: FileText,
+    image: "/showcase/ohm/receipt.png",
+    tagline: "Weekly & All-Time Listening Receipts",
+    description:
+      "View your top tracks, top artist, and total listening time formatted as a clean thermal receipt or dark studio card.",
+    shortcutHint: "Sidebar -> Receipt",
   },
   {
     id: "eq",
@@ -246,7 +257,7 @@ export default function OhmMockupSwitcher() {
                 cursor: "pointer",
                 border: "1px solid transparent",
                 background: "transparent",
-                color: isActive ? "#07120c" : "#6b7280",
+                color: isActive ? "#ffffff" : "#6b7280",
                 outline: "none",
               }}
             >
@@ -257,9 +268,9 @@ export default function OhmMockupSwitcher() {
                     position: "absolute",
                     inset: 0,
                     borderRadius: "9999px",
-                    background: "linear-gradient(135deg, #2eb872 0%, #38ca7f 100%)",
-                    boxShadow: "0 4px 18px rgba(46, 184, 114, 0.3)",
-                    border: "1px solid #2eb872",
+                    background: "#0c0e0d",
+                    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.12)",
+                    border: "1px solid rgba(255, 255, 255, 0.08)",
                     zIndex: 0,
                   }}
                   transition={{ type: "spring", stiffness: 420, damping: 32 }}
@@ -274,7 +285,7 @@ export default function OhmMockupSwitcher() {
                   gap: "0.5rem",
                 }}
               >
-                <Icon size={15} />
+                <Icon size={15} color={isActive ? "#2eb872" : undefined} />
                 <span>{item.label}</span>
               </span>
             </motion.button>
@@ -289,7 +300,7 @@ export default function OhmMockupSwitcher() {
           borderRadius: "14px",
           background: "var(--surface)",
           border: "1px solid var(--surface-border)",
-          boxShadow: "0 24px 48px -12px rgba(0, 0, 0, 0.14)",
+          boxShadow: "0 20px 44px -16px rgba(0, 0, 0, 0.14)",
           overflow: "hidden",
         }}
       >
@@ -300,29 +311,58 @@ export default function OhmMockupSwitcher() {
             borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
             display: "flex",
             alignItems: "center",
+            justifyContent: "space-between",
             padding: "0 1.25rem",
             userSelect: "none",
             gap: "1rem",
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: "0.45rem" }}>
-            <span style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#FF5F56" }} />
-            <span style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#FFBD2E" }} />
-            <span style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#27C93F" }} />
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "0.45rem",
+              fontSize: "0.74rem",
+              fontFamily: "var(--font-mono)",
+              color: "#d1d5db",
+              fontWeight: 600,
+            }}
+          >
+            <span
+              style={{
+                width: "7px",
+                height: "7px",
+                borderRadius: "2px",
+                background: "#2eb872",
+                display: "inline-block",
+              }}
+            />
+            <span>Ohm v0.2.0</span>
           </div>
           <div
             style={{
-              margin: "0 auto",
               fontSize: "0.78rem",
               fontWeight: 500,
               color: "#a0a8a3",
               letterSpacing: "-0.01em",
             }}
           >
-            Ohm v0.2.0 — {currentItem.label}
+            {currentItem.label}
           </div>
-          <div style={{ fontSize: "0.68rem", color: "#2eb872", fontWeight: 600, letterSpacing: "0.06em" }}>
-            {currentItem.id.toUpperCase()}
+          <div
+            aria-hidden="true"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "0.75rem",
+              color: "#6b7280",
+              fontSize: "0.74rem",
+              lineHeight: 1,
+            }}
+          >
+            <span>—</span>
+            <span>□</span>
+            <span>×</span>
           </div>
         </div>
 
