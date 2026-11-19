@@ -1,13 +1,15 @@
 {
   "app": "ohm",
-  "version": "0.1.0",
-  "releaseDate": "2026-11-14",
-  "downloadUrl": "https://github.com/AlvinSyahril/Nexora-Studio/releases/download/v0.1.0-ohm/Ohm-Setup-0.1.0.exe",
-  "sha256": "93796c3de6e29ad2689eb997b5517bd20be135865bfc77ba15ba57387f78c6c5",
-  "releaseNotesUrl": "https://github.com/AlvinSyahril/Nexora-Studio/releases",
+  "version": "0.2.0",
+  "releaseDate": "2026-11-19",
+  "downloadUrl": "https://github.com/AlvinSyahril/ohm/releases/download/v0.2.0/Ohm-Setup-0.2.0.exe",
+  "sha256": "29d293e630c12fe83bf24061ff12c5ab955e3344c844c1cf59193f1221f56ff5",
+  "releaseNotesUrl": "https://github.com/AlvinSyahril/ohm/releases/tag/v0.2.0",
   "changelog": [
-    "Initial Windows desktop release with embedded loopback audio streaming engine",
-    "Dual-deck crossfade, 3-band EQ, synced lyrics, and Explore discovery",
-    "System Tray controls, frameless dark window, and in-app update notifications"
+    "Shareable Lyric Card Studio with Best Part hook finder and Obsidian Matte, Editorial Paper, and Cover Palette themes",
+    "Your Sound Receipt: weekly and all-time listening receipts from local playback stats",
+    "Discord Rich Presence for Electron with live play/pause timestamps and optional custom app ID",
+    "Smart Opus/AAC codec ranking, Pure Path filter bypass, live codec/bitrate readout, and Loudness Normalization",
+    "Smoother Stage/Lyrics animations, smaller initial JS bundle, and hardened updater & desktop stability"
   ]
 }
