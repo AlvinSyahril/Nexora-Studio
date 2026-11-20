@@ -1,4 +1,5 @@
 import Link from "next/link";
+import NexoraMark from "./NexoraMark";
 import styles from "./Footer.module.css";
 
 export default function Footer() {
@@ -9,7 +10,10 @@ export default function Footer() {
       <div className={styles.grid}>
         {/* Brand Bio */}
         <div className={styles.brandCol}>
-          <h2 className={styles.brandName}>nexora.studio</h2>
+          <h2 className={styles.brandName} style={{ display: "flex", alignItems: "center", gap: "0.85rem" }}>
+            <NexoraMark size={34} />
+            <span>nexora.studio</span>
+          </h2>
           <p className={styles.brandBio}>
             Independent software studio making local-first desktop apps and private mobile tools with zero tracking.
           </p>

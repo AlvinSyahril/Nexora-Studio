@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Plus } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import NexoraMark from "./NexoraMark";
 import styles from "./Navbar.module.css";
 
 const MENU_ITEMS = [
@@ -51,7 +52,8 @@ export default function Navbar() {
     <>
       <header className={styles.header}>
         <Link href="/" className={styles.logoLink} onClick={closeMenu}>
-          nexora
+          <NexoraMark size={22} />
+          <span>nexora</span>
         </Link>
         <motion.button
           className={styles.menuButton}
