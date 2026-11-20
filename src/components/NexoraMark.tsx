@@ -17,10 +17,11 @@ export default function NexoraMark({ size = 24, className }: NexoraMarkProps) {
       aria-hidden="true"
     >
       <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M7 0H25C28.866 0 32 3.13401 32 7V25C32 28.866 28.866 32 25 32H7C3.13401 32 0 28.866 0 25V7C0 3.13401 3.13401 0 7 0ZM10.5 9.5V22.5H13.3V13.8L18.7 22.5H21.5V9.5H18.7V18.2L13.3 9.5H10.5Z"
-        fill="currentColor"
+        d="M6.8 23.6L9.6 13.8C10.6 10.2 11.4 8.4 13.2 8.4C15.2 8.4 16.0 10.8 16.0 16.0C16.0 21.2 16.8 23.6 18.8 23.6C20.6 23.6 21.4 21.8 22.4 18.2L25.2 8.4"
+        stroke="currentColor"
+        strokeWidth="4.3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
