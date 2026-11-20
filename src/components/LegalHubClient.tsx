@@ -133,7 +133,7 @@ export default function LegalHubClient({ initialDoc }: LegalHubClientProps) {
             <span>Back to Home</span>
           </Link>
           <span className={`font-mono-meta ${styles.navBreadcrumb}`}>
-            [ LEGAL // {currentDocData.title.toUpperCase()} ]
+            Legal · {currentDocData.title}
           </span>
         </div>
 
@@ -209,7 +209,7 @@ export default function LegalHubClient({ initialDoc }: LegalHubClientProps) {
           <div className={styles.sidebarHeader}>
             <span className={`font-mono-meta ${styles.sidebarTitle}`}>TABLE OF CONTENTS</span>
             <span className={`font-mono-meta ${styles.sidebarTitle}`}>
-              [ {currentDocData.sections.length} CLAUSES ]
+              {currentDocData.sections.length} Clauses
             </span>
           </div>
 
@@ -249,7 +249,7 @@ export default function LegalHubClient({ initialDoc }: LegalHubClientProps) {
               {/* Executive Summary Card */}
               <div className={styles.summaryCard}>
                 <span className={`font-mono-meta ${styles.summaryEyebrow}`}>
-                  EXECUTIVE SUMMARY // CORE COMMITMENT
+                  Executive Summary
                 </span>
                 <p className={styles.summaryText}>{currentDocData.summary}</p>
               </div>

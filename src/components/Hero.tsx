@@ -67,7 +67,7 @@ export default function Hero() {
           whileTap={{ scale: 0.98 }}
           transition={{ type: "spring", stiffness: 400, damping: 25 }}
         >
-          <span className="font-mono-meta">[ EXPLORE SOFTWARE ]</span>
+          <span className="font-mono-meta">Explore Software</span>
           <motion.span
             animate={{ y: [0, 4, 0] }}
             transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}

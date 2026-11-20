@@ -26,8 +26,10 @@ export default function CustomCursor() {
     let dotX = -100;
     let dotY = -100;
 
-    let targetScale = 1;
-    let currentScale = 1;
+    let targetScale = 0.44;
+    let currentScale = 0.44;
+    let targetDotScale = 1;
+    let currentDotScale = 1;
     let isPressed = false;
     let hasMoved = false;
     let animationFrameId: number;
@@ -66,12 +68,14 @@ export default function CustomCursor() {
           clearTimeout(unhoverGraceTimer);
           unhoverGraceTimer = null;
         }
-        targetScale = 1.85;
+        targetScale = 1.0;
+        targetDotScale = 0;
       } else {
         // Small grace period prevents jitter when traversing gaps between adjacent tabs or pills
-        if (!unhoverGraceTimer && targetScale > 1) {
+        if (!unhoverGraceTimer && targetScale > 0.44) {
           unhoverGraceTimer = setTimeout(() => {
-            targetScale = 1;
+            targetScale = 0.44;
+            targetDotScale = 1;
             unhoverGraceTimer = null;
           }, 45);
         }
@@ -89,7 +93,8 @@ export default function CustomCursor() {
     const handleMouseLeave = () => {
       lens.style.opacity = "0";
       dot.style.opacity = "0";
-      targetScale = 1;
+      targetScale = 0.44;
+      targetDotScale = 1;
       if (unhoverGraceTimer) {
         clearTimeout(unhoverGraceTimer);
         unhoverGraceTimer = null;
@@ -116,12 +121,13 @@ export default function CustomCursor() {
       lensY += (mouseY - lensY) * lensLerp;
 
       // Organic critically-damped bloom without any bouncing or fluttering
-      const effectiveTarget = isPressed ? targetScale * 0.82 : targetScale;
+      const effectiveTarget = isPressed ? targetScale * 0.85 : targetScale;
       const scaleLerp = 1 - Math.exp(-18 * dt);
       currentScale += (effectiveTarget - currentScale) * scaleLerp;
+      currentDotScale += (targetDotScale - currentDotScale) * scaleLerp;
 
-      dot.style.transform = `translate3d(${dotX.toFixed(2)}px, ${dotY.toFixed(2)}px, 0) translate(-50%, -50%)`;
-      lens.style.transform = `translate3d(${lensX.toFixed(2)}px, ${lensY.toFixed(2)}px, 0) translate(-50%, -50%) scale(${currentScale.toFixed(4)})`;
+      dot.style.transform = `translate3d(${dotX.toFixed(2)}px, ${dotY.toFixed(2)}px, 0) scale(${currentDotScale.toFixed(3)})`;
+      lens.style.transform = `translate3d(${lensX.toFixed(2)}px, ${lensY.toFixed(2)}px, 0) scale(${currentScale.toFixed(4)})`;
 
       animationFrameId = requestAnimationFrame(updateCursor);
     };
@@ -147,7 +153,11 @@ export default function CustomCursor() {
 
   return (
     <>
-      <div ref={lensRef} className="custom-cursor-lens" aria-hidden="true" />
+      <div ref={lensRef} className="custom-cursor-lens" aria-hidden="true">
+        <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+          <circle cx="28" cy="28" r="28" fill="#FFFFFF" />
+        </svg>
+      </div>
       <div ref={dotRef} className="custom-cursor-dot" aria-hidden="true" />
     </>
   );

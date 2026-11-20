@@ -19,7 +19,7 @@ export default function StudioBento() {
           <h2 className={styles.sectionTitle}>How We Build Software</h2>
         </div>
         <span className={`font-mono-meta ${styles.sectionBadge}`}>
-          [ ENGINEERING STANDARDS ]
+          Engineering Standards
         </span>
       </motion.div>
 
@@ -35,7 +35,7 @@ export default function StudioBento() {
         >
           <div>
             <div className={styles.cardTop}>
-              <span className={`font-mono-meta ${styles.cardIndex}`}>01 / STORAGE</span>
+              <span className={`font-mono-meta ${styles.cardIndex}`}>01 — Storage</span>
               <ShieldCheck size={24} strokeWidth={1.5} color="#171717" />
             </div>
             <h3 className={styles.cardTitle}>Files Stay On Your Machine</h3>
@@ -67,7 +67,7 @@ export default function StudioBento() {
         >
           <div>
             <div className={styles.cardTop}>
-              <span className={`font-mono-meta ${styles.cardIndex}`}>02 / INTERACTION</span>
+              <span className={`font-mono-meta ${styles.cardIndex}`}>02 — Interaction</span>
               <Zap size={24} strokeWidth={1.5} color="#171717" />
             </div>
             <h3 className={styles.cardTitle}>Snappy Native Feel</h3>
@@ -76,7 +76,7 @@ export default function StudioBento() {
             </p>
           </div>
           <span className={`font-mono-meta ${styles.cardIndex}`} style={{ marginTop: "2rem" }}>
-            [ CUBIC-BEZIER(0.16, 1, 0.3, 1) ]
+            Zero-Lag Keyboard Shortcuts
           </span>
         </motion.div>
 
@@ -91,7 +91,7 @@ export default function StudioBento() {
         >
           <div>
             <div className={styles.cardTop}>
-              <span className={`font-mono-meta ${styles.cardIndex}`}>03 / RELEASES</span>
+              <span className={`font-mono-meta ${styles.cardIndex}`}>03 — Releases</span>
               <GitBranch size={24} strokeWidth={1.5} color="#171717" />
             </div>
             <h3 className={styles.cardTitle}>Direct GitHub Downloads</h3>
@@ -123,7 +123,7 @@ export default function StudioBento() {
         >
           <div>
             <div className={styles.cardTop}>
-              <span className={`font-mono-meta ${styles.cardIndex}`}>04 / DIRECTORY</span>
+              <span className={`font-mono-meta ${styles.cardIndex}`}>04 — Directory</span>
               <LayoutGrid size={24} strokeWidth={1.5} color="#171717" />
             </div>
             <h3 className={styles.cardTitle}>Software Directory</h3>

@@ -77,10 +77,19 @@ export default function Footer() {
 
       <div className={styles.bottomBar}>
         <p className={`font-mono-meta ${styles.bottomText}`}>
-          © {currentYear} NEXORA STUDIO. ALL RIGHTS RESERVED.
+          © {currentYear} Nexora Studio. Crafted by{" "}
+          <a
+            href="https://github.com/AlvinSyahril"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ textDecoration: "underline", textUnderlineOffset: "3px" }}
+          >
+            @vinnssmokee
+          </a>
+          .
         </p>
         <p className={`font-mono-meta ${styles.bottomText}`}>
-          LOCAL-FIRST // NO TRACKING
+          Local-First · Zero Telemetry
         </p>
       </div>
     </footer>

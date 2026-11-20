@@ -420,7 +420,7 @@ export default function AppDetailsClient({ app }: { app: AppData }) {
                   <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#27C93F", border: "1px solid rgba(0,0,0,0.1)" }} />
                 </div>
                 <div style={{ margin: "0 auto", fontSize: "0.75rem", fontFamily: "var(--font-mono)", color: "#737373", letterSpacing: "-0.01em" }}>
-                  loom // vault-local / workspace.md
+                  Loom — Local Workspace
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: "4px", fontSize: "0.68rem", color: "#16a34a", fontWeight: 600 }}>
                   <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#16a34a", display: "inline-block" }}></span>
@@ -925,7 +925,7 @@ export default function AppDetailsClient({ app }: { app: AppData }) {
               <Download size={20} color="#FFFFFF" /> Download Loom for Windows
             </motion.a>
             <p style={{ marginTop: "3rem", color: "#9ca3af", fontSize: "0.85rem" }}>
-              © 2026 Nexora Studio. Crafted with obsession by @vinnssmokee.
+              © 2026 Nexora Studio. Crafted by @vinnssmokee.
             </p>
           </div>
         </footer>
@@ -1118,7 +1118,7 @@ export default function AppDetailsClient({ app }: { app: AppData }) {
                   borderRadius: "4px",
                   letterSpacing: "0.05em"
                 }}>
-                  ANDROID // v1.0.3
+                  Android · v1.0.3
                 </span>
               </div>
             </div>
@@ -1374,7 +1374,7 @@ export default function AppDetailsClient({ app }: { app: AppData }) {
         <section id="pillars" className={`${styles.container}`} style={{ padding: "5rem 1.5rem 6rem" }}>
           <div style={{ textAlign: "center", marginBottom: "4rem" }}>
             <span className="font-mono-meta" style={{ color: "#6b7280", fontWeight: 600, fontSize: "0.75rem", letterSpacing: "0.12em" }}>
-              [ ARCHITECTURAL PILLARS // SYSTEM DESIGN ]
+              Core Architecture
             </span>
             <h2 className="display-font" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", color: "var(--foreground)", marginTop: "0.5rem" }}>
               Private Wellness Engineering
@@ -1390,7 +1390,7 @@ export default function AppDetailsClient({ app }: { app: AppData }) {
               <div style={{ width: "40px", height: "40px", borderRadius: "8px", background: "rgba(0,0,0,0.04)", color: "var(--foreground)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1.5rem" }}>
                 <Sparkles size={20} />
               </div>
-              <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280", display: "block", marginBottom: "0.5rem" }}>PILLAR 01 // LOCAL AI</span>
+              <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280", display: "block", marginBottom: "0.5rem" }}>01 — On-Device AI</span>
               <h3 style={{ fontSize: "1.25rem", fontWeight: 600, color: "var(--foreground)", marginBottom: "0.65rem", letterSpacing: "-0.01em" }}>
                 Ozie Reflection Assistant
               </h3>
@@ -1404,7 +1404,7 @@ export default function AppDetailsClient({ app }: { app: AppData }) {
               <div style={{ width: "40px", height: "40px", borderRadius: "8px", background: "rgba(0,0,0,0.04)", color: "var(--foreground)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1.5rem" }}>
                 <Sun size={20} />
               </div>
-              <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280", display: "block", marginBottom: "0.5rem" }}>PILLAR 02 // SOMATIC CADENCE</span>
+              <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280", display: "block", marginBottom: "0.5rem" }}>02 — Guided Breathing</span>
               <h3 style={{ fontSize: "1.25rem", fontWeight: 600, color: "var(--foreground)", marginBottom: "0.65rem", letterSpacing: "-0.01em" }}>
                 Guided Breathing Pacer
               </h3>
@@ -1418,7 +1418,7 @@ export default function AppDetailsClient({ app }: { app: AppData }) {
               <div style={{ width: "40px", height: "40px", borderRadius: "8px", background: "rgba(0,0,0,0.04)", color: "var(--foreground)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1.5rem" }}>
                 <LayoutDashboard size={20} />
               </div>
-              <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280", display: "block", marginBottom: "0.5rem" }}>PILLAR 03 // ANALYTICS</span>
+              <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280", display: "block", marginBottom: "0.5rem" }}>03 — Mood Trends</span>
               <h3 style={{ fontSize: "1.25rem", fontWeight: 600, color: "var(--foreground)", marginBottom: "0.65rem", letterSpacing: "-0.01em" }}>
                 Monthly Mood Insights
               </h3>
@@ -1432,7 +1432,7 @@ export default function AppDetailsClient({ app }: { app: AppData }) {
               <div style={{ width: "40px", height: "40px", borderRadius: "8px", background: "rgba(0,0,0,0.04)", color: "var(--foreground)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1.5rem" }}>
                 <ShieldCheck size={20} />
               </div>
-              <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280", display: "block", marginBottom: "0.5rem" }}>PILLAR 04 // CRYPTOGRAPHY</span>
+              <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280", display: "block", marginBottom: "0.5rem" }}>04 — Local Privacy</span>
               <h3 style={{ fontSize: "1.25rem", fontWeight: 600, color: "var(--foreground)", marginBottom: "0.65rem", letterSpacing: "-0.01em" }}>
                 PIN-Protected Storage
               </h3>
@@ -1447,7 +1447,7 @@ export default function AppDetailsClient({ app }: { app: AppData }) {
         <section id="showcase" className={`${styles.container}`} style={{ padding: "4rem 1.5rem 6rem" }}>
           <div style={{ textAlign: "center", marginBottom: "4rem" }}>
             <span className="font-mono-meta" style={{ color: "#6b7280", fontWeight: 600, fontSize: "0.75rem", letterSpacing: "0.12em" }}>
-              [ SYSTEM INTERFACE // SCREEN SPECIFICATIONS ]
+              App Screens
             </span>
             <h2 className="display-font" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", color: "var(--foreground)", marginTop: "0.5rem" }}>
               Interface & Native Workflows
@@ -1460,7 +1460,7 @@ export default function AppDetailsClient({ app }: { app: AppData }) {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "2rem" }}>
             {/* Screen 1 */}
             <div style={{ background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "20px", padding: "2rem 1.5rem", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", boxShadow: "var(--shadow-card)" }}>
-              <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280" }}>01 // TEMPORAL LOGGING</span>
+              <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280" }}>01 — Daily Check-In</span>
               <div style={{ width: "210px", background: "#0D0D0E", borderRadius: "34px", padding: "8px", border: "1px solid rgba(0, 0, 0, 0.12)", boxShadow: "0 16px 36px -10px rgba(0,0,0,0.18)", margin: "1.5rem 0" }}>
                 <div style={{ width: "60px", height: "14px", borderRadius: "8px", background: "#050505", margin: "2px auto 6px" }} />
                 <div style={{ position: "relative", width: "100%", aspectRatio: "9 / 19.5", borderRadius: "24px", overflow: "hidden", background: "#000" }}>
@@ -1473,7 +1473,7 @@ export default function AppDetailsClient({ app }: { app: AppData }) {
 
             {/* Screen 2 */}
             <div style={{ background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "20px", padding: "2rem 1.5rem", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", boxShadow: "var(--shadow-card)" }}>
-              <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280" }}>02 // DATA SYNTHESIS</span>
+              <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280" }}>02 — Monthly Trends</span>
               <div style={{ width: "210px", background: "#0D0D0E", borderRadius: "34px", padding: "8px", border: "1px solid rgba(0, 0, 0, 0.12)", boxShadow: "0 16px 36px -10px rgba(0,0,0,0.18)", margin: "1.5rem 0" }}>
                 <div style={{ width: "60px", height: "14px", borderRadius: "8px", background: "#050505", margin: "2px auto 6px" }} />
                 <div style={{ position: "relative", width: "100%", aspectRatio: "9 / 19.5", borderRadius: "24px", overflow: "hidden", background: "#000" }}>
@@ -1486,7 +1486,7 @@ export default function AppDetailsClient({ app }: { app: AppData }) {
 
             {/* Screen 3 */}
             <div style={{ background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "20px", padding: "2rem 1.5rem", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", boxShadow: "var(--shadow-card)" }}>
-              <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280" }}>03 // LOCAL COMPANION</span>
+              <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280" }}>03 — Reflection Chat</span>
               <div style={{ width: "210px", background: "#0D0D0E", borderRadius: "34px", padding: "8px", border: "1px solid rgba(0, 0, 0, 0.12)", boxShadow: "0 16px 36px -10px rgba(0,0,0,0.18)", margin: "1.5rem 0" }}>
                 <div style={{ width: "60px", height: "14px", borderRadius: "8px", background: "#050505", margin: "2px auto 6px" }} />
                 <div style={{ position: "relative", width: "100%", aspectRatio: "9 / 19.5", borderRadius: "24px", overflow: "hidden", background: "#000" }}>
@@ -1499,7 +1499,7 @@ export default function AppDetailsClient({ app }: { app: AppData }) {
 
             {/* Screen 4 */}
             <div style={{ background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "20px", padding: "2rem 1.5rem", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", boxShadow: "var(--shadow-card)" }}>
-              <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280" }}>04 // SECURITY VAULT</span>
+              <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280" }}>04 — PIN Lock</span>
               <div style={{ width: "210px", background: "#0D0D0E", borderRadius: "34px", padding: "8px", border: "1px solid rgba(0, 0, 0, 0.12)", boxShadow: "0 16px 36px -10px rgba(0,0,0,0.18)", margin: "1.5rem 0" }}>
                 <div style={{ width: "60px", height: "14px", borderRadius: "8px", background: "#050505", margin: "2px auto 6px" }} />
                 <div style={{ position: "relative", width: "100%", aspectRatio: "9 / 19.5", borderRadius: "24px", overflow: "hidden", background: "#000" }}>
@@ -1516,7 +1516,7 @@ export default function AppDetailsClient({ app }: { app: AppData }) {
         <section id="all-features" className={`${styles.container}`} style={{ padding: "4rem 1.5rem 6rem" }}>
           <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
             <span className="font-mono-meta" style={{ color: "#6b7280", fontWeight: 600, fontSize: "0.75rem", letterSpacing: "0.12em" }}>
-              [ CORE CAPABILITIES // FEATURE MATRIX ]
+              Core Capabilities
             </span>
             <h2 className="display-font" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", color: "var(--foreground)", marginTop: "0.5rem" }}>
               Everything Built In
@@ -1647,7 +1647,7 @@ export default function AppDetailsClient({ app }: { app: AppData }) {
               <Download size={20} color="#FFFFFF" /> Download Oasis v1.0.3 (.apk)
             </motion.button>
             <p style={{ marginTop: "3rem", color: "#9ca3af", fontSize: "0.85rem" }}>
-              © 2026 Nexora Studio. Crafted with obsession by @vinnssmokee.
+              © 2026 Nexora Studio. Crafted by @vinnssmokee.
             </p>
           </div>
         </footer>
@@ -1709,7 +1709,7 @@ export default function AppDetailsClient({ app }: { app: AppData }) {
                 borderRadius: "4px",
                 letterSpacing: "0.05em"
               }}>
-                ANDROID // v2.1.4
+                Android · v2.1.4
               </span>
             </div>
           </div>
@@ -1956,7 +1956,7 @@ export default function AppDetailsClient({ app }: { app: AppData }) {
       <section id="pillars" className={`${styles.container}`} style={{ padding: "5rem 1.5rem 6rem" }}>
         <div style={{ textAlign: "center", marginBottom: "4rem" }}>
           <span className="font-mono-meta" style={{ color: "#6b7280", fontWeight: 600, fontSize: "0.75rem", letterSpacing: "0.12em" }}>
-            [ ARCHITECTURAL PILLARS // SYSTEM DESIGN ]
+            Core Architecture
           </span>
           <h2 className="display-font" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", color: "var(--foreground)", marginTop: "0.5rem" }}>
             Task Execution Architecture
@@ -1972,7 +1972,7 @@ export default function AppDetailsClient({ app }: { app: AppData }) {
             <div style={{ width: "40px", height: "40px", borderRadius: "8px", background: "rgba(0,0,0,0.04)", color: "var(--foreground)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1.5rem" }}>
               <Zap size={20} />
             </div>
-            <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280", display: "block", marginBottom: "0.5rem" }}>PILLAR 01 // PARSER CORE</span>
+            <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280", display: "block", marginBottom: "0.5rem" }}>01 — Smart Input</span>
             <h3 style={{ fontSize: "1.25rem", fontWeight: 600, color: "var(--foreground)", marginBottom: "0.65rem", letterSpacing: "-0.01em" }}>
               Natural Language Input
             </h3>
@@ -1986,7 +1986,7 @@ export default function AppDetailsClient({ app }: { app: AppData }) {
             <div style={{ width: "40px", height: "40px", borderRadius: "8px", background: "rgba(0,0,0,0.04)", color: "var(--foreground)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1.5rem" }}>
               <CreditCard size={20} />
             </div>
-            <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280", display: "block", marginBottom: "0.5rem" }}>PILLAR 02 // FINANCIAL CADENCE</span>
+            <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280", display: "block", marginBottom: "0.5rem" }}>02 — Recurring Bills</span>
             <h3 style={{ fontSize: "1.25rem", fontWeight: 600, color: "var(--foreground)", marginBottom: "0.65rem", letterSpacing: "-0.01em" }}>
               Recurring Bill Schedule
             </h3>
@@ -2000,7 +2000,7 @@ export default function AppDetailsClient({ app }: { app: AppData }) {
             <div style={{ width: "40px", height: "40px", borderRadius: "8px", background: "rgba(0,0,0,0.04)", color: "var(--foreground)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1.5rem" }}>
               <RefreshCw size={20} />
             </div>
-            <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280", display: "block", marginBottom: "0.5rem" }}>PILLAR 03 // LIFECYCLE</span>
+            <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280", display: "block", marginBottom: "0.5rem" }}>03 — In-App Updates</span>
             <h3 style={{ fontSize: "1.25rem", fontWeight: 600, color: "var(--foreground)", marginBottom: "0.65rem", letterSpacing: "-0.01em" }}>
               In-App System Updates
             </h3>
@@ -2014,7 +2014,7 @@ export default function AppDetailsClient({ app }: { app: AppData }) {
             <div style={{ width: "40px", height: "40px", borderRadius: "8px", background: "rgba(0,0,0,0.04)", color: "var(--foreground)", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1.5rem" }}>
               <ShieldCheck size={20} />
             </div>
-            <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280", display: "block", marginBottom: "0.5rem" }}>PILLAR 04 // ZERO TELEMETRY</span>
+            <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280", display: "block", marginBottom: "0.5rem" }}>04 — Zero Telemetry</span>
             <h3 style={{ fontSize: "1.25rem", fontWeight: 600, color: "var(--foreground)", marginBottom: "0.65rem", letterSpacing: "-0.01em" }}>
               Zero Analytics Trackers
             </h3>
@@ -2029,7 +2029,7 @@ export default function AppDetailsClient({ app }: { app: AppData }) {
       <section id="showcase" className={`${styles.container}`} style={{ padding: "4rem 1.5rem 6rem" }}>
         <div style={{ textAlign: "center", marginBottom: "4rem" }}>
           <span className="font-mono-meta" style={{ color: "#6b7280", fontWeight: 600, fontSize: "0.75rem", letterSpacing: "0.12em" }}>
-            [ SYSTEM INTERFACE // SCREEN SPECIFICATIONS ]
+            App Screens
           </span>
           <h2 className="display-font" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", color: "var(--foreground)", marginTop: "0.5rem" }}>
             Interface & Native Workflows
@@ -2042,7 +2042,7 @@ export default function AppDetailsClient({ app }: { app: AppData }) {
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "2rem" }}>
           {/* Screen 1 */}
           <div style={{ background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "20px", padding: "2rem 1.5rem", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", boxShadow: "var(--shadow-card)" }}>
-            <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280" }}>01 // TASK SCHEDULING</span>
+            <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280" }}>01 — Smart Task Entry</span>
             <div style={{ width: "210px", background: "#0D0D0E", borderRadius: "34px", padding: "8px", border: "1px solid rgba(0, 0, 0, 0.12)", boxShadow: "0 16px 36px -10px rgba(0,0,0,0.18)", margin: "1.5rem 0" }}>
               <div style={{ width: "60px", height: "14px", borderRadius: "8px", background: "#050505", margin: "2px auto 6px" }} />
               <div style={{ position: "relative", width: "100%", aspectRatio: "9 / 19.5", borderRadius: "24px", overflow: "hidden", background: "#000" }}>
@@ -2055,7 +2055,7 @@ export default function AppDetailsClient({ app }: { app: AppData }) {
 
           {/* Screen 2 */}
           <div style={{ background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "20px", padding: "2rem 1.5rem", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", boxShadow: "var(--shadow-card)" }}>
-            <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280" }}>02 // RELEASE LIFECYCLE</span>
+            <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280" }}>02 — Built-In Updates</span>
             <div style={{ width: "210px", background: "#0D0D0E", borderRadius: "34px", padding: "8px", border: "1px solid rgba(0, 0, 0, 0.12)", boxShadow: "0 16px 36px -10px rgba(0,0,0,0.18)", margin: "1.5rem 0" }}>
               <div style={{ width: "60px", height: "14px", borderRadius: "8px", background: "#050505", margin: "2px auto 6px" }} />
               <div style={{ position: "relative", width: "100%", aspectRatio: "9 / 19.5", borderRadius: "24px", overflow: "hidden", background: "#000" }}>
@@ -2068,7 +2068,7 @@ export default function AppDetailsClient({ app }: { app: AppData }) {
 
           {/* Screen 3 */}
           <div style={{ background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "20px", padding: "2rem 1.5rem", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", boxShadow: "var(--shadow-card)" }}>
-            <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280" }}>03 // FISCAL OBLIGATIONS</span>
+            <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280" }}>03 — Bill Reminders</span>
             <div style={{ width: "210px", background: "#0D0D0E", borderRadius: "34px", padding: "8px", border: "1px solid rgba(0, 0, 0, 0.12)", boxShadow: "0 16px 36px -10px rgba(0,0,0,0.18)", margin: "1.5rem 0" }}>
               <div style={{ width: "60px", height: "14px", borderRadius: "8px", background: "#050505", margin: "2px auto 6px" }} />
               <div style={{ position: "relative", width: "100%", aspectRatio: "9 / 19.5", borderRadius: "24px", overflow: "hidden", background: "#000" }}>
@@ -2081,7 +2081,7 @@ export default function AppDetailsClient({ app }: { app: AppData }) {
 
           {/* Screen 4 */}
           <div style={{ background: "var(--surface)", border: "1px solid var(--surface-border)", borderRadius: "20px", padding: "2rem 1.5rem", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", boxShadow: "var(--shadow-card)" }}>
-            <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280" }}>04 // GEO-FENCED ALERTS</span>
+            <span className="font-mono-meta" style={{ fontSize: "0.7rem", color: "#6b7280" }}>04 — Location Alerts</span>
             <div style={{ width: "210px", background: "#0D0D0E", borderRadius: "34px", padding: "8px", border: "1px solid rgba(0, 0, 0, 0.12)", boxShadow: "0 16px 36px -10px rgba(0,0,0,0.18)", margin: "1.5rem 0" }}>
               <div style={{ width: "60px", height: "14px", borderRadius: "8px", background: "#050505", margin: "2px auto 6px" }} />
               <div style={{ position: "relative", width: "100%", aspectRatio: "9 / 19.5", borderRadius: "24px", overflow: "hidden", background: "#000" }}>
@@ -2098,7 +2098,7 @@ export default function AppDetailsClient({ app }: { app: AppData }) {
       <section id="all-features" className={`${styles.container}`} style={{ padding: "4rem 1.5rem 6rem" }}>
         <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
           <span className="font-mono-meta" style={{ color: "#6b7280", fontWeight: 600, fontSize: "0.75rem", letterSpacing: "0.12em" }}>
-            [ CORE CAPABILITIES // FEATURE MATRIX ]
+            Core Capabilities
           </span>
           <h2 className="display-font" style={{ fontSize: "clamp(2rem, 4vw, 3rem)", color: "var(--foreground)", marginTop: "0.5rem" }}>
             Every Capability Built In
@@ -2224,7 +2224,7 @@ export default function AppDetailsClient({ app }: { app: AppData }) {
             <Download size={20} color="#FFFFFF" /> Download Get Things Done v2.1.4 (.apk)
           </DownloadButton>
           <p style={{ marginTop: "3rem", color: "#9ca3af", fontSize: "0.85rem" }}>
-            © 2026 Nexora Studio. Crafted with obsession by @vinnssmokee.
+            © 2026 Nexora Studio. Crafted by @vinnssmokee.
           </p>
         </div>
       </footer>

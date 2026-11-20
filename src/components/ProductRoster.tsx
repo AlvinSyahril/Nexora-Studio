@@ -29,8 +29,8 @@ interface RosterProduct {
 const PRODUCTS: RosterProduct[] = [
   {
     id: "loom",
-    index: "01 // WINDOWS WORKSPACE",
-    status: "v1.0.1 STABLE // PRODUCTION READY",
+    index: "01 — Windows Desktop",
+    status: "v1.0.1 Stable",
     name: "Loom",
     tagline: "Local Markdown notes with live graph connections.",
     manifesto:
@@ -62,8 +62,8 @@ const PRODUCTS: RosterProduct[] = [
   },
   {
     id: "ohm",
-    index: "02 // WINDOWS AUDIO PLAYER",
-    status: "v0.2.0 STABLE // PRODUCTION READY",
+    index: "02 — Windows Desktop",
+    status: "v0.2.0 Stable",
     name: "Ohm",
     tagline: "Music streaming with synced lyrics, lyric cards, and smooth crossfades.",
     manifesto:
@@ -95,8 +95,8 @@ const PRODUCTS: RosterProduct[] = [
   },
   {
     id: "reminder-app",
-    index: "03 // ANDROID TASK MANAGER",
-    status: "v2.1.4 STABLE // PRODUCTION READY",
+    index: "03 — Android App",
+    status: "v2.1.4 Stable",
     name: "Get Things Done",
     tagline: "Type naturally, set reminders automatically.",
     manifesto:
@@ -128,8 +128,8 @@ const PRODUCTS: RosterProduct[] = [
   },
   {
     id: "oasis",
-    index: "04 // MOOD & JOURNALING APP",
-    status: "v1.0.3 STABLE // PRODUCTION READY",
+    index: "04 — Android App",
+    status: "v1.0.3 Stable",
     name: "Oasis",
     tagline: "Track how you feel and unpack your day in private.",
     manifesto:
@@ -169,7 +169,7 @@ export default function ProductRoster() {
           <h2 className={styles.sectionTitle}>Production Software Suite</h2>
         </div>
         <span className={`font-mono-meta ${styles.sectionBadge}`}>
-          [ 04 PRODUCTION APPS // ZERO TELEMETRY ]
+          4 Apps · Zero Telemetry
         </span>
       </div>
 

@@ -29,13 +29,13 @@ export const LEGAL_DOCS: Record<"privacy" | "terms", LegalDocument> = {
     subtitle: "How Nexora Studio protects your privacy, local data sovereignty, and security.",
     lastUpdated: "October 12, 2026",
     readingTime: "4 min read",
-    version: "v2.0 // LOCAL-FIRST STANDARD",
+    version: "v2.0 · Local-First Standard",
     summary:
       "Nexora Studio operates on a strict local-first philosophy. Your notes, tasks, journals, and reflections remain stored on your own physical hardware. We do not run background telemetry trackers, we do not profile your usage, and we never sell user data.",
     sections: [
       {
         id: "principles",
-        index: "01 // PHILOSOPHY",
+        index: "01 — Philosophy",
         title: "Architectural Principle: Local-First Sovereignty",
         badge: "CORE POLICY",
         takeaway: "Your data belongs entirely on your device. We design our software so that we physically cannot access your private files.",
@@ -46,7 +46,7 @@ export const LEGAL_DOCS: Record<"privacy" | "terms", LegalDocument> = {
       },
       {
         id: "loom-data",
-        index: "02 // LOOM DESKTOP",
+        index: "02 — Loom Desktop",
         title: "Loom Desktop Workspace Data Handling",
         badge: "WINDOWS & MACOS",
         takeaway: "Loom stores all documents as open, standard Markdown files on your local hard drive. There is zero remote telemetry or cloud storage.",
@@ -67,7 +67,7 @@ export const LEGAL_DOCS: Record<"privacy" | "terms", LegalDocument> = {
       },
       {
         id: "ohm-data",
-        index: "02B // OHM DESKTOP",
+        index: "03 — Ohm Desktop",
         title: "Ohm Desktop Audio Player Data Handling",
         badge: "WINDOWS DESKTOP",
         takeaway: "Ohm stores your library, liked tracks, playlists, and EQ preferences locally on your device. No account or analytics telemetry is used.",
@@ -84,7 +84,7 @@ export const LEGAL_DOCS: Record<"privacy" | "terms", LegalDocument> = {
       },
       {
         id: "gtd-data",
-        index: "03 // GET THINGS DONE",
+        index: "04 — Get Things Done",
         title: "Get Things Done (GTD) Mobile Data Handling",
         badge: "ANDROID APP",
         takeaway: "Task parsing happens on your device. We do not include third-party advertising SDKs or tracking libraries.",
@@ -105,7 +105,7 @@ export const LEGAL_DOCS: Record<"privacy" | "terms", LegalDocument> = {
       },
       {
         id: "oasis-data",
-        index: "04 // OASIS SANCTUARY",
+        index: "05 — Oasis",
         title: "Oasis Mental Wellbeing & Journaling Privacy",
         badge: "ON-DEVICE AI",
         takeaway: "Your emotional reflections and mood logs are secured behind a device PIN. Conversations with Ozie are private and never used to train external models.",
@@ -126,7 +126,7 @@ export const LEGAL_DOCS: Record<"privacy" | "terms", LegalDocument> = {
       },
       {
         id: "website-analytics",
-        index: "05 // WEB TELEMETRY",
+        index: "06 — Web Analytics",
         title: "Website Hosting & Minimal Web Analytics",
         badge: "NO COOKIES",
         takeaway: "Our marketing landing page uses privacy-friendly, cookieless metrics. We do not track you across other websites.",
@@ -137,7 +137,7 @@ export const LEGAL_DOCS: Record<"privacy" | "terms", LegalDocument> = {
       },
       {
         id: "distribution",
-        index: "06 // RELEASES",
+        index: "07 — Releases",
         title: "Third-Party Distribution & Public Binaries",
         badge: "GITHUB RELEASES",
         takeaway: "Official installer binaries are hosted publicly on GitHub with clear checksums. We do not partner with data brokers.",
@@ -148,9 +148,9 @@ export const LEGAL_DOCS: Record<"privacy" | "terms", LegalDocument> = {
       },
       {
         id: "rights",
-        index: "07 // USER RIGHTS",
+        index: "08 — User Rights",
         title: "Your Rights & Complete Data Ownership",
-        badge: "GDPR // CCPA READY",
+        badge: "GDPR & CCPA Ready",
         takeaway: "Because we do not store your data on remote servers, you maintain absolute control to view, export, or destroy your files at any moment.",
         content: [
           "Under applicable privacy frameworks (including GDPR, CCPA, and global digital rights acts), you have the right to access, rectify, export, and erase your personal data.",
@@ -159,7 +159,7 @@ export const LEGAL_DOCS: Record<"privacy" | "terms", LegalDocument> = {
       },
       {
         id: "contact",
-        index: "08 // CONTACT",
+        index: "09 — Contact",
         title: "Inquiries & Studio Contact",
         badge: "DIRECT CHANNELS",
         takeaway: "Have questions about our privacy engineering? Contact the creator directly through public channels.",
@@ -176,13 +176,13 @@ export const LEGAL_DOCS: Record<"privacy" | "terms", LegalDocument> = {
     subtitle: "Clear, fair guidelines governing the use of Nexora Studio applications and services.",
     lastUpdated: "October 12, 2026",
     readingTime: "4 min read",
-    version: "v2.0 // STUDIO AGREEMENT",
+    version: "v2.0 · Studio Agreement",
     summary:
       "Nexora Studio builds independent software for thinkers and builders. By downloading or using Loom, Ohm, Get Things Done, Oasis, or visiting our site, you agree to these transparent terms. Our tools are provided as-is, with respect for your autonomy and device ownership.",
     sections: [
       {
         id: "acceptance",
-        index: "01 // AGREEMENT",
+        index: "01 — Agreement",
         title: "Acceptance of Terms",
         badge: "FOUNDATIONAL",
         takeaway: "By using our website, apps, or downloading our installation packages, you agree to these fair terms.",
@@ -193,7 +193,7 @@ export const LEGAL_DOCS: Record<"privacy" | "terms", LegalDocument> = {
       },
       {
         id: "license",
-        index: "02 // SOFTWARE LICENSE",
+        index: "02 — Software License",
         title: "Software License & Usage Rights",
         badge: "PERPETUAL USE",
         takeaway: "You are granted a personal, non-exclusive license to run our applications on your own devices.",
@@ -214,7 +214,7 @@ export const LEGAL_DOCS: Record<"privacy" | "terms", LegalDocument> = {
       },
       {
         id: "responsibility",
-        index: "03 // DATA RESPONSIBILITY",
+        index: "03 — Data Responsibility",
         title: "User Responsibility for Local Backups",
         badge: "LOCAL-FIRST NOTICE",
         takeaway: "Because your files stay on your hardware, maintaining backups of your vaults and device data is your responsibility.",
@@ -225,7 +225,7 @@ export const LEGAL_DOCS: Record<"privacy" | "terms", LegalDocument> = {
       },
       {
         id: "intellectual-property",
-        index: "04 // INTELLECTUAL PROPERTY",
+        index: "04 — Intellectual Property",
         title: "Intellectual Property & Brand Identity",
         badge: "STUDIO ASSETS",
         takeaway: "You own 100% of the content you create inside our apps. Nexora Studio retains rights to app branding, code, and logos.",
@@ -236,7 +236,7 @@ export const LEGAL_DOCS: Record<"privacy" | "terms", LegalDocument> = {
       },
       {
         id: "updates",
-        index: "05 // DISTRIBUTION",
+        index: "05 — Distribution",
         title: "Releases, OTA Updates & Modifications",
         badge: "VERSION EVOLUTION",
         takeaway: "We continuously improve our software. Updates are delivered through official GitHub releases and in-app channels.",
@@ -247,7 +247,7 @@ export const LEGAL_DOCS: Record<"privacy" | "terms", LegalDocument> = {
       },
       {
         id: "disclaimer",
-        index: "06 // WARRANTY",
+        index: "06 — Warranty",
         title: "Disclaimer of Warranties",
         badge: "AS-IS BASIS",
         takeaway: "Our applications are provided 'as is' without warranties of any kind. We strive for excellence, but software can have bugs.",
@@ -258,7 +258,7 @@ export const LEGAL_DOCS: Record<"privacy" | "terms", LegalDocument> = {
       },
       {
         id: "liability",
-        index: "07 // LIABILITY",
+        index: "07 — Liability",
         title: "Limitation of Liability",
         badge: "STANDARD TERMS",
         takeaway: "Our liability is strictly limited to the amount paid (if any) to acquire the software.",
@@ -269,7 +269,7 @@ export const LEGAL_DOCS: Record<"privacy" | "terms", LegalDocument> = {
       },
       {
         id: "updates-to-terms",
-        index: "08 // GOVERNANCE",
+        index: "08 — Governance",
         title: "Amendments & Inquiries",
         badge: "TRANSPARENCY",
         takeaway: "We keep terms honest and updated. Changes are posted here with clear version timestamps.",
